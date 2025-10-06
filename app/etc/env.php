@@ -33,7 +33,7 @@ return [
                 'host' => 'localhost',
                 'dbname' => 'caviar',
                 'username' => 'root',
-                'password' => 'admin@123',
+                'password' => '',
                 'model' => 'mysql4',
                 'engine' => 'innodb',
                 'initStatements' => 'SET NAMES utf8;',

@@ -25,7 +25,7 @@ class Search extends Action
     {
         $query = $this->getRequest()->getParam('q');
         $collection = $this->productCollectionFactory->create()
-            ->addAttributeToSelect(['name','url_key'])
+            ->addAttributeToSelect('*')
             ->addAttributeToFilter('name',['like'=>'%'.$query.'%'])
             ->setPageSize(5);
 

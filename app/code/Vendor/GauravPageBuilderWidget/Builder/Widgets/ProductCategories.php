@@ -99,11 +99,16 @@ class ProductCategories extends AbstractWidget
 <script type="text/javascript">
 require([
     "jquery",
-    "swiper"  // ensure swiper is mapped in requirejs-config.js
+    "swiper",
+    'require'  // ensure swiper is mapped in requirejs-config.js
 ], function ($, Swiper) {
 
     $(document).ready(function () {
         var swiperInstance = null;
+        var eyeIcon    = require.toUrl('Vendor_GauravPageBuilderWidget/images/eye.png');
+        var heartIcon  = require.toUrl('Vendor_GauravPageBuilderWidget/images/heart.png');
+        var shuffleIcon = require.toUrl('Vendor_GauravPageBuilderWidget/images/shuffle.png');
+        var cartIcon   = require.toUrl('Vendor_GauravPageBuilderWidget/images/cart.png');
 
         // 🔹 Function to init Swiper
         function initSwiper() {
@@ -160,10 +165,10 @@ require([
                                             <img class="product-img" src="${product.image}" alt="${product.name}">
                                             <span class="discount-badge">New</span>
                                             <div class="product-actions">
-                                                <button class="action-btn" title="Quick View"><img src="./images/eye.png" alt=""></button>
-                                                <button class="action-btn" title="Add to Wishlist"><img src="./images/heart.png" alt=""></button>
-                                                <button class="action-btn" title="Compare"><img src="./images/shuffle.png" alt=""></button>
-                                                <button class="action-btn" title="Add to Cart"><img src="./images/cart.png" alt=""></button>
+                                                <button class="action-btn"><img src="${eyeIcon}" alt=""></button>
+                                                <button class="action-btn"><img src="${heartIcon}" alt=""></button>
+                                                <button class="action-btn"><img src="${shuffleIcon}" alt=""></button>
+                                                <button class="action-btn"><img src="${cartIcon}" alt=""></button>
                                             </div>
                                         </div>
                                         <div class="product-info">
@@ -295,11 +300,16 @@ require([
 <script type="text/javascript">
 require([
     "jquery",
-    "swiper"  // ensure swiper is mapped in requirejs-config.js
+    "swiper",
+    "require"  // ensure swiper is mapped in requirejs-config.js
 ], function ($, Swiper) {
 
     $(document).ready(function () {
         var swiperInstance = null;
+        var eyeIcon    = require.toUrl('Vendor_GauravPageBuilderWidget/images/eye.png');
+        var heartIcon  = require.toUrl('Vendor_GauravPageBuilderWidget/images/heart.png');
+        var shuffleIcon = require.toUrl('Vendor_GauravPageBuilderWidget/images/shuffle.png');
+        var cartIcon   = require.toUrl('Vendor_GauravPageBuilderWidget/images/cart.png');
 
         // 🔹 Function to init Swiper
         function initSwiper() {
@@ -356,11 +366,10 @@ require([
                                             <img class="product-img" src="${product.image}" alt="${product.name}">
                                             <span class="discount-badge">New</span>
                                             <div class="product-actions">
-                                                <button class="action-btn" title="Quick View"><img src="./images/eye.png" alt=""></button>
-                                                <button class="action-btn" title="Add to Wishlist"><img src="./images/heart.png" alt=""></button>
-                                                <button class="action-btn" title="Compare"><img src="./images/shuffle.png" alt=""></button>
-                                                <button class="action-btn" title="Add to Cart"><img src="./images/cart.png" alt=""></button>
-                                            </div>
+                                                <button class="action-btn"><img src="${eyeIcon}" alt=""></button>
+                                                <button class="action-btn"><img src="${heartIcon}" alt=""></button>
+                                                <button class="action-btn"><img src="${shuffleIcon}" alt=""></button>
+                                                <button class="action-btn"><img src="${cartIcon}" alt=""></button></div>
                                         </div>
                                         <div class="product-info">
                                             <div class="product-rating">

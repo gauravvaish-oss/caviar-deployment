@@ -338,10 +338,10 @@ protected function render(): string
                                     <img class="product-img" src="${product.image}" alt="${product.name}">
                                     <span class="discount-badge">New</span>
                                     <div class="product-actions">
-                                        <button class="action-btn" title="Quick View"><img src="./images/eye.png" alt=""></button>
-                                        <button class="action-btn" title="Add to Wishlist"><img src="./images/heart.png" alt=""></button>
-                                        <button class="action-btn" title="Compare"><img class="shuffle" src="./images/shuffle.png" alt=""></button>
-                                        <button class="action-btn" title="Add to Cart"><img src="./images/cart.png" alt=""></button>
+                                        <button class="action-btn" title="Quick View"><img src="<?= $block->getViewFileUrl('Vendor_GauravPageBuilderWidget::images/eye.png'); ?>" alt=""></button>
+                                        <button class="action-btn" title="Add to Wishlist"><img src="<?= $block->getViewFileUrl('Vendor_GauravPageBuilderWidget::images/heart.png'); ?>" alt=""></button>
+                                        <button class="action-btn" title="Compare"><img src="<?= $block->getViewFileUrl('Vendor_GauravPageBuilderWidget::images/shuffle.png'); ?>" alt=""></button>
+                                        <button class="action-btn" title="Add to Cart"><img src="<?= $block->getViewFileUrl('Vendor_GauravPageBuilderWidget::images/cart.png'); ?>" alt=""></button>
                                     </div>
                                 </div>
                                 <div class="product-info">
@@ -363,10 +363,10 @@ protected function render(): string
                                     <img class="product-img" src="${product.image}" alt="${product.name}">
                                     <span class="discount-badge">New</span>
                                     <div class="product-actions">
-                                        <button class="action-btn" title="Quick View"><img src="./images/eye.png" alt=""></button>
-                                        <button class="action-btn" title="Add to Wishlist"><img src="./images/heart.png" alt=""></button>
-                                        <button class="action-btn" title="Compare"><img class="shuffle" src="./images/shuffle.png" alt=""></button>
-                                        <button class="action-btn" title="Add to Cart"><img src="./images/cart.png" alt=""></button>
+                                        <button class="action-btn" title="Quick View"><img src="<?= $block->getViewFileUrl('Vendor_GauravPageBuilderWidget::images/eye.png'); ?>" alt=""></button>
+                                        <button class="action-btn" title="Add to Wishlist"><img src="<?= $block->getViewFileUrl('Vendor_GauravPageBuilderWidget::images/heart.png'); ?>" alt=""></button>
+                                        <button class="action-btn" title="Compare"><img src="<?= $block->getViewFileUrl('Vendor_GauravPageBuilderWidget::images/shuffle.png'); ?>" alt=""></button>
+                                        <button class="action-btn" title="Add to Cart"><img src="<?= $block->getViewFileUrl('Vendor_GauravPageBuilderWidget::images/cart.png'); ?>" alt=""></button>
                                     </div>
                                 </div>
                                 <div class="product-info">

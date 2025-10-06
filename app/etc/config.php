@@ -351,6 +351,8 @@ return [
         'Goomento_PageBuilder' => 1,
         'Goomento_PageBuilderApi' => 1,
         'Goomento_PageBuilderSampleData' => 1,
+        'Mageplaza_Core' => 1,
+        'Mageplaza_Smtp' => 1,
         'PayPal_Braintree' => 1,
         'PayPal_BraintreeGraphQl' => 1,
         'Snowdog_Menu' => 1,

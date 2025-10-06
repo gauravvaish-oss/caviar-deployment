@@ -16,6 +16,28 @@ class EntryPointPlugin
     public function beforeRegisterWidgets($subject, Widgets $widgetsManager)
     {
         $this->logger->info('Registering GauravWidget');
+        
+        $widgetsManager->registerWidgetType(
+            \Vendor\GauravPageBuilderWidget\Builder\Widgets\ContactForm::class
+        );
+        $widgetsManager->registerWidgetType(
+            \Vendor\GauravPageBuilderWidget\Builder\Widgets\AddressBlock::class
+        );
+         $widgetsManager->registerWidgetType(
+            \Vendor\GauravPageBuilderWidget\Builder\Widgets\TopSellingCategory::class
+        );
+         $widgetsManager->registerWidgetType(
+            \Vendor\GauravPageBuilderWidget\Builder\Widgets\SvgPoster::class
+        );
+         $widgetsManager->registerWidgetType(
+            \Vendor\GauravPageBuilderWidget\Builder\Widgets\ImageBox2::class
+        );
+         $widgetsManager->registerWidgetType(
+            \Vendor\GauravPageBuilderWidget\Builder\Widgets\ProductRow::class
+        );
+        $widgetsManager->registerWidgetType(
+            \Vendor\GauravPageBuilderWidget\Builder\Widgets\CustomBanner2::class
+        );
          $widgetsManager->registerWidgetType(
             \Vendor\GauravPageBuilderWidget\Builder\Widgets\MultiLevelMenu::class
         );
