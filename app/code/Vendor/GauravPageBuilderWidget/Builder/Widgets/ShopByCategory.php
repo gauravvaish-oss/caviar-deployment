@@ -128,8 +128,9 @@ protected function contentTemplate()
                                 swiperInstance.update();
                             } else {
                                 swiperInstance = new Swiper('.shop_by_category', {
-                                    slidesPerView: 1,
-                                    spaceBetween: 20,
+                                    slidesPerView: 3,
+                                    spaceBetween: 15,
+                                    loop: true,
                                     navigation: {
                                         nextEl: '.shop-next',
                                         prevEl: '.shop-prev'
@@ -148,6 +149,109 @@ protected function contentTemplate()
     });
     </script>
     <?php
+}
+
+protected function render(): string
+{
+    $settings = $this->getSettingsForDisplay();
+
+    // Title
+    $title = $settings['title'] ?? __('Top Categories Slider');
+
+    // Selected categories (array of IDs)
+    $selectedCategories = $settings['category'] ?? [];
+    if (!is_array($selectedCategories)) {
+        $selectedCategories = [$selectedCategories];
+    }
+
+    // Object Manager for category info (you could inject this instead)
+    $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+    $categoryRepository = $objectManager->get(\Magento\Catalog\Api\CategoryRepositoryInterface::class);
+    $storeManager = $objectManager->get(\Magento\Store\Model\StoreManagerInterface::class);
+    $baseUrl = $storeManager->getStore()->getBaseUrl();
+
+    ob_start();
+    ?>
+    <section class="shop-by-category">
+        <div class="row">
+            <div class="main-title w-100">
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                    <h2><?= $title ?></h2>
+                    <div class="d-flex justify-content-end">
+                        <div class="shop-prev swiper-button-prev"></div>
+                        <div class="shop-next swiper-button-next"></div>
+                    </div>
+                </div>
+
+                <div class="swiper shop_by_category">
+                    <div class="swiper-wrapper">
+                        <?php if (empty($selectedCategories)): ?>
+                            <div class="swiper-slide">
+                                <p><?= __('No categories selected.') ?></p>
+                            </div>
+                        <?php else: ?>
+                            <?php foreach ($selectedCategories as $catId): ?>
+                                <?php
+                                try {
+                                    $category = $categoryRepository->get($catId, $storeManager->getStore()->getId());
+                                    $categoryUrl = $category->getUrl();
+                                    $categoryName = $category->getName();
+                                    $imageUrl = $category->getImageUrl() ?: $baseUrl . 'pub/media/placeholder/category.jpg';
+                                    $subcategories = $category->getChildrenCategories();
+                                } catch (\Exception $e) {
+                                    continue;
+                                }
+                                ?>
+                                <div class="swiper-slide">
+                                    <div class="category_section_bg">
+                                        <img src="<?= $imageUrl ?>" alt="<?= $categoryName ?>" class="img-fluid" />
+                                        <ul>
+                                            <?php if (count($subcategories)): ?>
+                                                <?php foreach ($subcategories as $sub): ?>
+                                                    <li>
+                                                        <h6><a href="<?= $sub->getUrl() ?>"><?= $sub->getName() ?></a></h6>
+                                                    </li>
+                                                <?php endforeach; ?>
+                                            <?php else: ?>
+                                                <li><h6><?= __('No subcategories found') ?></h6></li>
+                                            <?php endif; ?>
+                                        </ul>
+                                        <div class="text-center mb-lg-4 mb-3">
+                                            <a href="<?= $categoryUrl ?>" class="shop-now-btn"><?= __('Shop Now') ?></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </div>
+                    <div class="swiper-pagination"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+    require(['swiper'], function (Swiper) {
+        new Swiper('.shop_by_category', {
+            slidesPerView: 3,
+            spaceBetween: 20,
+            navigation: {
+                nextEl: '.shop-next',
+                prevEl: '.shop-prev'
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true
+            },
+            breakpoints: {
+                768: { slidesPerView: 2 },
+                992: { slidesPerView: 3 }
+            }
+        });
+    });
+    </script>
+    <?php
+    return ob_get_clean();
 }
 
 }

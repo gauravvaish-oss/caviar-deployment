@@ -199,7 +199,7 @@ class ProductRow extends AbstractWidget
     </section>
 
     <script>
-    require(['jquery', 'mage/url', 'require'], function($, urlBuilder) {
+    require(['jquery', 'mage/url', 'require','Magento_Ui/js/model/messageList'], function($, urlBuilder) {
         $(document).ready(function () {
             var eyeIcon    = require.toUrl('Vendor_GauravPageBuilderWidget/images/eye.png');
             var heartIcon  = require.toUrl('Vendor_GauravPageBuilderWidget/images/heart.png');
@@ -297,10 +297,14 @@ class ProductRow extends AbstractWidget
                     url: url,
                     type: 'POST',
                     success: function() {
-                        alert('Product added to cart!');
+                        messageList.addSuccessMessage({
+                                            message: $.mage.__('Product added to cart!')
+                                        });    
                     },
                     error: function() {
-                        alert('Failed to add to cart.');
+                        messageList.addErrorMessage({
+                            message: $.mage.__('Failed to add to cart.')
+                        });
                     }
                 });
             });

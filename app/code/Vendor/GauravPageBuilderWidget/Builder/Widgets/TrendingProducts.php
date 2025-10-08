@@ -261,12 +261,15 @@ protected function render(): string
     </div>
 
     <script>
-    require(['jquery', 'swiper'], function($, Swiper) {
+    require(['jquery', 'swiper', 'require'], function($, Swiper) {
         $(document).ready(function () {
             var categories = "<?= implode(',',$categoryArray) ?>";
             var categoryArray = categories ? categories.split(",") : [];
             var formKey = $('input[name="form_key"]').val();
-
+ var eyeIcon    = require.toUrl('Vendor_GauravPageBuilderWidget/images/eye.png');
+            var heartIcon  = require.toUrl('Vendor_GauravPageBuilderWidget/images/heart.png');
+            var shuffleIcon= require.toUrl('Vendor_GauravPageBuilderWidget/images/shuffle.png');
+            var cartIcon   = require.toUrl('Vendor_GauravPageBuilderWidget/images/cart.png');
             var $tabsWrapper    = $("#category-tabs");
             var $desktopWrapper = $("#desktop-products");
             var $mobileWrapper  = $("#mobile-products");
@@ -338,10 +341,10 @@ protected function render(): string
                                     <img class="product-img" src="${product.image}" alt="${product.name}">
                                     <span class="discount-badge">New</span>
                                     <div class="product-actions">
-                                        <button class="action-btn" title="Quick View"><img src="<?= $block->getViewFileUrl('Vendor_GauravPageBuilderWidget::images/eye.png'); ?>" alt=""></button>
-                                        <button class="action-btn" title="Add to Wishlist"><img src="<?= $block->getViewFileUrl('Vendor_GauravPageBuilderWidget::images/heart.png'); ?>" alt=""></button>
-                                        <button class="action-btn" title="Compare"><img src="<?= $block->getViewFileUrl('Vendor_GauravPageBuilderWidget::images/shuffle.png'); ?>" alt=""></button>
-                                        <button class="action-btn" title="Add to Cart"><img src="<?= $block->getViewFileUrl('Vendor_GauravPageBuilderWidget::images/cart.png'); ?>" alt=""></button>
+                                        <button class="action-btn" title="Quick View"><img src="${eyeIcon}" alt=""></button>
+                                        <button class="action-btn" title="Add to Wishlist"><img src="${heartIcon}" alt=""></button>
+                                        <button class="action-btn" title="Compare"><img src="${shuffleIcon}" alt=""></button>
+                                        <button class="action-btn" title="Add to Cart"><img src="${cartIcon}" alt=""></button>
                                     </div>
                                 </div>
                                 <div class="product-info">
@@ -363,11 +366,10 @@ protected function render(): string
                                     <img class="product-img" src="${product.image}" alt="${product.name}">
                                     <span class="discount-badge">New</span>
                                     <div class="product-actions">
-                                        <button class="action-btn" title="Quick View"><img src="<?= $block->getViewFileUrl('Vendor_GauravPageBuilderWidget::images/eye.png'); ?>" alt=""></button>
-                                        <button class="action-btn" title="Add to Wishlist"><img src="<?= $block->getViewFileUrl('Vendor_GauravPageBuilderWidget::images/heart.png'); ?>" alt=""></button>
-                                        <button class="action-btn" title="Compare"><img src="<?= $block->getViewFileUrl('Vendor_GauravPageBuilderWidget::images/shuffle.png'); ?>" alt=""></button>
-                                        <button class="action-btn" title="Add to Cart"><img src="<?= $block->getViewFileUrl('Vendor_GauravPageBuilderWidget::images/cart.png'); ?>" alt=""></button>
-                                    </div>
+                                        <button class="action-btn" title="Quick View"><img src="${eyeIcon}" alt=""></button>
+                                        <button class="action-btn" title="Add to Wishlist"><img src="${heartIcon}" alt=""></button>
+                                        <button class="action-btn" title="Compare"><img src="${shuffleIcon}" alt=""></button>
+                                        <button class="action-btn" title="Add to Cart"><img src="${cartIcon}" alt=""></button></div>
                                 </div>
                                 <div class="product-info">
                                     <h5 class="product-title">${product.name}</h5>
