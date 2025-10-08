@@ -1,0 +1,88 @@
+a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1759956901;s:6:"expire";i:1759957201;s:4:"tags";s:42:"841_GOOMENTO_PAGEBUILDER_FRONTEND,841_MAGE";}
+        <div class="gmt-widget-container">
+            <div class="main-title">
+    <div class="d-flex align-items-center justify-content-center justify-content-md-between">
+        <h2>Top Categories Slider</h2>
+        <div class="d-none d-md-flex justify-content-end">
+            <div class="top_product-prev swiper-button-prev" tabindex="0" role="button"></div>
+            <div class="top_product-next swiper-button-next" tabindex="0" role="button"></div>
+        </div>
+    </div>
+
+    <div class="swiper top_product_slider">
+        <div class="swiper-wrapper" id="category-slider-view"></div>
+        <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
+    </div>
+</div>
+
+<script>
+require(['jquery', 'swiper'], function($, Swiper) {
+    $(document).ready(function () {
+        var categoryArray = ["4","5","6"];
+        if (!categoryArray.length) return;
+
+        var formKey = $('input[name="form_key"]').val();
+        var $sliderWrapper = $("#category-slider-view");
+        $sliderWrapper.empty();
+
+        var ajaxRequests = categoryArray.map(function(categoryId, index) {
+            return $.ajax({
+                url: '/customgoomento/category/categoriesview',
+                type: 'POST',
+                dataType: 'json',
+                data: { category_id: categoryId, form_key: formKey },
+                success: function(response) {
+                    if (response.success) {
+                        var categoryImage = response.category_image || 'http://vixo.local.com/media/.renditions/wysiwyg/arrow.png';
+                        var categoryName = response.category_name || 'Unnamed';
+                        var productCount = response.product_count || 0;
+                        var categoryUrl = response.category_url || '#';
+
+                        var html = `
+                            <div class="swiper-slide" role="group" aria-label="${index + 1} / ${categoryArray.length}">
+                                <div class="top_product_section_bg">
+                                    <img src="${categoryImage}" alt="${categoryName}" class="img-fluid">
+                                    <h5>${categoryName}</h5>
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <span>${productCount} ( Items )</span>
+                                        <a href="${categoryUrl}">
+                                            <img src="http://vixo.local.com/media/.renditions/wysiwyg/arrow.png" alt="Go to ${categoryName}" class="img-fluid">
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                        $sliderWrapper.append(html);
+                    } else {
+                        console.warn("Failed to load category:", categoryId);
+                    }
+                },
+                error: function(xhr) {
+                    console.error("AJAX error for category " + categoryId + ":", xhr.responseText);
+                }
+            });
+        });
+
+        // Initialize Swiper after all AJAX calls complete
+        $.when.apply($, ajaxRequests).done(function() {
+            if ($sliderWrapper.children().length) {
+                new Swiper('.top_product_slider', {
+                    slidesPerView: 3,
+                    spaceBetween: 10,
+                    loop: true,
+                    navigation: {
+                        nextEl: '.top_product-next',
+                        prevEl: '.top_product-prev',
+                    },
+                    breakpoints: {
+                        768: { slidesPerView: 1 },
+                        480: { slidesPerView: 1 }
+                    }
+                });
+            }
+        });
+    });
+});
+</script>
+            </div>
+        

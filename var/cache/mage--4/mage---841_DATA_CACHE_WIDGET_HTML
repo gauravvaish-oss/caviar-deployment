@@ -1,0 +1,2 @@
+a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1759956897;s:6:"expire";i:9999999999;s:4:"tags";s:41:"841_GOOMENTO_PAGEBUILDER_BACKEND,841_MAGE";}
+{"tabs":{"content":"Content"},"controls":{"section_title":{"type":"section","tab":"content","label":"HTML Code","name":"section_title"},"html":{"type":"code","tab":"content","section":"section_title","label":"","default":"","placeholder":"Enter your code","show_label":false,"name":"html"}}}

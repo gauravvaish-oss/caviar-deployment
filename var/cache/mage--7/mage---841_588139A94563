@@ -1,0 +1,95 @@
+a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1759956901;s:6:"expire";i:1759957201;s:4:"tags";s:42:"841_GOOMENTO_PAGEBUILDER_FRONTEND,841_MAGE";}
+        <div class="gmt-widget-container">
+                <section class="shop-by-category">
+        <div class="row">
+            <div class="main-title w-100">
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                    <h2>Top Categories Slider</h2>
+                    <div class="d-flex justify-content-end">
+                        <div class="shop-prev swiper-button-prev"></div>
+                        <div class="shop-next swiper-button-next"></div>
+                    </div>
+                </div>
+
+                <div class="swiper shop_by_category">
+                    <div class="swiper-wrapper">
+                                                                                                                    <div class="swiper-slide">
+                                    <div class="category_section_bg">
+                                        <img src="/media/.renditions/wysiwyg/machine.png" alt="Gear" class="img-fluid" />
+                                        <ul>
+                                                                                                                                                <li>
+                                                        <h6><a href="http://vixo.local.com/gear/bags.html">Bags</a></h6>
+                                                    </li>
+                                                                                                    <li>
+                                                        <h6><a href="http://vixo.local.com/gear/fitness-equipment.html">Fitness Equipment</a></h6>
+                                                    </li>
+                                                                                                    <li>
+                                                        <h6><a href="http://vixo.local.com/gear/watches.html">Watches</a></h6>
+                                                    </li>
+                                                                                                                                    </ul>
+                                        <div class="text-center mb-lg-4 mb-3">
+                                            <a href="http://vixo.local.com/gear.html" class="shop-now-btn">Shop Now</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                                                                            <div class="swiper-slide">
+                                    <div class="category_section_bg">
+                                        <img src="/media/.renditions/wysiwyg/laptop.png" alt="Men" class="img-fluid" />
+                                        <ul>
+                                                                                                                                                <li>
+                                                        <h6><a href="http://vixo.local.com/men/tops-men.html">Tops</a></h6>
+                                                    </li>
+                                                                                                    <li>
+                                                        <h6><a href="http://vixo.local.com/men/bottoms-men.html">Bottoms</a></h6>
+                                                    </li>
+                                                                                                                                    </ul>
+                                        <div class="text-center mb-lg-4 mb-3">
+                                            <a href="http://vixo.local.com/men.html" class="shop-now-btn">Shop Now</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                                                                            <div class="swiper-slide">
+                                    <div class="category_section_bg">
+                                        <img src="/media/.renditions/wysiwyg/wall_clock.png" alt="Women" class="img-fluid" />
+                                        <ul>
+                                                                                                                                                <li>
+                                                        <h6><a href="http://vixo.local.com/women/tops-women.html">Tops</a></h6>
+                                                    </li>
+                                                                                                    <li>
+                                                        <h6><a href="http://vixo.local.com/women/bottoms-women.html">Bottoms</a></h6>
+                                                    </li>
+                                                                                                                                    </ul>
+                                        <div class="text-center mb-lg-4 mb-3">
+                                            <a href="http://vixo.local.com/women.html" class="shop-now-btn">Shop Now</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                                                        </div>
+                    <div class="swiper-pagination"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+    require(['swiper'], function (Swiper) {
+        new Swiper('.shop_by_category', {
+            slidesPerView: 3,
+            spaceBetween: 20,
+            navigation: {
+                nextEl: '.shop-next',
+                prevEl: '.shop-prev'
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true
+            },
+            breakpoints: {
+                768: { slidesPerView: 2 },
+                992: { slidesPerView: 3 }
+            }
+        });
+    });
+    </script>
+            </div>
+        

@@ -21737,6 +21737,121 @@
             "install-path": "../magento/zend-pdf"
         },
         {
+            "name": "mageplaza/facebook-graph-sdk",
+            "version": "1.0.2",
+            "version_normalized": "1.0.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mageplaza/facebook-graph-sdk.git",
+                "reference": "aaeebf1fb5db308606b21f6412999079d9090fda"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mageplaza/facebook-graph-sdk/zipball/aaeebf1fb5db308606b21f6412999079d9090fda",
+                "reference": "aaeebf1fb5db308606b21f6412999079d9090fda",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.0"
+            },
+            "require-dev": {
+                "guzzlehttp/guzzle": "~5.0",
+                "mockery/mockery": "~0.8",
+                "phpunit/phpunit": "~4.0"
+            },
+            "suggest": {
+                "guzzlehttp/guzzle": "Allows for implementation of the Guzzle HTTP client",
+                "paragonie/random_compat": "Provides a better CSPRNG option in PHP"
+            },
+            "time": "2025-04-15T07:28:51+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "files": [
+                    "src/Facebook/polyfills.php"
+                ],
+                "psr-4": {
+                    "Facebook\\": "src/Facebook/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Facebook Platform"
+            ],
+            "authors": [
+                {
+                    "name": "Facebook",
+                    "homepage": "https://github.com/facebook/php-graph-sdk/contributors"
+                }
+            ],
+            "description": "Facebook SDK for PHP",
+            "homepage": "https://github.com/facebook/php-graph-sdk",
+            "keywords": [
+                "facebook",
+                "sdk"
+            ],
+            "support": {
+                "issues": "https://github.com/mageplaza/facebook-graph-sdk/issues",
+                "source": "https://github.com/mageplaza/facebook-graph-sdk/tree/v1.0.2"
+            },
+            "install-path": "../mageplaza/facebook-graph-sdk"
+        },
+        {
+            "name": "mageplaza/magento-2-blog-extension",
+            "version": "4.2.8",
+            "version_normalized": "4.2.8.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mageplaza/magento-2-blog.git",
+                "reference": "73d5afa2b2fc8933cfd17c46aeaf6ae243e7ffc7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mageplaza/magento-2-blog/zipball/73d5afa2b2fc8933cfd17c46aeaf6ae243e7ffc7",
+                "reference": "73d5afa2b2fc8933cfd17c46aeaf6ae243e7ffc7",
+                "shasum": ""
+            },
+            "require": {
+                "mageplaza/facebook-graph-sdk": "^1.0.2",
+                "mageplaza/module-core": "^1.5.13"
+            },
+            "time": "2025-04-17T02:50:16+00:00",
+            "type": "magento2-module",
+            "installation-source": "dist",
+            "autoload": {
+                "files": [
+                    "registration.php"
+                ],
+                "psr-4": {
+                    "Mageplaza\\Blog\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "proprietary"
+            ],
+            "authors": [
+                {
+                    "name": "Mageplaza",
+                    "email": "support@mageplaza.com",
+                    "homepage": "https://www.mageplaza.com",
+                    "role": "Technical Support"
+                }
+            ],
+            "description": "Magento 2 Blog extension",
+            "keywords": [
+                "blog",
+                "magento 2",
+                "magento 2 blog",
+                "magento2",
+                "mageplaza"
+            ],
+            "support": {
+                "source": "https://github.com/mageplaza/magento-2-blog/tree/v4.2.8"
+            },
+            "install-path": "../mageplaza/magento-2-blog-extension"
+        },
+        {
             "name": "mageplaza/module-core",
             "version": "1.5.14",
             "version_normalized": "1.5.14.0",

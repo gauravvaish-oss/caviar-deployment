@@ -1,0 +1,79 @@
+a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1759957006;s:6:"expire";i:1759957306;s:4:"tags";s:42:"841_GOOMENTO_PAGEBUILDER_FRONTEND,841_MAGE";}
+        <div class="gmt-widget-container">
+                <div class="row">
+        <div class="main-title">
+            <div class="d-flex align-items-center justify-content-center justify-content-md-between">
+                <h2>Latest Blogs & News</h2>
+                <div class="d-none d-md-flex justify-content-end">
+                    <div class="blog-prev swiper-button-prev" tabindex="0" role="button"></div>
+                    <div class="blog-next swiper-button-next" tabindex="0" role="button"></div>
+                </div>
+            </div>
+            <div class="swiper blog_slider">
+                <div class="swiper-wrapper" id="blog-slider-view"></div>
+                <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+    require(['jquery', 'swiper'], function($, Swiper) {
+        $(document).ready(function () {
+            var blogIds = ["1","2","3"];
+            var formKey = $('input[name="form_key"]').val();
+            var $sliderWrapper = $("#blog-slider-view");
+
+            $sliderWrapper.html("");
+
+            var ajaxRequests = blogIds.map(function(blogId) {
+                blogId = blogId.trim();
+                return $.ajax({
+                    url: '/rest/V1/mpblog/post/view/' + blogId,
+                    type: 'GET', // Use GET to fetch blog data
+                    dataType: 'json',
+                    headers: {
+                        'Authorization': 'Bearer eyJraWQiOiIxIiwiYWxnIjoiSFMyNTYifQ.eyJ1aWQiOjEsInV0eXBpZCI6MiwiaWF0IjoxNzU5OTU2MjcxLCJleHAiOjE3NTk5NTk4NzF9.YsykefBBqhT37q5G5rpY4ypxd0_BJmYuO6RVRigvWZU'
+                    },
+                    success: function(response) {
+                        console.log(response)
+                        if (response) {
+                            var post = response;
+                            var html = `
+                                <div class="swiper-slide">
+                                    <div class="blog_section_bg">
+                                        <img src="/media/mageplaza/blog/post/${post.image || 'images/watching_TV.png'}" alt="${post.name}" class="img-fluid">
+                                        <h6>${post.name}</h6>
+                                    </div>
+                                </div>
+                            `;
+                            $sliderWrapper.append(html);
+                        } else {
+                            console.error("Failed to load blog:", blogId);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("AJAX error for blog " + blogId + ":", xhr.responseText);
+                    }
+                });
+            });
+
+            $.when.apply($, ajaxRequests).done(function() {
+                new Swiper('.blog_slider', {
+                    slidesPerView: 3,
+                    spaceBetween: 20,
+                    loop: true,
+                    navigation: {
+                        nextEl: '.blog-next',
+                        prevEl: '.blog-prev',
+                    },
+                    breakpoints: {
+                        768: { slidesPerView: 2 },
+                        480: { slidesPerView: 1 }
+                    }
+                });
+            });
+        });
+    });
+    </script>
+            </div>
+        

@@ -1,0 +1,14 @@
+a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1759956901;s:6:"expire";i:1759957201;s:4:"tags";s:42:"841_GOOMENTO_PAGEBUILDER_FRONTEND,841_MAGE";}
+        <div class="gmt-widget-container">
+            <div class="position-relative mt-4">
+                    <img src="{{view url='images/sales_banner_bg.png'}}" alt="img" class="img-fluid mt-4">
+                    <div class="sales_banner">
+                        <img src="{{view url='images/headphone_white.png'}}" alt="img" class="img-fluid">
+                        <div class="sales_text">
+                            <span>sale up to 30% off</span>
+                            <h5>apple watch <br>series</h5>
+                            <a href="#">₹999.00</a>
+                        </div>
+                    </div>
+                 </div>        </div>
+        

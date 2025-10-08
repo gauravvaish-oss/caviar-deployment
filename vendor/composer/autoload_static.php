@@ -363,6 +363,7 @@ class ComposerStaticInit7bcfc3cfd5df6c83064b55add85fd43a
         '4fcd06e55e896e3cfd195481e3b7507e' => __DIR__ . '/..' . '/magento/module-re-captcha-wishlist/registration.php',
         'b023fd11134400033a2200c4032efd82' => __DIR__ . '/..' . '/magento/module-securitytxt/registration.php',
         '87bb82aba4e6954227316088ec049d42' => __DIR__ . '/..' . '/magento/module-translation/registration.php',
+        '6b5b87bda6fedcf6ef8605219c8b67f2' => __DIR__ . '/..' . '/mageplaza/module-core/registration.php',
         '7adedf5aab7954091befcc50d50f5120' => __DIR__ . '/..' . '/paypal/module-braintree-graph-ql/registration.php',
         '9b38cf48e83f5d8f60375221cd213eee' => __DIR__ . '/..' . '/phpstan/phpstan/bootstrap.php',
         'b3af4141c2b6c2616b0e9b1109f7c2dd' => __DIR__ . '/..' . '/temando/module-shipping-remover/registration.php',
@@ -499,7 +500,7 @@ class ComposerStaticInit7bcfc3cfd5df6c83064b55add85fd43a
         '2451819c9c2b818eb9be5f36b51585ea' => __DIR__ . '/..' . '/magento/module-wishlist-graph-ql/registration.php',
         'd04d5084d3db908d3544ed506541866a' => __DIR__ . '/..' . '/magento/theme-adminhtml-backend/registration.php',
         '7102f9cf0d2c08bc731a7e185c1c8bfc' => __DIR__ . '/..' . '/magento/theme-frontend-luma/registration.php',
-        '6b5b87bda6fedcf6ef8605219c8b67f2' => __DIR__ . '/..' . '/mageplaza/module-core/registration.php',
+        '74d46d715ff5632a9f935ef05b1e8143' => __DIR__ . '/..' . '/mageplaza/facebook-graph-sdk/src/Facebook/polyfills.php',
         'aa75ea0761a2f40c1f3b32ad314f86c4' => __DIR__ . '/..' . '/phpseclib/mcrypt_compat/lib/mcrypt.php',
         '38143a9afc50997d55e4815db8489d1c' => __DIR__ . '/..' . '/rector/rector/bootstrap.php',
         '9d2b9fc6db0f153a0a149fefb182415e' => __DIR__ . '/..' . '/symfony/polyfill-php84/bootstrap.php',
@@ -519,6 +520,7 @@ class ComposerStaticInit7bcfc3cfd5df6c83064b55add85fd43a
         'f1c1523a4c5d520b50bffc4a75ea5a5c' => __DIR__ . '/..' . '/magento/module-tax-sample-data/registration.php',
         'f3d4617c4b29f1082289d89745685dad' => __DIR__ . '/..' . '/magento/module-widget-sample-data/registration.php',
         '759d958743dba8d926c9111b82afe3e9' => __DIR__ . '/..' . '/magento/module-wishlist-sample-data/registration.php',
+        '581f45ff6bb127be51c88ab337760d97' => __DIR__ . '/..' . '/mageplaza/magento-2-blog-extension/registration.php',
         'a77049f7f3ca4c78b9e3635c8f857d84' => __DIR__ . '/..' . '/mageplaza/module-smtp/registration.php',
         'b4cf39431a4b949eea8aa69ebb3d39da' => __DIR__ . '/../..' . '/app/etc/NonComposerComponentRegistration.php',
     );
@@ -640,6 +642,7 @@ class ComposerStaticInit7bcfc3cfd5df6c83064b55add85fd43a
             'Monolog\\' => 8,
             'Mageplaza\\Smtp\\' => 15,
             'Mageplaza\\Core\\' => 15,
+            'Mageplaza\\Blog\\' => 15,
             'Magento\\Wishlist\\' => 17,
             'Magento\\WishlistSampleData\\' => 27,
             'Magento\\WishlistGraphQl\\' => 24,
@@ -1077,6 +1080,7 @@ class ComposerStaticInit7bcfc3cfd5df6c83064b55add85fd43a
         array (
             'Fidry\\CpuCoreCounter\\' => 21,
             'Facebook\\WebDriver\\' => 19,
+            'Facebook\\' => 9,
         ),
         'E' => 
         array (
@@ -1451,6 +1455,10 @@ class ComposerStaticInit7bcfc3cfd5df6c83064b55add85fd43a
         'Mageplaza\\Core\\' => 
         array (
             0 => __DIR__ . '/..' . '/mageplaza/module-core',
+        ),
+        'Mageplaza\\Blog\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/mageplaza/magento-2-blog-extension',
         ),
         'Magento\\Wishlist\\' => 
         array (
@@ -3152,6 +3160,10 @@ class ComposerStaticInit7bcfc3cfd5df6c83064b55add85fd43a
         'Facebook\\WebDriver\\' => 
         array (
             0 => __DIR__ . '/..' . '/php-webdriver/webdriver/lib',
+        ),
+        'Facebook\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/mageplaza/facebook-graph-sdk/src/Facebook',
         ),
         'Evenement\\' => 
         array (

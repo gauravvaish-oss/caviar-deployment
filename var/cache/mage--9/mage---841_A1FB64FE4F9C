@@ -1,0 +1,75 @@
+a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1759956901;s:6:"expire";i:1759957201;s:4:"tags";s:42:"841_GOOMENTO_PAGEBUILDER_FRONTEND,841_MAGE";}
+        <div class="gmt-widget-container">
+            
+    <div class="spacial_trend">
+        <div class="special-title">
+            <h5 class="special-box-title">Special Trend Products</h5>
+        </div>
+<a href="http://vixo.local.com/crown-summit-backpack.html">
+            <img src="http://vixo.local.com/media/catalog/product\cache\1971a0baa97f41f74b0e60281b4b6ecb\/m/b/mb03-black-0.jpg" alt="Crown Summit Backpack" class="img-fluid">
+        </a>
+        <div class="time_countdown_section" data-end-date="2025-10-15 20:54:56" style="display:flex;">
+            <div class="time_countdown"><div class="days">00</div><span>Days</span></div>
+            <div class="time_countdown"><div class="hours">00</div><span>Hour</span></div>
+            <div class="time_countdown"><div class="minutes">00</div><span>Min</span></div>
+            <div class="time_countdown"><div class="seconds">00</div><span>Sec</span></div>
+        </div>
+
+        <div class="product-info">
+            <div class="product-rating">
+                <div class="stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="far fa-star"></i> 
+                </div>
+            </div>
+ <h5 class="product-title">
+                <a href="http://vixo.local.com/crown-summit-backpack.html">Crown Summit Backpack</a>
+            </h5>            <div class="product-price">
+                <span class="current-price">₹38.00</span>
+                <span class="original-price">₹38.00</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelectorAll(".time_countdown_section").forEach(function(section) {
+                var endDateStr = section.getAttribute("data-end-date");
+                if (!endDateStr) return;
+
+                var endDate = new Date(endDateStr.replace(" ", "T")).getTime();
+
+                function updateCountdown() {
+                    var now = new Date().getTime();
+                    var distance = endDate - now;
+
+                    if (distance <= 0) {
+                        section.querySelector(".days").textContent = "00";
+                        section.querySelector(".hours").textContent = "00";
+                        section.querySelector(".minutes").textContent = "00";
+                        section.querySelector(".seconds").textContent = "00";
+                        clearInterval(interval);
+                        return;
+                    }
+
+                    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                    section.querySelector(".days").textContent = String(days).padStart(2,"0");
+                    section.querySelector(".hours").textContent = String(hours).padStart(2,"0");
+                    section.querySelector(".minutes").textContent = String(minutes).padStart(2,"0");
+                    section.querySelector(".seconds").textContent = String(seconds).padStart(2,"0");
+                }
+
+                updateCountdown();
+                var interval = setInterval(updateCountdown, 1000);
+            });
+        });
+    </script>
+            </div>
+        

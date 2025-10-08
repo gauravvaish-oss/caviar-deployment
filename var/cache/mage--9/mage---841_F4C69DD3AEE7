@@ -1,0 +1,179 @@
+a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1759956901;s:6:"expire";i:1759957201;s:4:"tags";s:42:"841_GOOMENTO_PAGEBUILDER_FRONTEND,841_MAGE";}
+        <div class="gmt-widget-container">
+            
+<div class="col-md-12 Product_category">
+    <div class="row">
+        <div class="main-title ">
+            <h2>Product Category</h2>
+            <!-- Swiper Navigation -->
+            <div class="swiper-nav">
+                <div class="swiper-button-prev custom-prev" tabindex="0" role="button"></div>
+                <div class="swiper-button-next custom-next" tabindex="0" role="button"></div>
+            </div>
+        </div>
+
+        <!-- Category Buttons -->
+        <div class="col-md-4 remove_padding">
+            <div class="category_menu product_category">
+                <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                    <div class="toggle_section">
+                        <button class="nav-link active" id="v-pills-one_product-tab" data-bs-toggle="pill" data-bs-target="#v-pills-one_product" type="button" role="tab" aria-controls="v-pills-one_product" aria-selected="true" data-product-category="3"><img src="http://vixo.local.com/media/.renditions/wysiwyg/pendrive.png" alt="">Gear</button>
+                        <button class="nav-link" id="v-pills-two_product-tab" data-bs-toggle="pill" data-bs-target="#v-pills-two_product" type="button" role="tab" aria-controls="v-pills-two_product" aria-selected="false" tabindex="-1" data-product-category="4"><img src="http://vixo.local.com/media/.renditions/wysiwyg/pendrive.png" alt="">Bags</button>
+                        <button class="nav-link" id="v-pills-three_product-tab" data-bs-toggle="pill" data-bs-target="#v-pills-three_product" type="button" role="tab" aria-controls="v-pills-three_product" aria-selected="false" tabindex="-1" data-product-category="5"><img src="http://vixo.local.com/media/.renditions/wysiwyg/pendrive.png" alt="">Fitness Equipment</button>
+                        <button class="nav-link" id="v-pills-four_product-tab" data-bs-toggle="pill" data-bs-target="#v-pills-four_product" type="button" role="tab" aria-controls="v-pills-four_product" aria-selected="false" tabindex="-1" data-product-category="6"><img src="http://vixo.local.com/media/.renditions/wysiwyg/pendrive.png" alt="">Watches</button>
+                        <button class="nav-link" id="v-pills-five_product-tab" data-bs-toggle="pill" data-bs-target="#v-pills-five_product" type="button" role="tab" aria-controls="v-pills-five_product" aria-selected="false" tabindex="-1" data-product-category="9"><img src="http://vixo.local.com/media/.renditions/wysiwyg/pendrive.png" alt="">Training</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Products Swiper -->
+        <div class="col-md-8">
+            <div class="tab-content">
+                <div class="tab-pane fade active show">
+                    <div class="swiper productSwiper">
+                        <div class="swiper-wrapper" id="product-category-swiper"></div>
+                        <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+require([
+    "jquery",
+    "swiper",
+    "require"  // ensure swiper is mapped in requirejs-config.js
+], function ($, Swiper) {
+
+    $(document).ready(function () {
+        var swiperInstance = null;
+        var eyeIcon    = require.toUrl('Vendor_GauravPageBuilderWidget/images/eye.png');
+        var heartIcon  = require.toUrl('Vendor_GauravPageBuilderWidget/images/heart.png');
+        var shuffleIcon = require.toUrl('Vendor_GauravPageBuilderWidget/images/shuffle.png');
+        var cartIcon   = require.toUrl('Vendor_GauravPageBuilderWidget/images/cart.png');
+
+        // 🔹 Function to init Swiper
+        function initSwiper() {
+            if (swiperInstance) {
+                swiperInstance.destroy(true, true); // clean old instance
+            }
+            swiperInstance = new Swiper(".productSwiper", {
+                slidesPerView: 2,
+                spaceBetween: 20,
+                navigation: {
+                    nextEl: ".custom-next",
+                    prevEl: ".custom-prev",
+                },
+                loop: true,
+                observer: true,
+                observeParents: true,
+                 breakpoints: {
+                    0: {           // 📱 mobile
+                        slidesPerView: 1,
+                        spaceBetween: 10
+                    },
+                    768: {         // 📱 tablet
+                        slidesPerView: 1,
+                        spaceBetween: 15
+                    },
+                    1024: {        // 💻 desktop
+                        slidesPerView: 2,
+                        spaceBetween: 20
+                    }
+                }
+            });
+        }
+
+        // 🔹 Function to load products for a category
+        function loadProducts(btn, categoryId) {
+            $.ajax({
+                url: "/customgoomento/category/getproducts",
+                type: "GET",
+                dataType: "json",
+                data: { category_id: categoryId },
+                beforeSend: function () {
+                    $("#product-category-swiper").html("<p>Loading...</p>");
+                },
+                success: function (response) {
+                    if (response.success) {
+                        // btn.text(response.category_name);
+
+                        var html = "";
+                        $.each(response.products, function (i, product) {
+                            html += `
+                                <div class="swiper-slide">
+                                    <div class="product-card">
+                                        <div class="product-image">
+                                            <img class="product-img" src="${product.image}" alt="${product.name}">
+                                            <span class="discount-badge">New</span>
+                                            <div class="product-actions">
+                                                <button class="action-btn"><img src="${eyeIcon}" alt=""></button>
+                                                <button class="action-btn"><img src="${heartIcon}" alt=""></button>
+                                                <button class="action-btn"><img src="${shuffleIcon}" alt=""></button>
+                                                <button class="action-btn"><img src="${cartIcon}" alt=""></button></div>
+                                        </div>
+                                        <div class="product-info">
+                                            <div class="product-rating">
+                                                <div class="stars">
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="far fa-star"></i>
+                                                    <p class="star-qty">(3)</p>
+                                                </div>
+                                            </div>
+                                            <h5 class="product-title"><a href="${product.url}">${product.name}</a></h5>
+                                            <div class="product-price">
+                                                <span class="current-price">₹ ${product.price}</span>
+                                                <span class="original-price">₹350</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+                        });
+
+                        $("#product-category-swiper").html(html);
+
+                        // ✅ Init Swiper after products loaded
+                        initSwiper();
+                    } else {
+                        $("#product-category-swiper").html("<p>Error: " + response.message + "</p>");
+                    }
+                },
+                error: function () {
+                    $("#product-category-swiper").html("<p>Request failed!</p>");
+                }
+            });
+        }
+
+        // 🔹 Initial load for first tab
+        var firstBtn = $(".toggle_section .nav-link").first();
+        var firstCat = parseInt(firstBtn.attr("data-product-category"), 10);
+        if (Number.isInteger(firstCat)) {
+            loadProducts(firstBtn, firstCat);
+        }
+
+        // 🔹 On button click → load its products
+        $(document).on("click", ".toggle_section .nav-link", function () {
+            var btn = $(this);
+            var num = parseInt(btn.attr("data-product-category"), 10);
+
+            if (Number.isInteger(num)) {
+                $(".toggle_section .nav-link").removeClass("active");
+                btn.addClass("active");
+                loadProducts(btn, num);
+            }
+        });
+
+    });
+});
+</script>
+
+                </div>
+        
