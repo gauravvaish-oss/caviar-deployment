@@ -30,10 +30,10 @@ return [
         'table_prefix' => '',
         'connection' => [
             'default' => [
-                'host' => 'localhost',
-                'dbname' => 'caviar2',
-                'username' => 'root',
-                'password' => '',
+                'host' => 'magento-db-db.cleumykee3le.ap-south-1.rds.amazonaws.com',
+                'dbname' => 'cav_db',
+                'username' => 'magento',
+                'password' => '#erP#Service#S',
                 'model' => 'mysql4',
                 'engine' => 'innodb',
                 'initStatements' => 'SET NAMES utf8;',
