@@ -17,6 +17,9 @@ class EntryPointPlugin
     {
         $this->logger->info('Registering GauravWidget');
         $widgetsManager->registerWidgetType(
+            \Vendor\GauravPageBuilderWidget\Builder\Widgets\StayInTouch::class
+        );
+        $widgetsManager->registerWidgetType(
             \Vendor\GauravPageBuilderWidget\Builder\Widgets\LatestBlogs::class
         );
         $widgetsManager->registerWidgetType(

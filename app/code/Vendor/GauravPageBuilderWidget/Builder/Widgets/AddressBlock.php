@@ -40,15 +40,27 @@ class AddressBlock extends AbstractWidget
             'type' => Controls::TEXT,
             'default' => __('Title Text'),
         ]);
+         $this->addControl("address_img", [
+            'label' => __("Address Icon"),
+            'type'  => Controls::MEDIA,
+        ]);
         $this->addControl('address', [
             'label' => __('Address'),
             'type' => Controls::TEXTAREA,
             'default' => __('Unit 1 & 2, 4th Floor, Tower B, Vatika Mindscapes, Mathura Road, Faridabad 121003, Delhi NCR'),
         ]);
+         $this->addControl("mobile_img", [
+            'label' => __("Mobile Icon"),
+            'type'  => Controls::MEDIA,
+        ]);
          $this->addControl('mobile', [
             'label' => __('Mobile'),
             'type' => Controls::TEXTAREA,
             'default' => __('0123456789'),
+        ]);
+        $this->addControl("email_img", [
+            'label' => __("Email Icon"),
+            'type'  => Controls::MEDIA,
         ]);
         $this->addControl('email', [
             'label' => __('Email'),
@@ -68,11 +80,11 @@ class AddressBlock extends AbstractWidget
         <div class="caviarcontainer ">
             <div class="caviar-part">
                 <h3 class="caviar">{{{settings.title}}}</h3>
-                <p style="align-items: flex-start;"><img style="margin-top: 2px;" src="./images/contact-location.png" alt="Location Icon" class="me-2">{{{settings.address}}}</p>
-                <p><img src="./images/contact-phone.png" alt="Phone Icon" class="me-2">
+                <p style="align-items: flex-start;"><img style="margin-top: 2px;" src="{{{settings.address_img.url}}}" alt="Location Icon" class="me-2">{{{settings.address}}}</p>
+                <p><img src="{{{settings.mobile_img.url}}}" alt="Phone Icon" class="me-2">
                                         <a href="tel:+91 {{{settings.mobile}}}">+91 {{{settings.mobile}}}</a>
                 </p>
-                <p><img src="./images/contact-email.png" alt="Mail Icon" class="me-2">
+                <p><img src="{{{settings.email_img.url}}}" alt="Mail Icon" class="me-2">
                                         <a href="mailto:{{{settings.email}}}">{{{settings.email}}}</a>
                 </p>
             </div>
@@ -90,11 +102,11 @@ class AddressBlock extends AbstractWidget
         <div class="caviarcontainer ">
             <div class="caviar-part">
                 <h3 class="caviar"><?= $settings['title']; ?></h3>
-                <p style="align-items: flex-start;"><img style="margin-top: 2px;" src="./images/contact-location.png" alt="Location Icon" class="me-2"><?= $settings['address']; ?></p>
-                <p><img src="./images/contact-phone.png" alt="Phone Icon" class="me-2">
+                <p style="align-items: flex-start;"><img style="margin-top: 2px;" src="<?= $settings['address_img']['url']; ?>" alt="Location Icon" class="me-2"><?= $settings['address']; ?></p>
+                <p><img src="<?= $settings['mobile_img']['url']; ?>" alt="Phone Icon" class="me-2">
                                         <a href="tel:+91 <?= $settings['mobile']; ?>">+91 <?= $settings['mobile']; ?></a>
                 </p>
-                <p><img src="./images/contact-email.png" alt="Mail Icon" class="me-2">
+                <p><img src="<?= $settings['email_img']['url']; ?>" alt="Mail Icon" class="me-2">
                                         <a href="mailto:<?= $settings['email']; ?>"><?= $settings['email']; ?></a>
                 </p>
             </div>
