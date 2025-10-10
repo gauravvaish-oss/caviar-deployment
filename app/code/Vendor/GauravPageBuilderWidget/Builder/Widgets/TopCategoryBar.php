@@ -232,45 +232,40 @@ class TopCategoryBar extends AbstractWidget
          $menu_items = $settings['menu_items'];
          ob_start();
          ?>
-         <div class="top-category-bar ">
-  <div class="container">
-    <div class="row align-items-center">
-      <!-- Left Side: Toggle + Title -->
-      <div class="col-md-3 d-flex align-items-center p-md-0">
-        <div class="category_menu">
-          <button onclick="toggleMyDiv()" class="top_category"><img src="images/toggle.png" alt=""> Top
-            Category</button>
-          <div class="nav_below_item nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-            <div id="toggle_section">
-                <?php foreach($menu_items as $menu){ ?>
-              <button class="nav-link active" id="v-pills-new_product-tab" data-bs-toggle="pill" data-bs-target="#v-pills-new_product" type="button" role="tab" aria-controls="v-pills-new_product" aria-selected="true"><img src="images/tv_icon.png" alt=""><?php echo $menu['title']; ?></button>
-            <?php } ?> 
+        <div class="">
+        <div class="">
+            <div class="">
+                <div class="">
+                    <div class="">
+                        <button onclick="toggleMyDiv()" class=""><img src="images/toggle.png" alt=""> Top
+                                Category</button>
+                        <div class="">
+                            <div id="" style="display: block;">
+                                <?php foreach($menu_items as $menu){ ?>
+                                    <button class=""><img src="images/tv_icon.png" alt=""><?php echo $menu['title']; ?></button>
+                                <?php } ?>  
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="">
+                    <form class="">
+                        <input type="text" class="" placeholder="Search For Products">
+                        <select class="">
+                            <option value="">All Categories</option>
+                           <?php
+                                foreach($options as $key => $value){?>
+                                <option value="<?php echo $key ?>"><?php echo $value ?></option>
+                                <?php } ?>
+                        </select>
+                        <button class="" type="submit">
+                            <i class="bi bi-search"></i>
+                        </button>
+                    </form>
+                </div>
             </div>
-          </div>
         </div>
-</div>
-        <!-- Right Side: Search Bar -->
-        <div class="col-md-9">
-          <form class="d-flex search-form">
-            <input type="text" class="form-control search-input" placeholder="Search For Products">
-            <ul class="search-suggestions" style="position: absolute; top: 100%; left: 0; right: 0; z-index: 999; background: #fff; border: 1px solid #ccc; list-style: none; margin: 0; padding: 0; display: none;"></ul>
-            <select class="form-select category-select">
-              <option>All Categories</option>
-              <?php
-              foreach($options as $key => $value){?>
-              <option value="<?php echo $key ?>"><?php echo $value ?></option>
-             <?php } ?>
-              
-            </select>
-            
-            <button class="btn search-btn" type="submit">
-              <i class="bi bi-search"></i>
-            </button>
-          </form>
-        </div>
-      </div>
     </div>
-  </div>
  <script>
     require(['jquery', 'require'], function($){
         $(document).ready(function(){

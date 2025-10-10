@@ -6,26 +6,24 @@ use Magento\Framework\App\Action\Context;
 use Magento\Catalog\Api\ProductRepositoryInterface;
 use Magento\Framework\Controller\Result\JsonFactory;
 use Magento\Framework\Exception\NoSuchEntityException;
+use Magento\Framework\View\LayoutInterface;
+use Magento\Catalog\Block\Product\AbstractProduct;
 
 class GetProducts extends Action
 {
-    /**
-     * @var ProductRepositoryInterface
-     */
     protected $productRepository;
-
-    /**
-     * @var JsonFactory
-     */
     protected $jsonFactory;
+    protected $layout;
 
     public function __construct(
         Context $context,
         ProductRepositoryInterface $productRepository,
-        JsonFactory $jsonFactory
+        JsonFactory $jsonFactory,
+        LayoutInterface $layout
     ) {
         $this->productRepository = $productRepository;
         $this->jsonFactory = $jsonFactory;
+        $this->layout = $layout;
         parent::__construct($context);
     }
 
@@ -43,17 +41,27 @@ class GetProducts extends Action
 
         try {
             $product = $this->productRepository->get($sku);
-            return $resultJson->setData([
+
+            /** @var AbstractProduct $block */
+            $block = $this->layout->createBlock(AbstractProduct::class);
+            $addToCartPost = $block->getAddToCartPostParams($product);
+
+           return $resultJson->setData([
                 'success' => true,
                 'product' => [
                     'id' => $product->getId(),
                     'sku' => $product->getSku(),
                     'name' => $product->getName(),
-                    'price' => $product->getPrice(),
+                    // Regular price (original) formatted to 2 decimals
+                    'regular_price' => number_format($product->getPrice(), 2, '.', ''),
+                    // Final price (selling price) formatted to 2 decimals
+                    'final_price' => number_format($product->getFinalPrice(), 2, '.', ''),
                     'url' => $product->getProductUrl(),
-                    'image' => $product->getMediaGalleryImages()->getFirstItem()->getUrl() ?? ''
+                    'image' => $product->getMediaGalleryImages()->getFirstItem()->getUrl() ?? '',
+                    'add_to_cart_post' => $addToCartPost
                 ]
             ]);
+
         } catch (NoSuchEntityException $e) {
             return $resultJson->setData([
                 'success' => false,

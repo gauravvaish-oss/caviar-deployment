@@ -4,6 +4,9 @@ namespace Vendor\GauravPageBuilderWidget\Builder\Widgets;
 use Goomento\PageBuilder\Builder\Base\AbstractWidget;
 use Goomento\PageBuilder\Builder\Managers\Controls;
 use Goomento\PageBuilder\Helper\UrlBuilderHelper;
+use Magento\Catalog\Api\ProductRepositoryInterface;
+use Magento\Catalog\Block\Product\ListProduct;
+use Goomento\Core\Helper\ObjectManagerHelper;
 
 class ProductRow extends AbstractWidget
 {
@@ -174,12 +177,31 @@ class ProductRow extends AbstractWidget
     }
 
 
-    protected function render(): string
+protected function render(): string
 {
     $settings = $this->getSettings();
     $productArray = isset($settings['product']) && is_array($settings['product'])
         ? array_filter(array_map('trim', $settings['product']))
         : [];
+
+    $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+    $productRepository = $objectManager->create(\Magento\Catalog\Api\ProductRepositoryInterface::class);
+    $listBlock = $objectManager->get(\Magento\Catalog\Block\Product\ListProduct::class);
+    $formKey = $objectManager->get(\Magento\Framework\Data\Form\FormKey::class)->getFormKey();
+    $urlBuilder = $objectManager->get(\Magento\Framework\UrlInterface::class);
+    $assetRepo = $objectManager->get(\Magento\Framework\View\Asset\Repository::class);
+    $storeManager = $objectManager->get(\Magento\Store\Model\StoreManagerInterface::class);
+    $mediaUrl = $storeManager->getStore()->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
+
+    $wishlistUrl = $urlBuilder->getUrl('wishlist/index/add');
+    $compareUrl  = $urlBuilder->getUrl('catalog/product_compare/add');
+
+    // Asset URLs for icons
+    $eyeIcon     = $assetRepo->getUrl("Vendor_GauravPageBuilderWidget::images/eye.png");
+    $heartIcon   = $assetRepo->getUrl("Vendor_GauravPageBuilderWidget::images/heart.png");
+    $shuffleIcon = $assetRepo->getUrl("Vendor_GauravPageBuilderWidget::images/shuffle.png");
+    $cartIcon    = $assetRepo->getUrl("Vendor_GauravPageBuilderWidget::images/cart.png");
+
     ob_start();
     ?>
     <section class="trending_product">
@@ -190,130 +212,109 @@ class ProductRow extends AbstractWidget
         </div>
 
         <div class="row">
-            <!-- AJAX will render product cards here -->
-        </div>
+            <?php foreach ($productArray as $sku):
+                try {
+                    $product = $productRepository->get($sku);
+                } catch (\Exception $e) {
+                    continue;
+                }
+                if (!$product || !$product->getId()) continue;
 
-        <div class="loader" style="display:none; text-align:center; margin-top:20px;">
-            Loading products...
+                $postParams = $listBlock->getAddToCartPostParams($product);
+                $imageUrl = $mediaUrl . 'catalog/product' . $product->getImage();
+                ?>
+                <div class="col-lg-4 col-md-6 p-2">
+                    <div class="product-card">
+                        <div class="product-image">
+                            <a href="<?= $product->getProductUrl() ?>">
+                                <img class="product-img" src="<?= $imageUrl ?>" alt="<?= $product->getName() ?>">
+                            </a>
+                            <span class="discount-badge">New</span>
+                            <div class="product-actions">
+
+                                <!-- Quick View -->
+                                <a href="<?= $product->getProductUrl() ?>" class="action-btn" title="Quick View">
+                                    <img src="<?= $eyeIcon ?>" alt="Quick View">
+                                </a>
+
+                                <!-- Wishlist -->
+                                <a href="#" class="action-btn towishlist" title="Add to Wishlist"
+                                   data-post='<?= json_encode(['action' => $wishlistUrl, 'data' => ['product' => $product->getId()]]) ?>'>
+                                    <img src="<?= $heartIcon ?>" alt="Add to Wishlist">
+                                </a>
+
+                                <!-- Compare -->
+                                <a href="#" class="action-btn tocompare" title="Compare"
+                                   data-post='<?= json_encode(['action' => $compareUrl, 'data' => ['product' => $product->getId()]]) ?>'>
+                                    <img src="<?= $shuffleIcon ?>" alt="Compare">
+                                </a>
+
+                                <!-- Add to Cart -->
+                                <form data-role="tocart-form" action="<?= $postParams['action'] ?>" method="post" style="display:inline-block;">
+                                    <input type="hidden" name="product" value="<?= $postParams['data']['product'] ?>">
+                                    <input type="hidden" name="<?= \Magento\Framework\App\Action\Action::PARAM_NAME_URL_ENCODED ?>" value="<?= $postParams['data'][\Magento\Framework\App\Action\Action::PARAM_NAME_URL_ENCODED] ?>">
+                                    <input type="hidden" name="form_key" value="<?= $formKey ?>">
+                                    <button type="submit" class="action-btn" title="Add to Cart">
+                                        <img src="<?= $cartIcon ?>" alt="Add to Cart">
+                                    </button>
+                                </form>
+
+                            </div>
+                        </div>
+
+                        <div class="product-info">
+                            <div class="product-rating">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <p class="star-qty">(3)</p>
+                                </div>
+                            </div>
+                            <h5 class="product-title"><?= $product->getName() ?></h5>
+                            <div class="product-price">
+                                <span class="current-price">₹<?= number_format($product->getPrice(), 2, '.', '') ?></span>
+                                <?php if ($product->getPrice() < $product->getFinalPrice()): ?>
+                                    <span class="original-price">₹<?= number_format($product->getFinalPrice(), 2, '.', ''); ?></span>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <?php endforeach; ?>
         </div>
     </section>
 
     <script>
-    require(['jquery', 'mage/url', 'require','Magento_Ui/js/model/messageList'], function($, urlBuilder) {
-        $(document).ready(function () {
-            var eyeIcon    = require.toUrl('Vendor_GauravPageBuilderWidget/images/eye.png');
-            var heartIcon  = require.toUrl('Vendor_GauravPageBuilderWidget/images/heart.png');
-            var shuffleIcon= require.toUrl('Vendor_GauravPageBuilderWidget/images/shuffle.png');
-            var cartIcon   = require.toUrl('Vendor_GauravPageBuilderWidget/images/cart.png');
+    require([
+        'jquery', 
+        'Magento_Customer/js/customer-data', 
+        'Magento_Catalog/js/catalog-add-to-compare'
+    ], function($, customerData){
+        $(document).ready(function(){
 
-            var productSkus = <?= json_encode($productArray) ?>;
-            var $container = $('.trending_product .row');
-            var $loader = $('.trending_product .loader');
-
-            $loader.show();
-            $container.find('.product-card').remove();
-            var completed = 0;
-
-            productSkus.forEach(function(sku) {
-                sku = sku.trim();
-                if (!sku) return;
-
-                $.ajax({
-                    url: '/customgoomento/ajax/getproducts',
-                    type: 'GET',
-                    dataType: 'json',
-                    data: { sku: sku },
-                    success: function(response) {
-                        completed++;
-
-                        if (response.success) {
-                            var p = response.product;
-
-                            // ✅ Build URLs for actions
-                            var viewUrl = p.url; // should come from backend (product page URL)
-                            var wishlistUrl = urlBuilder.build('wishlist/index/add?product=' + p.id);
-                            var compareUrl = urlBuilder.build('catalog/product_compare/add?product=' + p.id);
-                            var addToCartUrl = urlBuilder.build('checkout/cart/add?product=' + p.id + '&qty=1');
-
-                            var html = `
-                            <div class="col-lg-4 col-md-6">
-                                <div class="product-card">
-                                    <div class="product-image">
-                                        <a href="${viewUrl}">
-                                            <img class="product-img" src="${p.image}" alt="${p.name}">
-                                        </a>
-                                        <span class="discount-badge">New</span>
-                                        <div class="product-actions">
-                                            <a class="action-btn" href="${viewUrl}" title="View Product"><img src="${eyeIcon}" alt=""></a>
-                                            <a class="action-btn" href="${wishlistUrl}" title="Add to Wishlist"><img src="${heartIcon}" alt=""></a>
-                                            <a class="action-btn" href="${compareUrl}" title="Compare"><img src="${shuffleIcon}" alt=""></a>
-                                            <a class="action-btn add-to-cart" href="${addToCartUrl}" title="Add to Cart"><img src="${cartIcon}" alt=""></a>
-                                        </div>
-                                    </div>
-                                    <div class="product-info">
-                                        <div class="product-rating">
-                                            <div class="stars">
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="far fa-star"></i>
-                                                <p class="star-qty">(3)</p>
-                                            </div>
-                                        </div>
-                                        <h5 class="product-title"><a href="${viewUrl}">${p.name}</a></h5>
-                                        <div class="product-price">
-                                            <span class="current-price">₹${p.price}</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            `;
-
-                            $container.append(html);
-                        } else {
-                            console.warn('Product not found:', sku);
-                        }
-
-                        if (completed === productSkus.length) {
-                            $loader.hide();
-                        }
-                    },
-                    error: function(xhr) {
-                        console.error('AJAX error for SKU ' + sku + ':', xhr.responseText);
-                        completed++;
-                        if (completed === productSkus.length) {
-                            $loader.hide();
-                        }
-                    }
-                });
+            // Initialize Add to Cart forms
+            $('[data-role="tocart-form"]').each(function(){
+                if(typeof $(this).catalogAddToCart === 'function'){
+                    $(this).catalogAddToCart();
+                }
             });
 
-            // Optional: handle add-to-cart with AJAX (prevent full page reload)
-            $(document).on('click', '.add-to-cart', function(e) {
-                e.preventDefault();
-                var url = $(this).attr('href');
-                $.ajax({
-                    url: url,
-                    type: 'POST',
-                    success: function() {
-                        messageList.addSuccessMessage({
-                                            message: $.mage.__('Product added to cart!')
-                                        });    
-                    },
-                    error: function() {
-                        messageList.addErrorMessage({
-                            message: $.mage.__('Failed to add to cart.')
-                        });
-                    }
-                });
-            });
+            // Initialize Compare buttons
+            $('.tocompare').catalogAddToCompare();
+
         });
     });
     </script>
     <?php
     return ob_get_clean();
 }
+
+
+
+
 
 
 }
