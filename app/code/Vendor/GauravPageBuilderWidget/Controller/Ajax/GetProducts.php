@@ -46,21 +46,7 @@ class GetProducts extends Action
             $block = $this->layout->createBlock(AbstractProduct::class);
             $addToCartPost = $block->getAddToCartPostParams($product);
 
-           return $resultJson->setData([
-                'success' => true,
-                'product' => [
-                    'id' => $product->getId(),
-                    'sku' => $product->getSku(),
-                    'name' => $product->getName(),
-                    // Regular price (original) formatted to 2 decimals
-                    'regular_price' => number_format($product->getPrice(), 2, '.', ''),
-                    // Final price (selling price) formatted to 2 decimals
-                    'final_price' => number_format($product->getFinalPrice(), 2, '.', ''),
-                    'url' => $product->getProductUrl(),
-                    'image' => $product->getMediaGalleryImages()->getFirstItem()->getUrl() ?? '',
-                    'add_to_cart_post' => $addToCartPost
-                ]
-            ]);
+           return $product;
 
         } catch (NoSuchEntityException $e) {
             return $resultJson->setData([

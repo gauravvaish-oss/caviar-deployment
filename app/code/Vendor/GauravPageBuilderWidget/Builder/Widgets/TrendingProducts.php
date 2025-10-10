@@ -261,7 +261,7 @@ protected function render(): string
     </div>
 
     <script>
-    require(['jquery', 'swiper', 'require'], function($, Swiper) {
+    require(['jquery', 'swiper', 'mage/dataPost', 'require'], function($, Swiper) {
         $(document).ready(function () {
             var categories = "<?= implode(',',$categoryArray) ?>";
             var categoryArray = categories ? categories.split(",") : [];
@@ -341,10 +341,19 @@ protected function render(): string
                                     <img class="product-img" src="${product.image}" alt="${product.name}">
                                     <span class="discount-badge">New</span>
                                     <div class="product-actions">
-                                        <button class="action-btn" title="Quick View"><img src="${eyeIcon}" alt=""></button>
-                                        <button class="action-btn" title="Add to Wishlist"><img src="${heartIcon}" alt=""></button>
-                                        <button class="action-btn" title="Compare"><img src="${shuffleIcon}" alt=""></button>
-                                        <button class="action-btn" title="Add to Cart"><img src="${cartIcon}" alt=""></button>
+                                         <a href="${product.url}" class="action-btn" title="Quick View"><img src="${eyeIcon}"></a>
+                                                <a href="#" class="action-btn towishlist" title="Add to Wishlist" data-post='${JSON.stringify({action:"/wishlist/index/add",data:{product:product.id}})}'><img src="${heartIcon}"></a>
+                                                <a href="#" class="action-btn tocompare" title="Compare" data-post='${JSON.stringify({action:"/catalog/product_compare/add",data:{product:product.id}})}'><img src="${shuffleIcon}"></a>
+
+<button class="action-btn tocart"
+        title="Add to Cart"
+        type="button"
+        data-post='${JSON.stringify({
+            action: "/checkout/cart/add",
+            data: { product: product.id, form_key: window.FORM_KEY }
+        })}'>
+    <img src="${cartIcon}" alt="">
+</button>   
                                     </div>
                                 </div>
                                 <div class="product-info">
@@ -366,10 +375,19 @@ protected function render(): string
                                     <img class="product-img" src="${product.image}" alt="${product.name}">
                                     <span class="discount-badge">New</span>
                                     <div class="product-actions">
-                                        <button class="action-btn" title="Quick View"><img src="${eyeIcon}" alt=""></button>
-                                        <button class="action-btn" title="Add to Wishlist"><img src="${heartIcon}" alt=""></button>
-                                        <button class="action-btn" title="Compare"><img src="${shuffleIcon}" alt=""></button>
-                                        <button class="action-btn" title="Add to Cart"><img src="${cartIcon}" alt=""></button></div>
+                                        <a href="${product.url}" class="action-btn" title="Quick View"><img src="${eyeIcon}"></a>
+                                                <a href="#" class="action-btn towishlist" title="Add to Wishlist" data-post='${JSON.stringify({action:"/wishlist/index/add",data:{product:product.id}})}'><img src="${heartIcon}"></a>
+                                                <a href="#" class="action-btn tocompare" title="Compare" data-post='${JSON.stringify({action:"/catalog/product_compare/add",data:{product:product.id}})}'><img src="${shuffleIcon}"></a>
+
+<button class="action-btn tocart"
+        title="Add to Cart"
+        type="button"
+        data-post='${JSON.stringify({
+            action: "/checkout/cart/add",
+            data: { product: product.id, form_key: window.FORM_KEY }
+        })}'>
+    <img src="${cartIcon}" alt="">
+</button>   
                                 </div>
                                 <div class="product-info">
                                     <h5 class="product-title">${product.name}</h5>
@@ -382,6 +400,7 @@ protected function render(): string
                         </div>`;
                     $mobileWrapper.append(mobileHtml);
                 });
+            $('#product-category-swiper').find('.tocart').mage('dataPost');
 
                 // Initialize or update Swiper
                 if(swiperInstance) {

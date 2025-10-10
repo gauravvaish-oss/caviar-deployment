@@ -1,0 +1,32 @@
+<?php
+    $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+    $assetRepo = $objectManager->get(\Magento\Framework\View\Asset\Repository::class);
+
+ $eyeIcon     = $assetRepo->getUrl("Vendor_GauravPageBuilderWidget::images/user.png");
+    $heartIcon   = $assetRepo->getUrl("Vendor_GauravPageBuilderWidget::images/wishlist.png");
+    $shuffleIcon = $assetRepo->getUrl("Vendor_GauravPageBuilderWidget::images/caviar_cart.png");
+
+?>
+<ul class="flex_icon">
+    <li>
+        <a href="<?php echo $block->getUrl('customer/account'); ?>">
+            <img src="<?php echo $eyeIcon; ?>" alt="User">
+        </a>
+    </li>
+    <li>
+        <a href="<?php echo $block->getUrl('wishlist'); ?>">
+            <img src="<?php echo $heartIcon; ?>" alt="Wishlist">
+            <span class="wishlist-count cart_count_badge">
+                <?php echo $block->getWishlistCount(); ?>
+            </span>
+        </a>
+    </li>
+    <li>
+        <a href="<?php echo $block->getUrl('checkout/cart'); ?>">
+            <img src="<?php echo $shuffleIcon; ?>" alt="Cart">
+            <span class="cart-count cart_count_badge">
+                <?php echo $block->getCartCount(); ?>
+            </span>
+        </a>
+    </li>
+</ul>

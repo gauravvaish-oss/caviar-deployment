@@ -200,7 +200,7 @@ class TopSellingCategory extends AbstractWidget
                         success: function(response) {
                             if (response.success) {
                                 var html = `
-                                    <div class="col-md-4">
+                                    <div class="col-md-4 p-2">
                                         <div class="top_product_section_bg">
                                             <img src="${response.category_image}" alt="${response.category_name}" class="img-fluid">
                                             <h5>${response.category_name}</h5>
