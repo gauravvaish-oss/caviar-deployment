@@ -93,7 +93,7 @@ class LogoSlider extends AbstractWidget
                     observer: true,
                 observeParents: true,
                     breakpoints: {
-                        0: {           // 📱 mobile
+                        575: {           // 📱 mobile
                         slidesPerView: 4,
                         spaceBetween: 10
                     },
