@@ -5,4 +5,11 @@
                         "formId": "footer-newsletter-form"
                     }
                 }
-            }</script></div></div></div>
+            }</script><script>
+jQuery(document).ready(function($) {
+    
+    $(document).on('click', '.gmt-element-21935ea .gmt-icon i.fas.fa-bars', function() {
+        $('nav[data-action="navigation"]').slideToggle(400); 
+        $(this).toggleClass('active'); 
+    });
+});</script></div></div></div>

@@ -1,0 +1,100 @@
+a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1760104570;s:6:"expire";i:1760104870;s:4:"tags";s:42:"841_GOOMENTO_PAGEBUILDER_FRONTEND,841_MAGE";}
+        <div class="gmt-widget-container">
+                <div class="gmt-widget-navigation-horizontal">
+                <nav class="" data-action="navigation">
+            <ul class="__list gmt-menu-horizontal"
+                data-mage-init='&#x7B;&quot;menu&quot;&#x3A;&#x7B;&quot;responsive&quot;&#x3A;true,&quot;expanded&quot;&#x3A;true,&quot;mediaBreakpoint&quot;&#x3A;&quot;&#x28;max-width&#x3A;&#x20;1024px&#x29;&quot;,&quot;position&quot;&#x3A;&#x7B;&quot;my&quot;&#x3A;&quot;left&#x2B;10&#x20;top-2&quot;,&quot;at&quot;&#x3A;&quot;left&#x20;bottom&quot;&#x7D;&#x7D;&#x7D;'>
+                                                        <li class="__item  level-top">
+                        
+<a
+    href="https://vixo.nians.in/home"
+    class="__link"
+     data-menu="menu-1">
+    Home</a>
+                                            </li>
+                                                        <li class="__item  level-top">
+                        
+<a
+    href="#"
+    class="__link"
+     data-menu="menu-2">
+    Shop</a>
+
+                                            </li>
+                                                        <li class="__item  level-top">
+                        
+<a
+    href="#"
+    class="__link"
+     data-menu="menu-3">
+    Products</a>
+
+                                            </li>
+                                                        <li class="__item &#x20;__item--parent level-top">
+                        
+<a
+    href="https://vixo.nians.in/about-us"
+    class="__link"
+     data-menu="menu-5">
+    About Us</a>
+                                <ul  class="__inner-list __inner-list--level1" data-menu="menu-5">
+                    
+            <li  class="__inner-item __inner-item--all __inner-item--level1">
+                
+<a
+    href="https://vixo.nians.in/about-us"
+    class="__inner-link"
+    >
+    View All</a>
+            </li>
+        
+                    
+            <li  class="__inner-item __inner-item--level1">
+                
+<a
+    href="https://vixo.nians.in/privacy-policy-cookie-restriction-mode"
+    class="__inner-link"
+     data-menu="menu-6">
+    Privacy Policy</a>
+                            </li>
+                    
+            <li  class="__inner-item __inner-item--level1">
+                
+<a
+    href="https://vixo.nians.in/customer-service"
+    class="__inner-link"
+     data-menu="menu-7">
+    Customer Service</a>
+                            </li>
+            </ul>
+                    </li>
+                                                        <li class="__item  level-top">
+                            <a
+        href="offers"
+        data-menu="menu-8" class="__link"    >
+        Offers    </a>
+
+                                            </li>
+                                                        <li class="__item  level-top">
+                            <a
+        href="brand"
+        data-menu="menu-9" class="__link"    >
+        Brands    </a>
+
+                                            </li>
+                                                        <li class="__item  level-top">
+                        
+<a
+    href="https://vixo.nians.in/collections.html"
+    class="__link"
+     data-menu="menu-10">
+    Features</a>
+
+                                            </li>
+                            </ul>
+            <div class="__mobile-bg"></div>
+            <i style="display: none" class="fas fa-angle-down"></i>
+        </nav>
+    </div>
+        </div>
+        

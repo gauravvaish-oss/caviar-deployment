@@ -137,7 +137,7 @@ class Validator
         }
         $realPath = $this->fileDriver->getRealPath($path);
         foreach ($directories as $directory) {
-            if ($directory !== null && 0 === strpos($path, $directory)) {
+            if ($directory !== null && 0 === strpos($realPath, $directory)) {
                 return true;
             }
         }

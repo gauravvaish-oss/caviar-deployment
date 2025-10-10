@@ -1,0 +1,27 @@
+a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1760104570;s:6:"expire";i:1760104870;s:4:"tags";s:42:"841_GOOMENTO_PAGEBUILDER_FRONTEND,841_MAGE";}
+        <div class="gmt-widget-container">
+            <div class="gmt-block">
+    <ul class="flex_icon">
+    <li>
+        <a href="https://vixo.nians.in/customer/account/">
+            <img src="https://vixo.nians.in/static/version1760104520/frontend/Caviar/customtheme/en_US/Vendor_GauravPageBuilderWidget/images/user.png" alt="User">
+        </a>
+    </li>
+    <li>
+        <a href="https://vixo.nians.in/wishlist/">
+            <img src="https://vixo.nians.in/static/version1760104520/frontend/Caviar/customtheme/en_US/Vendor_GauravPageBuilderWidget/images/wishlist.png" alt="Wishlist">
+            <span class="wishlist-count cart_count_badge">
+                0            </span>
+        </a>
+    </li>
+    <li>
+        <a href="https://vixo.nians.in/checkout/cart/">
+            <img src="https://vixo.nians.in/static/version1760104520/frontend/Caviar/customtheme/en_US/Vendor_GauravPageBuilderWidget/images/caviar_cart.png" alt="Cart">
+            <span class="cart-count cart_count_badge">
+                0            </span>
+        </a>
+    </li>
+</ul>
+</div>
+        </div>
+        

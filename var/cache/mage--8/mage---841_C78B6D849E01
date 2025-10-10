@@ -1,0 +1,25 @@
+a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1760104574;s:6:"expire";i:1760104874;s:4:"tags";s:42:"841_GOOMENTO_PAGEBUILDER_FRONTEND,841_MAGE";}
+        <div class="gmt-widget-container">
+            <div class="col">
+    <h4>Store Information</h4>
+    <ul>
+        <li>
+            <img src="{{view url='images/location.png'}}" alt="Store Location" class="img-fluid">
+            Demo Store <br>United States
+        </li>
+        <li>
+            <img src="{{view url='images/call.png'}}" alt="Phone" class="img-fluid">
+            <a href="tel:(555) 888 8888">(555) 888 8888</a>
+        </li>
+        <li>
+            <img src="{{view url='images/mail.png'}}" alt="Email" class="img-fluid">
+            <a href="mailto:demo@demo.com">demo@demo.com</a>
+        </li>
+        <li>
+            <img src="{{view url='images/printer.png'}}" alt="Fax" class="img-fluid">
+            (012) 800 456 789
+        </li>
+    </ul>
+</div>
+        </div>
+        

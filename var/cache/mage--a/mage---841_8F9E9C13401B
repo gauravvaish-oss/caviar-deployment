@@ -1,0 +1,10 @@
+a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1760104574;s:6:"expire";i:1760104874;s:4:"tags";s:42:"841_GOOMENTO_PAGEBUILDER_FRONTEND,841_MAGE";}
+        <div class="gmt-widget-container" data-mage-init="&#x7B;&quot;goomento-widget-image-carousel&quot;&#x3A;&#x7B;&quot;slides_to_show&quot;&#x3A;&quot;7&quot;,&quot;navigation&quot;&#x3A;&quot;dots&quot;,&quot;pause_on_hover&quot;&#x3A;&quot;yes&quot;,&quot;autoplay&quot;&#x3A;&quot;yes&quot;,&quot;autoplay_speed&quot;&#x3A;5000,&quot;infinite&quot;&#x3A;&quot;yes&quot;,&quot;speed&quot;&#x3A;500,&quot;direction&quot;&#x3A;&quot;ltr&quot;&#x7D;&#x7D;">
+                <div class="gmt-image-carousel-wrapper&#x20;swiper-container" dir="ltr">
+        <div class="gmt-image-carousel&#x20;swiper-wrapper">
+            <div class="swiper-slide"><figure class="swiper-slide-inner"><img  class="" src="https://vixo.nians.in/media/.renditions/wysiwyg/samsung_1.png" title="samsung_1.png" alt="samsung_1.png" /></figure></div><div class="swiper-slide"><figure class="swiper-slide-inner"><img  class="" src="https://vixo.nians.in/media/.renditions/wysiwyg/jbl_1.png" title="jbl_1.png" alt="jbl_1.png" /></figure></div><div class="swiper-slide"><figure class="swiper-slide-inner"><img  class="" src="https://vixo.nians.in/media/.renditions/wysiwyg/asus_1.png" title="asus_1.png" alt="asus_1.png" /></figure></div><div class="swiper-slide"><figure class="swiper-slide-inner"><img  class="" src="https://vixo.nians.in/media/.renditions/wysiwyg/apple_1.png" title="apple_1.png" alt="apple_1.png" /></figure></div><div class="swiper-slide"><figure class="swiper-slide-inner"><img  class="" src="https://vixo.nians.in/media/.renditions/wysiwyg/dell_1.png" title="dell_1.png" alt="dell_1.png" /></figure></div><div class="swiper-slide"><figure class="swiper-slide-inner"><img  class="" src="https://vixo.nians.in/media/.renditions/wysiwyg/LG_1.png" title="LG_1.png" alt="LG_1.png" /></figure></div>        </div>
+                                    <div class="swiper-pagination"></div>
+            
+                        </div>
+            </div>
+        
