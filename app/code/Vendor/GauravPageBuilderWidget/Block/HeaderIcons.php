@@ -26,9 +26,16 @@ class HeaderIcons extends Template
     }
 
     public function getCartCount()
-    {
-        return $this->cart->getQuote()->getItemsQty() ?? 0;
+{
+    $quote = $this->cart->getQuote();
+
+    // Ensure quote is loaded for logged-in customer
+    if ($this->customerSession->isLoggedIn()) {
+        $quote->loadByCustomer($this->customerSession->getCustomerId());
     }
+
+    return (int) $quote->getItemsQty();
+}
 
     public function getWishlistCount()
     {

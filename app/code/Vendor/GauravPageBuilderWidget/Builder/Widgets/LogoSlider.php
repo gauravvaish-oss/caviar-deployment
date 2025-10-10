@@ -52,37 +52,7 @@ class LogoSlider extends AbstractWidget
         $this->endControlsSection();
     }
 
-    protected function contentTemplate()
-    {
-        ?>
-        <section class="my-0 pt-0">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="swiper logo_slider">
-                        <div class="swiper-wrapper">
-                            <div class="swiper-slide">
-                                <div class="slider_bg">
-                                    <img src="{{ settings['logo_image_' + i].url }}" alt="logo" class="img-fluid">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-         <script>
-            require(['jquery', 'swiper'], function($, Swiper) {
-                new Swiper('.logo_slider', {
-                    slidesPerView: 6,
-                    spaceBetween: 10,
-                    freeMode: true,
-                    loop: true,
-                    speed: <?= intval($slideSpeed); ?>,
-                });
-            });
-        </script>
-        <?php
-    }
+   
 
     protected function render(): string
     {
