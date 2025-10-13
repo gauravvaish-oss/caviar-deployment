@@ -242,7 +242,7 @@ protected function render(): string
             <h2 class="section-title"><?= $title; ?></h2>
 
             <!-- Tab Buttons (dynamic) -->
-            <div class="tab-buttons" id="category-tabs">
+            <div class="tab-buttons mobile-category-tabs" id="category-tabs">
                 <!-- Tabs will be injected here -->
             </div>
         </div>
@@ -266,18 +266,19 @@ protected function render(): string
             var categories = "<?= implode(',',$categoryArray) ?>";
             var categoryArray = categories ? categories.split(",") : [];
             var formKey = $('input[name="form_key"]').val();
- var eyeIcon    = require.toUrl('Vendor_GauravPageBuilderWidget/images/eye.png');
+            var eyeIcon = require.toUrl('Vendor_GauravPageBuilderWidget/images/eye.png');
             var heartIcon  = require.toUrl('Vendor_GauravPageBuilderWidget/images/heart.png');
             var shuffleIcon= require.toUrl('Vendor_GauravPageBuilderWidget/images/shuffle.png');
             var cartIcon   = require.toUrl('Vendor_GauravPageBuilderWidget/images/cart.png');
             var $tabsWrapper    = $("#category-tabs");
+            var $mobileTabsWrapper = $(".mobile-category-tabs");
             var $desktopWrapper = $("#desktop-products");
             var $mobileWrapper  = $("#mobile-products");
 
             $tabsWrapper.html("");
             $desktopWrapper.html("");
             $mobileWrapper.html("");
-
+            $mobileTabsWrapper.html("");
             var swiperInstance;
 
             // 1️⃣ Create dynamic tabs
@@ -285,6 +286,7 @@ protected function render(): string
                 categoryId = categoryId.trim();
                 var tabHtml = `<button class="tab-btn ${index === 0 ? 'active' : ''}" data-category="${categoryId}">Loading...</button>`;
                 $tabsWrapper.append(tabHtml);
+                $mobileTabsWrapper.append(tabHtml);
 
                 // Fetch category name for the tab
                 $.ajax({
@@ -295,6 +297,7 @@ protected function render(): string
                     success: function(response) {
                         if (response.success) {
                             $tabsWrapper.find(`button[data-category='${categoryId}']`).text(response.category_name);
+                            $mobileTabsWrapper.find(`button[data-category='${categoryId}']`).text(response.category_name);
 
                             // Auto-load first category
                             if(index === 0){
@@ -325,14 +328,35 @@ protected function render(): string
                     }
                 });
             });
+             $mobileTabsWrapper.on('click', '.tab-btn', function() {
+                var categoryId = $(this).data('category');
+
+                $mobileTabsWrapper.find('.tab-btn').removeClass('active');
+                $(this).addClass('active');
+
+                // Fetch products for clicked category
+                $.ajax({
+                    url: '/customgoomento/category/getproducts',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: { category_id: categoryId, form_key: formKey },
+                    success: function(response) {
+                        if(response.success){
+                            renderCategory(response);
+                        }
+                    }
+                });
+            });
 
             // 3️⃣ Function to render desktop & mobile products
             function renderCategory(response){
+                console.log("response", response);
                 var products = response.products;
                 $desktopWrapper.html("");
                 $mobileWrapper.html("");
 
                 products.forEach(function(product){
+                    
                     // Desktop card
                     var desktopHtml = `
                         <div class="col-lg-4 col-md-6">
@@ -341,19 +365,18 @@ protected function render(): string
                                     <img class="product-img" src="${product.image}" alt="${product.name}">
                                     <span class="discount-badge">New</span>
                                     <div class="product-actions">
-                                         <a href="${product.url}" class="action-btn" title="Quick View"><img src="${eyeIcon}"></a>
-                                                <a href="#" class="action-btn towishlist" title="Add to Wishlist" data-post='${JSON.stringify({action:"/wishlist/index/add",data:{product:product.id}})}'><img src="${heartIcon}"></a>
-                                                <a href="#" class="action-btn tocompare" title="Compare" data-post='${JSON.stringify({action:"/catalog/product_compare/add",data:{product:product.id}})}'><img src="${shuffleIcon}"></a>
-
-<button class="action-btn tocart"
-        title="Add to Cart"
-        type="button"
-        data-post='${JSON.stringify({
-            action: "/checkout/cart/add",
-            data: { product: product.id, form_key: window.FORM_KEY }
-        })}'>
-    <img src="${cartIcon}" alt="">
-</button>   
+                                        <a href="${product.url}" class="action-btn" title="Quick View"><img src="${eyeIcon}"></a>
+                                        <a href="#" class="action-btn towishlist" title="Add to Wishlist" data-post='${JSON.stringify({action:"/wishlist/index/add",data:{product:product.id}})}'><img src="${heartIcon}"></a>
+                                        <a href="#" class="action-btn tocompare" title="Compare" data-post='${JSON.stringify({action:"/catalog/product_compare/add",data:{product:product.id}})}'><img src="${shuffleIcon}"></a>
+                                        <button class="action-btn tocart"
+                                                title="Add to Cart"
+                                                type="button"
+                                                data-post='${JSON.stringify({
+                                                    action: "/checkout/cart/add",
+                                                    data: { product: product.id, form_key: window.FORM_KEY }
+                                                })}'>
+                                            <img src="${cartIcon}" alt="">
+                                        </button>   
                                     </div>
                                 </div>
                                 <div class="product-info">
@@ -378,16 +401,15 @@ protected function render(): string
                                         <a href="${product.url}" class="action-btn" title="Quick View"><img src="${eyeIcon}"></a>
                                                 <a href="#" class="action-btn towishlist" title="Add to Wishlist" data-post='${JSON.stringify({action:"/wishlist/index/add",data:{product:product.id}})}'><img src="${heartIcon}"></a>
                                                 <a href="#" class="action-btn tocompare" title="Compare" data-post='${JSON.stringify({action:"/catalog/product_compare/add",data:{product:product.id}})}'><img src="${shuffleIcon}"></a>
-
-<button class="action-btn tocart"
-        title="Add to Cart"
-        type="button"
-        data-post='${JSON.stringify({
-            action: "/checkout/cart/add",
-            data: { product: product.id, form_key: window.FORM_KEY }
-        })}'>
-    <img src="${cartIcon}" alt="">
-</button>   
+                                    <button class="action-btn tocart"
+                                            title="Add to Cart"
+                                            type="button"
+                                            data-post='${JSON.stringify({
+                                                action: "/checkout/cart/add",
+                                                data: { product: product.id, form_key: window.FORM_KEY }
+                                            })}'>
+                                        <img src="${cartIcon}" alt="">
+                                    </button>   
                                 </div>
                                 <div class="product-info">
                                     <h5 class="product-title">${product.name}</h5>
@@ -400,22 +422,23 @@ protected function render(): string
                         </div>`;
                     $mobileWrapper.append(mobileHtml);
                 });
-            $('#product-category-swiper').find('.tocart').mage('dataPost');
-
+            
                 // Initialize or update Swiper
-                if(swiperInstance) {
-                    swiperInstance.update();
-                } else {
-                    swiperInstance = new Swiper('.product-swiper', {
-                        slidesPerView: 1,
-                        spaceBetween: 10,
-                        pagination: { el: '.swiper-pagination', clickable: true },
-                        breakpoints: {
-                            768: { slidesPerView: 1, spaceBetween: 15 },
-                            992: { slidesPerView: 1, spaceBetween: 20 }
-                        }
-                    });
+               if (swiperInstance) {
+                    swiperInstance.destroy(true, true);
                 }
+
+                swiperInstance = new Swiper('.product-swiper', {
+                    slidesPerView: 1,
+                    spaceBetween: 10,
+                    pagination: { el: '.swiper-pagination', clickable: true },
+                    breakpoints: {
+                        768: { slidesPerView: 1, spaceBetween: 15 },
+                        992: { slidesPerView: 1, spaceBetween: 20 }
+                    }
+                });
+                $('.product-swiper').find('.tocart').mage('dataPost');
+
             }
         });
     });

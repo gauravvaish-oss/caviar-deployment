@@ -19,7 +19,7 @@ class TopCategoryBar extends AbstractWidget
     public function getCategories() { return ['general']; }
 
     /**
-     * Register a single parent menu item
+     * Register a single menu item
      */
     public static function registerMenuItemInterface(ControlsStack $widget)
     {
@@ -31,12 +31,7 @@ class TopCategoryBar extends AbstractWidget
 
         $widget->addControl('icon', [
             'label' => __('Icon'),
-            'type' => Controls::ICONS,
-            'label_block' => true,
-            'default' => [
-                'value' => 'fab fa-wordpress',
-                'library' => 'fa-brands',
-            ],
+            'type' => Controls::MEDIA,
         ]);
 
         $widget->addControl('link', [
@@ -52,82 +47,22 @@ class TopCategoryBar extends AbstractWidget
     }
 
     /**
-     * Register a single submenu item
+     * Register full parent menu (no submenus)
      */
-    public static function registerSubMenuItemInterface(ControlsStack $widget)
+    public static function registerMenuInterface(ControlsStack $widget)
     {
-        $widget->addControl('title', [
-            'label' => __('Sub Menu Title'),
-            'type'  => Controls::TEXT,
-            'default' => __('Sub Menu Item'),
-        ]);
+        $parentRepeater = new Repeater();
 
-        $widget->addControl('icon', [
-            'label' => __('Icon'),
-            'type' => Controls::ICONS,
-            'label_block' => true,
-            'default' => [
-                'value' => 'fab fa-wordpress',
-                'library' => 'fa-brands',
-            ],
-        ]);
+        // Add parent menu fields
+        self::registerMenuItemInterface($parentRepeater);
 
-        $widget->addControl('link', [
-            'label' => __('Link'),
-            'type' => Controls::URL,
-            'label_block' => true,
-            'default' => [
-                'url' => '#',
-                'is_external' => true,
-            ],
-            'placeholder' => __('https://your-link.com'),
-        ]);
-    }
-
-    /**
-     * Register repeater for submenu items
-     */
-    public static function registerSubMenuInterface(ControlsStack $widget)
-    {
-        $subRepeater = new Repeater();
-        self::registerSubMenuItemInterface($subRepeater);
-
-        $widget->addControl('sub_menu_items', [
-            'label' => __('Sub Menu Items'),
+        $widget->addControl('menu_items', [
+            'label' => __('Menu Items'),
             'type' => Controls::REPEATER,
-            'fields' => $subRepeater->getControls(),
+            'fields' => $parentRepeater->getControls(),
             'title_field' => '{{{ title }}}',
         ]);
     }
-
-    /**
-     * Register full parent menu with submenus
-     */
-    public static function registerMenuInterface(ControlsStack $widget)
-{
-    $parentRepeater = new Repeater();
-
-    // Add parent menu fields
-    self::registerMenuItemInterface($parentRepeater);
-
-    // Add submenus nested inside the parent
-    $subRepeater = new Repeater();
-    self::registerSubMenuItemInterface($subRepeater);
-
-    $parentRepeater->addControl('sub_menu_items', [
-        'label' => __('Sub Menu Items'),
-        'type' => Controls::REPEATER,
-        'fields' => $subRepeater->getControls(),
-        'title_field' => '{{{ title }}}',
-    ]);
-
-    $widget->addControl('menu_items', [
-        'label' => __('Menu Items'),
-        'type' => Controls::REPEATER,
-        'fields' => $parentRepeater->getControls(),
-        'title_field' => '{{{ title }}}',
-    ]);
-}
 
     protected function registerControls()
     {
@@ -144,6 +79,7 @@ class TopCategoryBar extends AbstractWidget
             'label' => __('Top Categories Menu Section'),
             'tab'   => Controls::TAB_CONTENT,
         ]);
+
         $this->addControl('title_category', [
             'label' => __('Title Category'),
             'type'  => Controls::TEXT,
@@ -151,6 +87,7 @@ class TopCategoryBar extends AbstractWidget
         ]);
 
         self::registerMenuInterface($this);
+
         $this->endControlsSection();
 
         // Dropdown Category Selection
@@ -158,12 +95,14 @@ class TopCategoryBar extends AbstractWidget
             'label' => __('Dropdown Options'),
             'tab'   => Controls::TAB_CONTENT,
         ]);
-        $this->addControl("category", [
+
+        $this->addControl("category_top_bar", [
             'label' => __("Select Category"),
             'type' => Controls::SELECT2,
             'multiple' => true,
             'options' => $options,
         ]);
+
         $this->endControlsSection();
     }
 
@@ -214,9 +153,13 @@ class TopCategoryBar extends AbstractWidget
 
     protected function render(): string
     {
-         $settings = $this->getSettings();
-         $categorySource = ObjectManagerHelper::get(\Goomento\PageBuilder\Model\Config\Source\CatalogCategory::class);
+        $settings = $this->getSettings();
+        $categorySource = ObjectManagerHelper::get(\Goomento\PageBuilder\Model\Config\Source\CatalogCategory::class);
         $categories = $categorySource->toOptionArray();
+        $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+        $assetRepo = $objectManager->get(\Magento\Framework\View\Asset\Repository::class);
+        $toggleIcon = $assetRepo->getUrl("Vendor_GauravPageBuilderWidget::images/toggle.png");
+
         // dd($categories);die;
 
         $options = [];
@@ -232,33 +175,34 @@ class TopCategoryBar extends AbstractWidget
          $menu_items = $settings['menu_items'];
          ob_start();
          ?>
-        <div class="">
-        <div class="">
-            <div class="">
-                <div class="">
-                    <div class="">
-                        <button onclick="toggleMyDiv()" class=""><img src="images/toggle.png" alt=""> Top
-                                Category</button>
-                        <div class="">
-                            <div id="" style="display: block;">
+        <div class="top-category-bar">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-3 d-flex align-items-center p-md-0">
+                    <div class="category_menu">
+                        <button onclick="toggleMyDiv()" class="top_category"><img src="<?= $toggleIcon ?>" alt=""> TOP CATEGORY</button>
+                        <div class="nav_below_item nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                            <div id="toggle_section" style="display: block;">
                                 <?php foreach($menu_items as $menu){ ?>
-                                    <button class=""><img src="images/tv_icon.png" alt=""><?php echo $menu['title']; ?></button>
+                                    <button class="nav-link" id="v-pills-new_product-tab" data-bs-toggle="pill" data-bs-target="#v-pills-new_product" type="button" role="tab" aria-controls="v-pills-new_product" aria-selected="true">
+                                    <img src="<?= $menu['icon']['url']; ?>" alt="">
+                                    <?php echo $menu['title']; ?></button>
                                 <?php } ?>  
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="">
-                    <form class="">
-                        <input type="text" class="" placeholder="Search For Products">
-                        <select class="">
+                <div class="col-md-9">
+                    <form class="d-flex search-form">
+                        <input type="text" class="form-control search-input" placeholder="Search For Products">
+                        <select class="form-select category-select">
                             <option value="">All Categories</option>
                            <?php
                                 foreach($options as $key => $value){?>
                                 <option value="<?php echo $key ?>"><?php echo $value ?></option>
                                 <?php } ?>
                         </select>
-                        <button class="" type="submit">
+                        <button class="btn search-btn" type="submit">
                             <i class="bi bi-search"></i>
                         </button>
                     </form>
@@ -267,64 +211,67 @@ class TopCategoryBar extends AbstractWidget
         </div>
     </div>
  <script>
-    require(['jquery', 'require'], function($){
-        $(document).ready(function(){
-            var searchIcon    = require.toUrl('Vendor_GauravPageBuilderWidget/images/search.png');
-            var $input = $('.search-input');
-            var $category = $('.category-select');
-            var $suggestions = $('.search-suggestions');
-            var $toggleSection = $('#toggle_section');
+require(['jquery', 'require'], function($){
+    $(document).ready(function(){
+        var searchTimeout;
+        var currentRequest;
+        var $input = $('.search-input');
+        var $category = $('.category-select');
 
-            $input.on('keyup', function(){
-                var query = $(this).val();
-                var category = $category.val();
+        // Create suggestions list if not already present
+        if (!$('.search-suggestions').length) {
+            $input.after('<ul class="search-suggestions" style="list-style: none;position: absolute;background: rgb(255, 255, 255);width: 668px;z-index: 999;padding: 0px;top: 40px;right: 263px;"></ul>');
+        }
 
-                if(query.length < 3){
-                    $suggestions.hide().empty();
-                    return;
-                }
+        var $suggestions = $('.search-suggestions');
 
-                $.ajax({
-                    url: "/customgoomento/ajax/search",
+        $input.on('keyup', function(){
+            var query = $(this).val().trim();
+            var category = $category.val();
+
+            clearTimeout(searchTimeout);
+            if (currentRequest) currentRequest.abort();
+
+            if (query.length < 2) {
+                $suggestions.hide().empty();
+                return;
+            }
+
+            searchTimeout = setTimeout(function(){
+                currentRequest = $.ajax({
+                    url: '/customgoomento/ajax/search',
                     type: 'GET',
+                    dataType: 'json',
                     data: { q: query, category: category },
                     success: function(data){
                         $suggestions.empty();
-                        if(data.length){
+
+                        if (data.length) {
                             data.forEach(function(product){
-                                $suggestions.append('<li style="padding:5px 10px; cursor:pointer;"><a href="'+product.url+'">'+product.name+'</a></li>');
+                                $suggestions.append(
+                                    '<li style="padding:9px 10px;cursor:pointer;border:1px solid #eee;font-size: 15px;">' +
+                                    '<a href="'+product.url+'" style="text-decoration:none;color:#333;display:block;">' +
+                                    product.name + '</a></li>'
+                                );
                             });
-                            $suggestions.show();
                         } else {
-                            $suggestions.append('<li style="padding:5px 10px;">No products found</li>').show();
+                            $suggestions.append('<li style="padding:9px 10px;">No products found</li>');
                         }
+
+                        $suggestions.show();
                     }
                 });
-            });
+            }, 300); // debounce for smoother typing
+        });
 
-            // Optional: hide suggestions on click outside
-            $(document).on('click', function(e){
-                if(!$(e.target).closest('.search-wrapper').length){
-                    $suggestions.hide();
-                }
-            });
-
-                $('.top_category').hover(
-                    function() {
-                        $toggleSection.stop(true, true).slideDown(200);
-                    },
-                    function() {
-                        $toggleSection.stop(true, true).slideUp(200);
-                    }
-                );
-
-                // Optional: keep toggle visible when hovering over toggle_section itself
-                $toggleSection.hover(
-                    function(){ $(this).stop(true,true).show(); },
-                    function(){ $(this).stop(true,true).slideUp(200); }
-                );
+        // Hide suggestions on outside click
+        $(document).on('click', function(e){
+            if(!$(e.target).closest('.search-input, .search-suggestions').length){
+                $suggestions.hide();
+            }
         });
     });
+});
 </script>
 
 
