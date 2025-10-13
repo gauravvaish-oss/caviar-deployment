@@ -242,7 +242,7 @@ protected function render(): string
             <h2 class="section-title"><?= $title; ?></h2>
 
             <!-- Tab Buttons (dynamic) -->
-            <div class="tab-buttons mobile-category-tabs" id="category-tabs">
+            <div class="tab-buttons category-tabs" id="category-tabs">
                 <!-- Tabs will be injected here -->
             </div>
         </div>
@@ -250,11 +250,11 @@ protected function render(): string
         <!-- Products Content -->
         <div class="tab-content trending-product active">
             <!-- Desktop grid -->
-            <div class="row d-none d-md-flex" id="desktop-products"></div>
+            <div class="row d-none d-md-flex desktop-products" id="desktop-products"></div>
 
             <!-- Mobile Swiper -->
             <div class="swiper product-swiper d-md-none">
-                <div class="swiper-wrapper" id="mobile-products"></div>
+                <div class="swiper-wrapper mobile-products-trending" id="mobile-products"></div>
                 <div class="swiper-pagination"></div>
             </div>
         </div>
@@ -270,15 +270,14 @@ protected function render(): string
             var heartIcon  = require.toUrl('Vendor_GauravPageBuilderWidget/images/heart.png');
             var shuffleIcon= require.toUrl('Vendor_GauravPageBuilderWidget/images/shuffle.png');
             var cartIcon   = require.toUrl('Vendor_GauravPageBuilderWidget/images/cart.png');
-            var $tabsWrapper    = $("#category-tabs");
-            var $mobileTabsWrapper = $(".mobile-category-tabs");
-            var $desktopWrapper = $("#desktop-products");
-            var $mobileWrapper  = $("#mobile-products");
+            var $tabsWrapper    = $(".category-tabs");
+            var $desktopWrapper = $(".desktop-products");
+            var $mobileWrapper  = $(".mobile-products-trending");
 
             $tabsWrapper.html("");
             $desktopWrapper.html("");
             $mobileWrapper.html("");
-            $mobileTabsWrapper.html("");
+
             var swiperInstance;
 
             // 1️⃣ Create dynamic tabs
@@ -286,7 +285,6 @@ protected function render(): string
                 categoryId = categoryId.trim();
                 var tabHtml = `<button class="tab-btn ${index === 0 ? 'active' : ''}" data-category="${categoryId}">Loading...</button>`;
                 $tabsWrapper.append(tabHtml);
-                $mobileTabsWrapper.append(tabHtml);
 
                 // Fetch category name for the tab
                 $.ajax({
@@ -297,7 +295,6 @@ protected function render(): string
                     success: function(response) {
                         if (response.success) {
                             $tabsWrapper.find(`button[data-category='${categoryId}']`).text(response.category_name);
-                            $mobileTabsWrapper.find(`button[data-category='${categoryId}']`).text(response.category_name);
 
                             // Auto-load first category
                             if(index === 0){
@@ -313,25 +310,6 @@ protected function render(): string
                 var categoryId = $(this).data('category');
 
                 $tabsWrapper.find('.tab-btn').removeClass('active');
-                $(this).addClass('active');
-
-                // Fetch products for clicked category
-                $.ajax({
-                    url: '/customgoomento/category/getproducts',
-                    type: 'POST',
-                    dataType: 'json',
-                    data: { category_id: categoryId, form_key: formKey },
-                    success: function(response) {
-                        if(response.success){
-                            renderCategory(response);
-                        }
-                    }
-                });
-            });
-             $mobileTabsWrapper.on('click', '.tab-btn', function() {
-                var categoryId = $(this).data('category');
-
-                $mobileTabsWrapper.find('.tab-btn').removeClass('active');
                 $(this).addClass('active');
 
                 // Fetch products for clicked category
@@ -365,9 +343,9 @@ protected function render(): string
                                     <img class="product-img" src="${product.image}" alt="${product.name}">
                                     <span class="discount-badge">New</span>
                                     <div class="product-actions">
-                                        <a href="${product.url}" class="action-btn" title="Quick View"><img src="${eyeIcon}"></a>
-                                        <a href="#" class="action-btn towishlist" title="Add to Wishlist" data-post='${JSON.stringify({action:"/wishlist/index/add",data:{product:product.id}})}'><img src="${heartIcon}"></a>
-                                        <a href="#" class="action-btn tocompare" title="Compare" data-post='${JSON.stringify({action:"/catalog/product_compare/add",data:{product:product.id}})}'><img src="${shuffleIcon}"></a>
+                                         <a href="${product.url}" class="action-btn" title="Quick View"><img src="${eyeIcon}"></a>
+                                            <a href="#" class="action-btn towishlist" title="Add to Wishlist" data-post='${JSON.stringify({action:"/wishlist/index/add",data:{product:product.id}})}'><img src="${heartIcon}"></a>
+                                            <a href="#" class="action-btn tocompare" title="Compare" data-post='${JSON.stringify({action:"/catalog/product_compare/add",data:{product:product.id}})}'><img src="${shuffleIcon}"></a>
                                         <button class="action-btn tocart"
                                                 title="Add to Cart"
                                                 type="button"
