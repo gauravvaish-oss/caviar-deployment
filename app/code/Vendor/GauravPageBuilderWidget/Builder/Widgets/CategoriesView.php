@@ -227,8 +227,8 @@ require(['jquery', 'swiper'], function($, Swiper) {
                         prevEl: '.top_product-prev',
                     },
                     breakpoints: {
-                        768: { slidesPerView: 1 },
-                        480: { slidesPerView: 1 }
+                        768: { slidesPerView: 2 },
+                        480: { slidesPerView: 2 }
                     }
                 });
             }
