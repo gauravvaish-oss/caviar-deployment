@@ -162,7 +162,7 @@ protected function contentTemplate()
     </div>
 
     <div class="swiper top_product_slider">
-        <div class="swiper-wrapper" id="category-slider-view"></div>
+        <div class="swiper-wrapper category-slider-view-e" id="category-slider-view"></div>
         <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
     </div>
 </div>
