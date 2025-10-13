@@ -71,7 +71,7 @@ protected function contentTemplate()
         </div>
 
         <div class="swiper top_product_slider">
-            <div class="swiper-wrapper" id="category-slider-view"></div>
+            <div class="swiper-wrapper category-slider-view-e" id="category-slider-view"></div>
             <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
         </div>
     </div>
@@ -82,7 +82,7 @@ protected function contentTemplate()
             var categories = "{{{settings.category}}}";
             var categoryArray = categories ? categories.split(",") : [];
             var formKey = $('input[name="form_key"]').val();
-            var $sliderWrapper = $("#category-slider-view");
+            var $sliderWrapper = $(".category-slider-view-e");
             $sliderWrapper.html("");
             var ajaxRequests = [];
             categoryArray.forEach(function(categoryId, index) {
@@ -174,7 +174,7 @@ require(['jquery', 'swiper'], function($, Swiper) {
         if (!categoryArray.length) return;
 
         var formKey = $('input[name="form_key"]').val();
-        var $sliderWrapper = $("#category-slider-view");
+        var $sliderWrapper = $(".category-slider-view-e");
         $sliderWrapper.empty();
 
         var ajaxRequests = categoryArray.map(function(categoryId, index) {
