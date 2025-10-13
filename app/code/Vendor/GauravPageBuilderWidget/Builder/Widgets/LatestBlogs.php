@@ -75,7 +75,7 @@ class LatestBlogs extends AbstractWidget
                 </div>
             </div>
             <div class="swiper blog_slider">
-                <div class="swiper-wrapper" id="blog-slider-view"></div>
+                <div class="swiper-wrapper blog-slider-view-v" id="blog-slider-view"></div>
                 <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
             </div>
         </div>
@@ -87,7 +87,7 @@ class LatestBlogs extends AbstractWidget
             var blogIds = "{{{settings.blogs}}}";
             var blogsArray = blogIds ? blogIds.split(",") : [];
             var formKey = $('input[name="form_key"]').val();
-            var $sliderWrapper = $("#blog-slider-view");
+            var $sliderWrapper = $(".blog-slider-view-v");
 
             $sliderWrapper.html("");
 
@@ -174,7 +174,7 @@ class LatestBlogs extends AbstractWidget
         $(document).ready(function () {
             var blogIds = <?= json_encode($blogsArray); ?>;
             var formKey = $('input[name="form_key"]').val();
-            var $sliderWrapper = $("#blog-slider-view");
+            var $sliderWrapper = $(".blog-slider-view-v");
 
             $sliderWrapper.html("");
 
