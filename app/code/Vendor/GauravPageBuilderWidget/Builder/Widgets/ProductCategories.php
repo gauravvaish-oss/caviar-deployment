@@ -126,10 +126,6 @@ require([
                 observer: true,
                 observeParents: true,
                  breakpoints: {
-                    0: {           // 📱 mobile
-                        slidesPerView: 1,
-                        spaceBetween: 10
-                    },
                     768: {         // 📱 tablet
                         slidesPerView: 2,
                         spaceBetween: 15
@@ -328,12 +324,8 @@ require([
                 observer: true,
                 observeParents: true,
                  breakpoints: {
-                    0: {           // 📱 mobile
-                        slidesPerView: 1,
-                        spaceBetween: 10
-                    },
                     768: {         // 📱 tablet
-                        slidesPerView: 1,
+                        slidesPerView: 2,
                         spaceBetween: 15
                     },
                     1024: {        // 💻 desktop
