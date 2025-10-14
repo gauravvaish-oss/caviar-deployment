@@ -177,7 +177,7 @@ class TopCategoryBar extends AbstractWidget
                     <div class="category_menu">
                         <button onclick="toggleMyDiv()" class="top_category"><img src="<?= $toggleIcon ?>" alt=""> TOP CATEGORY</button>
                         <div class="nav_below_item nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                            <div id="toggle_section" style="display: block;">
+                            <div id="toggle_section" style="display: none;">
                                 <?php foreach($menu_items as $menu){ ?>
                                     <button class="nav-link" id="v-pills-new_product-tab" data-bs-toggle="pill" data-bs-target="#v-pills-new_product" type="button" role="tab" aria-controls="v-pills-new_product" aria-selected="true">
                                     <img src="<?= $menu['icon']['url']; ?>" alt="">
@@ -265,6 +265,16 @@ require(['jquery', 'require'], function($){
                 $suggestions.hide();
             }
         });
+        $('#topCategoryBtn').click(function() {
+        $('#toggle_section').slideToggle(300); // smooth slide toggle
+    });
+
+    // Optional: close toggle_section if clicking outside
+    $(document).click(function(event) {
+        if (!$(event.target).closest('.category_menu').length) {
+            $('#toggle_section').slideUp(300);
+        }
+    });
     });
 });
 </script>
