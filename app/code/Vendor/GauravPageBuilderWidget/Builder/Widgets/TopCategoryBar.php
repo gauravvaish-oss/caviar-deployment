@@ -159,19 +159,14 @@ class TopCategoryBar extends AbstractWidget
         $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
         $assetRepo = $objectManager->get(\Magento\Framework\View\Asset\Repository::class);
         $toggleIcon = $assetRepo->getUrl("Vendor_GauravPageBuilderWidget::images/toggle.png");
-
-        // dd($categories);die;
-
         $options = [];
         $_objectManager = \Magento\Framework\App\ObjectManager::getInstance();
 
         foreach ($categories as $cat) {
-            if(in_array($cat['value'], $settings['category'])){
+            if(in_array($cat['value'], $settings['category_top_bar'])){
                 $options[$cat['value']] = preg_replace('/\s*\(ID:\s*\d+\)/', '', $cat['label']);
             }
         }
-
-        //  dd($options);die;
          $menu_items = $settings['menu_items'];
          ob_start();
          ?>
