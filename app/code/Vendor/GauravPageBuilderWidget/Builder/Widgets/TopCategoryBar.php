@@ -160,7 +160,11 @@ class TopCategoryBar extends AbstractWidget
         $assetRepo = $objectManager->get(\Magento\Framework\View\Asset\Repository::class);
         $toggleIcon = $assetRepo->getUrl("Vendor_GauravPageBuilderWidget::images/toggle.png");
         $options = [];
-        $_objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+        $catUrl = [];
+        foreach($settings['category_top_bar'] as $categoryId){
+            $object_manager = $objectManager->create('Magento\Catalog\Model\Category')->load($categoryId);
+            $catUrl[$categoryId] = $object_manager->getUrlPath();
+        }
 
         foreach ($categories as $cat) {
             if(in_array($cat['value'], $settings['category_top_bar'])){
@@ -171,43 +175,59 @@ class TopCategoryBar extends AbstractWidget
          ob_start();
          ?>
         <div class="top-category-bar">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-md-3 d-flex align-items-center p-md-0">
-                    <div class="category_menu">
-                        <button onclick="toggleMyDiv()" class="top_category"><img src="<?= $toggleIcon ?>" alt=""> TOP CATEGORY</button>
-                        <div class="nav_below_item nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                            <div id="toggle_section" style="display: none;">
-                                <?php foreach($menu_items as $menu){ ?>
-                                    <button class="nav-link" id="v-pills-new_product-tab" data-bs-toggle="pill" data-bs-target="#v-pills-new_product" type="button" role="tab" aria-controls="v-pills-new_product" aria-selected="true">
-                                    <img src="<?= $menu['icon']['url']; ?>" alt="">
-                                    <?php echo $menu['title']; ?></button>
-                                <?php } ?>  
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-md-3 d-flex align-items-center p-md-0">
+                        <div class="category_menu">
+                            <button id="topCategoryBtn" class="top_category"><img src="<?= $toggleIcon ?>" alt=""> TOP CATEGORY</button>
+                            <div class="nav_below_item nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                                <div id="toggle_section">
+                                    <?php foreach($menu_items as $menu){ ?>
+                                        <button class="nav-link" id="v-pills-new_product-tab" data-bs-toggle="pill" data-bs-target="#v-pills-new_product" type="button" role="tab" aria-controls="v-pills-new_product" aria-selected="true">
+                                        <img src="<?= $menu['icon']['url']; ?>" alt="">
+                                        <?php echo $menu['title']; ?></button>
+                                    <?php } ?>  
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-9">
-                    <form class="d-flex search-form">
-                        <input type="text" class="form-control search-input" placeholder="Search For Products">
-                        <select class="form-select category-select">
-                            <option value="">All Categories</option>
-                           <?php
-                                foreach($options as $key => $value){?>
-                                <option value="<?php echo $key ?>"><?php echo $value ?></option>
-                                <?php } ?>
-                        </select>
-                        <button class="btn search-btn" type="submit">
-                            <i class="bi bi-search"></i>
-                        </button>
-                    </form>
+                    <div class="col-md-9">
+                        <form class="d-flex search-form">
+                            <input type="text" class="form-control search-input" placeholder="Search For Products">
+                            <select class="form-select category-select">
+                                <option value="">All Categories</option>
+                            <?php
+                                    foreach($options as $key => $value){?>
+                                    <option value="<?php echo $key ?>"><?php echo $value ?></option>
+                                    <?php } ?>
+                            </select>
+                            <button class="btn search-btn" type="submit">
+                                <i class="bi bi-search"></i>
+                            </button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
- <script>
-require(['jquery', 'require'], function($){
-    $(document).ready(function(){
+ <script type="text/javascript">
+var catUrl = <?= json_encode($catUrl); ?>;
+
+require(['jquery'], function($){
+    
+ // Toggle top category menu
+         $('#toggle_section').hide();
+
+         $('#topCategoryBtn').on('click', function(e){
+            e.preventDefault(); // prevent default action
+            $('#toggle_section').slideToggle(300); // smooth toggle
+        });
+
+        // Optional: hide toggle section if clicked outside
+        $(document).on('click', function(e){
+            if(!$(e.target).closest('#topCategoryBtn, #toggle_section').length){
+                $('#toggle_section').slideUp(300);
+            }
+        });
         var searchTimeout;
         var currentRequest;
         var $input = $('.search-input');
@@ -217,7 +237,6 @@ require(['jquery', 'require'], function($){
         if (!$('.search-suggestions').length) {
             $input.after('<ul class="search-suggestions" style="list-style: none;position: absolute;background: rgb(255, 255, 255);width: 668px;z-index: 999;padding: 0px;top: 40px;right: 263px;"></ul>');
         }
-
         var $suggestions = $('.search-suggestions');
 
         $input.on('keyup', function(){
@@ -240,7 +259,6 @@ require(['jquery', 'require'], function($){
                     data: { q: query, category: category },
                     success: function(data){
                         $suggestions.empty();
-
                         if (data.length) {
                             data.forEach(function(product){
                                 $suggestions.append(
@@ -249,14 +267,28 @@ require(['jquery', 'require'], function($){
                                     product.name + '</a></li>'
                                 );
                             });
-                        } else {
-                            $suggestions.append('<li style="padding:9px 10px;">No products found</li>');
                         }
-
                         $suggestions.show();
                     }
                 });
-            }, 300); // debounce for smoother typing
+            }, 300);
+        });
+
+        // Form submit logic
+        $('.search-form').on('submit', function(e){
+            e.preventDefault(); // prevent normal submit
+
+            var query = $input.val().trim();
+            var category = $category.val();
+
+            if(query === '' && category !== '' && catUrl[category]){
+                // No input, category selected → go to category page
+                window.location.href = '/' + catUrl[category];
+            } else if(query !== ''){
+                // Input present → go to search results page
+                window.location.href = '/catalogsearch/result/?q=' + encodeURIComponent(query);
+            } 
+            // Optional: else do nothing if input empty and no category selected
         });
 
         // Hide suggestions on outside click
@@ -265,19 +297,13 @@ require(['jquery', 'require'], function($){
                 $suggestions.hide();
             }
         });
-        $('#topCategoryBtn').click(function() {
-        $('#toggle_section').slideToggle(300); // smooth slide toggle
-    });
 
-    // Optional: close toggle_section if clicking outside
-    $(document).click(function(event) {
-        if (!$(event.target).closest('.category_menu').length) {
-            $('#toggle_section').slideUp(300);
-        }
-    });
-    });
+        
+
+
 });
 </script>
+
 
 
          <?php
