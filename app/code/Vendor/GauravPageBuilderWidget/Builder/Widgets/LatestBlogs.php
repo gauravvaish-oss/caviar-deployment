@@ -146,12 +146,17 @@ class LatestBlogs extends AbstractWidget
 
  protected function render(): string
 {
-        $settings = $this->getSettings();
-        $blogsArray = isset($settings['blogs']) && is_array($settings['blogs'])
-                        ? array_filter(array_map('trim', $settings['blogs']))
-                        : [];
-        $title = $settings['title'] ?? '';
-        ob_start();
+    $settings = $this->getSettings();
+    $blogsArray = isset($settings['blogs']) && is_array($settings['blogs'])
+                    ? array_filter(array_map('trim', $settings['blogs']))
+                    : [];
+    $title = $settings['title'] ?? '';
+
+    /** @var \Mageplaza\Blog\Api\BlogRepositoryInterface $blogRepository */
+    $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+    $blogRepository = $objectManager->get(\Mageplaza\Blog\Api\BlogRepositoryInterface::class);
+
+    ob_start();
     ?>
     <div class="row">
         <div class="main-title">
@@ -163,7 +168,28 @@ class LatestBlogs extends AbstractWidget
                 </div>
             </div>
             <div class="swiper blog_slider">
-                <div class="swiper-wrapper" id="blog-slider-view"></div>
+                <div class="swiper-wrapper" id="blog-slider-view">
+                    <?php
+                    foreach ($blogsArray as $blogId) {
+                        try {
+                            $post = $blogRepository->getPostView($blogId);
+                            $image = $post->getImage() ?: 'images/watching_TV.png';
+                            ?>
+                            <div class="swiper-slide">
+                                <div class="blog_section_bg">
+                                    <img src="/media/mageplaza/blog/post/<?= $image ?>" 
+                                         alt="<?= $post->getName() ?>" class="img-fluid">
+                                    <h6><?= $post->getName() ?></h6>
+                                </div>
+                            </div>
+                            <?php
+                        } catch (\Exception $e) {
+                            // Log error or skip invalid blog ID
+                            continue;
+                        }
+                    }
+                    ?>
+                </div>
                 <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
             </div>
         </div>
@@ -172,63 +198,24 @@ class LatestBlogs extends AbstractWidget
     <script type="text/javascript">
     require(['jquery', 'swiper'], function($, Swiper) {
         $(document).ready(function () {
-            var blogIds = <?= json_encode($blogsArray); ?>;
-            var formKey = $('input[name="form_key"]').val();
-            var $sliderWrapper = $(".blog-slider-view-v");
-
-            $sliderWrapper.html("");
-
-            var ajaxRequests = blogIds.map(function(blogId) {
-                blogId = blogId.trim();
-                return $.ajax({
-                    url: '/rest/V1/mpblog/post/view/' + blogId,
-                    type: 'GET', // Use GET to fetch blog data
-                    dataType: 'json',
-                    headers: {
-                        'Authorization': 'Bearer eyJraWQiOiIxIiwiYWxnIjoiSFMyNTYifQ.eyJ1aWQiOjEsInV0eXBpZCI6MiwiaWF0IjoxNzU5OTU2OTM3LCJleHAiOjE3NTk5NjA1Mzd9.9GxLeCYP4MrwsHwYFszL0BdKUH43eFih68sW87q6PfQ'
-                    },
-                    success: function(response) {
-                        console.log(response)
-                        if (response) {
-                            var post = response;
-                            var html = `
-                                <div class="swiper-slide">
-                                    <div class="blog_section_bg">
-                                        <img src="/media/mageplaza/blog/post/${post.image || 'images/watching_TV.png'}" alt="${post.name}" class="img-fluid">
-                                        <h6>${post.name}</h6>
-                                    </div>
-                                </div>
-                            `;
-                            $sliderWrapper.append(html);
-                        } else {
-                            console.error("Failed to load blog:", blogId);
-                        }
-                    },
-                    error: function(xhr, status, error) {
-                        console.error("AJAX error for blog " + blogId + ":", xhr.responseText);
-                    }
-                });
-            });
-
-            $.when.apply($, ajaxRequests).done(function() {
-                new Swiper('.blog_slider', {
-                    slidesPerView: 3,
-                    spaceBetween: 20,
-                    loop: true,
-                    navigation: {
-                        nextEl: '.blog-next',
-                        prevEl: '.blog-prev',
-                    },
-                    breakpoints: {
-                        768: { slidesPerView: 2 },
-                        480: { slidesPerView: 2 }
-                    }
-                });
+            new Swiper('.blog_slider', {
+                slidesPerView: 3,
+                spaceBetween: 20,
+                loop: true,
+                navigation: {
+                    nextEl: '.blog-next',
+                    prevEl: '.blog-prev',
+                },
+                breakpoints: {
+                    768: { slidesPerView: 2 },
+                    480: { slidesPerView: 2 }
+                }
             });
         });
     });
     </script>
     <?php
+
     return ob_get_clean();
 }
 
