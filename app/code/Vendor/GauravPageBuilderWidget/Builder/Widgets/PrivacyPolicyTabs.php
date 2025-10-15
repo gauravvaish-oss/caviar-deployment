@@ -189,11 +189,11 @@ protected function contentTemplate()
         $description_3 = $settings['privacy_description_3'] ?? "Description Text";
         $description_4 = $settings['privacy_description_4'] ?? "Description Text";
         $description_5 = $settings['privacy_description_5'] ?? "Description Text";
-        $tab_image_1 = $settings['privacy_tab_image_1'] ?? "tab_image Text";
-        $tab_image_2 = $settings['privacy_tab_image_2'] ?? "tab_image Text";
-        $tab_image_3 = $settings['privacy_tab_image_3'] ?? "tab_image Text";
-        $tab_image_4 = $settings['privacy_tab_image_4'] ?? "tab_image Text";
-        $tab_image_5 = $settings['privacy_tab_image_5'] ?? "tab_image Text";
+        $tab_image_1 = $settings['privacy_tab_image_1']['url'] ?? "tab_image Text";
+        $tab_image_2 = $settings['privacy_tab_image_2']['url'] ?? "tab_image Text";
+        $tab_image_3 = $settings['privacy_tab_image_3']['url'] ?? "tab_image Text";
+        $tab_image_4 = $settings['privacy_tab_image_4']['url'] ?? "tab_image Text";
+        $tab_image_5 = $settings['privacy_tab_image_5']['url'] ?? "tab_image Text";
 
 // dd($settings);die;
         ob_start();
