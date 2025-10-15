@@ -201,7 +201,6 @@ protected function render(): string
     $heartIcon   = $assetRepo->getUrl("Vendor_GauravPageBuilderWidget::images/heart.png");
     $shuffleIcon = $assetRepo->getUrl("Vendor_GauravPageBuilderWidget::images/shuffle.png");
     $cartIcon    = $assetRepo->getUrl("Vendor_GauravPageBuilderWidget::images/cart.png");
-
     ob_start();
     ?>
     <section class="trending_product">
@@ -215,6 +214,8 @@ protected function render(): string
             <?php foreach ($productArray as $sku):
                 try {
                     $product = $productRepository->get($sku);
+                    dd($product);
+
                 } catch (\Exception $e) {
                     continue;
                 }
@@ -223,7 +224,7 @@ protected function render(): string
                 $postParams = $listBlock->getAddToCartPostParams($product);
                 $imageUrl = $mediaUrl . 'catalog/product' . $product->getImage();
                 ?>
-                <div class="col-lg-4 col-md-6 p-2">
+                <div class="col-lg-4 col-md-6 p-3">
                     <div class="product-card">
                         <div class="product-image">
                             <a href="<?= $product->getProductUrl() ?>">
@@ -293,7 +294,7 @@ protected function render(): string
         'Magento_Customer/js/customer-data', 
         'Magento_Catalog/js/catalog-add-to-compare'
     ], function($, customerData){
-        $(document).ready(function(){
+
 
             // Initialize Add to Cart forms
             $('[data-role="tocart-form"]').each(function(){
@@ -305,7 +306,6 @@ protected function render(): string
             // Initialize Compare buttons
             $('.tocompare').catalogAddToCompare();
 
-        });
     });
     </script>
     <?php
