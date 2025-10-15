@@ -214,8 +214,6 @@ protected function render(): string
             <?php foreach ($productArray as $sku):
                 try {
                     $product = $productRepository->get($sku);
-                    dd($product);
-
                 } catch (\Exception $e) {
                     continue;
                 }
