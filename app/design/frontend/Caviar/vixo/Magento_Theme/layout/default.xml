@@ -88,13 +88,13 @@
                     </arguments>
                     <block class="Magento\Theme\Block\Html\Topmenu" name="catalog.topnav" template="Magento_Theme::html/topmenu.phtml" ttl="3600" before="-"/>
                 </block>
-                <block class="Magento\Framework\View\Element\Text" name="store.links" group="navigation-sections">
+                <!-- <block class="Magento\Framework\View\Element\Text" name="store.links" group="navigation-sections">
                     <arguments>
                         <argument name="title" translate="true" xsi:type="string">Account</argument>
                         <argument name="use_force" xsi:type="boolean">true</argument>
                         <argument name="text" xsi:type="string"><![CDATA[<!-- Account links -->]]></argument>
                     </arguments>
-                </block>
+                </block> -->
                 <block class="Magento\Framework\View\Element\Template" name="store.settings" group="navigation-sections" template="Magento_Theme::html/container.phtml">
                     <arguments>
                         <argument name="title" translate="true" xsi:type="string">Settings</argument>
