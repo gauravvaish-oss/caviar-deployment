@@ -3,7 +3,6 @@ namespace Vendor\GauravPageBuilderWidget\Plugin;
 
 use Goomento\PageBuilder\Builder\Managers\Widgets;
 use Psr\Log\LoggerInterface;
-use Goomento\PageBuilder\Helper\ThemeHelper;
 
 class EntryPointPlugin
 {
@@ -77,19 +76,5 @@ class EntryPointPlugin
         
         
         return [$widgetsManager];
-    }
-
-    public function aroundRegisterStyles($subject, \Closure $proceed)
-    {
-        // Call original method
-        $subject->registerStyles();
-
-        // Deregister widgets.css if possible
-        if (method_exists(\Goomento\PageBuilder\Helper\ThemeHelper::class, 'deregisterStyle')) {
-            \Goomento\PageBuilder\Helper\ThemeHelper::deregisterStyle('goomento-widgets');
-        }
-
-        // If no deregisterStyle method exists, nothing else needed
-        // widgets.css will not load if removed manually in this plugin
     }
 }
