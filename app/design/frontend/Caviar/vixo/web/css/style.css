@@ -7,14 +7,14 @@
 .category_menu{border: 1px solid #E4E4E4;border-radius: 5px;overflow: hidden;}
 .top_category{background: #FA6905;color: #fff;padding: 10px;border: 0px;width: -webkit-fill-available;text-align: left;font-size: 16px;font-weight: 400;font-family: "Poppins", sans-serif;text-transform: uppercase;}
 .top_category img{width: 16px;height: 16px;object-fit: contain;margin-right:40px;}
-.nav-pills #toggle_section .nav-link{ font-size: 12px;font-weight: 600;font-family: "Montserrat", sans-serif;text-transform: uppercase;color: #000;background: transparent;padding: 23px 20px;padding-left: 10px;width: -webkit-fill-available;text-align: left;}
+.nav-pills #toggle_section .nav-link{ font-size: 12px;font-weight: 600;font-family: "Poppins", sans-serif;text-transform: uppercase;color: #000;background: transparent;padding: 23px 20px;padding-left: 10px;width: -webkit-fill-available;text-align: left;}
 .nav-pills #toggle_section .nav-link img{width: 24px;height: 24px;object-fit: contain;margin-right:40px;}   
 .nav-pills #toggle_section .nav-link.active{color: #FA6905;position: relative;}
 .nav-pills #toggle_section .nav-link.active::after{content: "";position: absolute;bottom: 0;top: 0;margin: auto;right: 0;width: 100%;height: 2px;background: url("https://dev.technians.com/shared/caviar/images/right_vector.png");background-position: right center;background-size: contain;height: 12px;width: 15px;background-repeat: no-repeat;}
 .ad_bg.bg_1{background: url("https://dev.technians.com/shared/caviar/images/bg_1.png");background-size: cover;background-repeat: no-repeat;text-align: center;padding: 15px;padding-bottom: 0px;}
 .ad_bg.bg_2{background: url("https://dev.technians.com/shared/caviar/images/bg_2.png");background-size: cover;background-repeat: no-repeat;text-align: center;padding: 15px;padding-bottom: 0px;margin-top: 15px;}
 .ad_bg span{color: #7E7E7E;font-size: 12px;font-weight: 400;font-family: "Poppins", sans-serif;text-transform: capitalize;}
-.ad_bg h4{color: #000;font-size: 15px;font-weight: 700;font-family: "Montserrat", sans-serif;text-transform: capitalize;}
+.ad_bg h4{color: #000;font-size: 15px;font-weight: 700;font-family: "Poppins", sans-serif;text-transform: capitalize;}
 .ad_bg img{width: 150px;}
 /* .tab-content, #v-pills-new_product, .product_slider{height: 100%;} */
 /* .product_slider .swiper-wrapper, .product_slider .swiper-slide{height: unset;} */
@@ -22,7 +22,7 @@
 .product_slider .swiper-pagination-bullet{height: 13px;width: 13px;background: #fff;border-radius: 50%;opacity: 1;}
 .product_slider .swiper-pagination-bullet-active{background: #FA6905;}
 .spacial_trend{border: 1px solid #E4E4E4;padding: 15px;}
-.spacial_trend h5{font-size: 13px;font-weight: 600;font-family: "Montserrat", sans-serif;border-bottom: 1px solid #E4E4E4;text-align: center;text-transform: capitalize;padding: 0px 15px 15px 15px;width: max-content;margin: auto;}
+.spacial_trend h5{font-size: 13px;font-weight: 600;font-family: "Poppins", sans-serif;border-bottom: 1px solid #E4E4E4;text-align: center;text-transform: capitalize;padding: 0px 15px 15px 15px;width: max-content;margin: auto;}
 .time_countdown{font-family: "Poppins", sans-serif;text-align: center;width: fit-content;}
 .time_countdown div{background: #FA6905;height: 35px;width: 35px;border-radius: 5px;display: flex;align-items: center;justify-content: center;color: #fff;font-size: 12px;}
 .time_countdown span{font-size: 9px;color: #7E7E7E;font-weight: 500; text-transform: capitalize;}
@@ -68,9 +68,9 @@
  .product-rating { display: flex; align-items: center; gap: 5px; margin-bottom: 8px; }
  .stars { color: #ffc107; font-size: 10px; display: flex; align-items: center; justify-content: center; gap: 5px; }
 .stars p.star-qty{     font-size: 12px;  margin-bottom: 0;  padding-left: 5px; color: #7E7E7E; }
-        .product-title { font-size: 12px; font-weight: 600; color: #000; text-transform: uppercase; font-family: "Montserrat" !important;text-align: center; }
+        .product-title { font-size: 12px; font-weight: 600; color: #000; text-transform: uppercase; font-family: "Poppins" !important;text-align: center; }
 .product-price {display: flex;align-items: center; gap: 8px;}
-.current-price { font-size: 16px; font-weight: 600; color: #FA6905; font-family: "Montserrat" !important; }
+.current-price { font-size: 16px; font-weight: 600; color: #FA6905; font-family: "Poppins" !important; }
  .original-price { font-size: 14px; font-weight: 400; color: #7E7E7E; text-decoration: line-through; }
 .trending-product { display: none;}
  .trending-product.active {display: block; }
@@ -87,7 +87,7 @@
         }
 
         /*  Product category */
-.main-title h2, .main-title h3, .main-title h1{font-family: "Montserrat" !important;font-weight: 600;font-size: 28px;line-height: 35px; ;text-transform: capitalize; margin-bottom: 15px;}
+.main-title h2, .main-title h3, .main-title h1{font-family: "Poppins" !important;font-weight: 600;font-size: 28px;line-height: 35px; ;text-transform: capitalize; margin-bottom: 15px;}
 .product_category .nav-pills #toggle_section .nav-link{padding: 21px 10px !important;}
 .product_category .nav-pills #toggle_section .nav-link.active::after{content: unset;}
 .product_category .nav-pills{padding: 10px;}
@@ -110,14 +110,14 @@ section.banner-section{padding-top: 50px; padding-bottom: 50px;}
 
 .banner-content {position: absolute; left: 0; right: 0; top: 0; bottom: 0; margin: auto; display: flex; align-items: center; justify-content: center;  flex-direction: column}
 .banner-subtitle {font-family: "Poppins" !important;  font-size: 14px;  text-transform: uppercase;  margin-bottom: 10px;  letter-spacing: 2px;}
-.banner-title {font-family: "Montserrat" !important; font-size: 32px; font-weight: 700;}
+.banner-title {font-family: "Poppins" !important; font-size: 32px; font-weight: 700;}
 .banner-desc { font-size: 14px;   font-family: "Poppins" !important}
 .banner-btn { background-color: #FA6905;   font-family: "Poppins" !important;  border: none;  color: #fff !important;  font-weight: bold;  padding: 8px 15px;  border-radius: 5px;  font-size: 14px;}
 .banner-btn:hover{background-color: #FA6905;}
 
 .offer-card {position: relative;  background: #fff;  border-radius: 3px;  padding: 10px 10px 140px;  height: 190px;  overflow: hidden;  border: 1px solid #E4E4E4;  margin-bottom: 20px;  background-image: url(./images/Ellipse.png);  background-position: bottom;  background-repeat: no-repeat;  background-size: 100%;}
 
-.offer-title { margin-bottom: 5px;  font-family: "Montserrat" !important;font-weight: 700; font-size: 20px;  text-align: center;text-transform: capitalize;}
+.offer-title { margin-bottom: 5px;  font-family: "Poppins" !important;font-weight: 700; font-size: 20px;  text-align: center;text-transform: capitalize;}
 
 .offer-price { color: #7E7E7E;  margin-bottom: 10px;  position: relative;text-align: center;  font-family: "Poppins" !important;font-weight: 600; font-size: 12px; line-height: 16px; text-transform: uppercase;}
 
@@ -130,7 +130,7 @@ section.banner-section{padding-top: 50px; padding-bottom: 50px;}
 .testimonial-card {  background-color: #FA6905;  color: #fff;   text-align: center;  padding: 20px 10px 20px;  position: relative;  overflow: hidden;  min-height: 300px;
 background: url(./images/Ellipse.png);  background-position: bottom;  background-size: 100%;  background-repeat: no-repeat;}
 
-.testimonial-heading { margin-bottom: 5px;  font-family: "Montserrat" !important;font-weight: 600; font-size: 14px;   text-align: center;text-transform: capitalize;}
+.testimonial-heading { margin-bottom: 5px;  font-family: "Poppins" !important;font-weight: 600; font-size: 14px;   text-align: center;text-transform: capitalize;}
 
 .testimonial-heading::after{ content: "";  display: block;  width: 200px;  height: 1px;  background: #FCFCFC;  margin: 8px auto 0;}
  
@@ -156,7 +156,7 @@ background: url(./images/Ellipse.png);  background-position: bottom;  background
             .footer ul li img{width: 10px;margin-right: 10px;margin-top: 5px;}
             .footer ul li a{text-decoration: none;color: #000;font-family: "Poppins", sans-serif;}
             .footer ul li, .footer p{font-size: 11px; margin-bottom: 7px;display: flex;align-items: flex-start;font-family: "Poppins", sans-serif;text-transform: capitalize;}
-            .footer h4{font-family: "Montserrat" !important;font-size: 13px;font-weight: 600;color: #000;text-transform: uppercase;margin-bottom: 20px;}
+            .footer h4{font-family: "Poppins" !important;font-size: 13px;font-weight: 600;color: #000;text-transform: uppercase;margin-bottom: 20px;}
             .footer p span{background-color: #FA6905;color: #fff;text-transform: capitalize;padding: 3px 6px;border-radius: 3px;font-size: 8px;margin-bottom: 0px;margin-left: 10px;line-height: 10px;}
             .footer form{position: relative;border-radius: 5px; overflow: hidden;}
             .footer form input{border: 1px solid #E4E4E4;font-size: 10px;font-weight: 400;font-family: poppins;padding: 10px 15px;border-radius: 5px;width: -webkit-fill-available;}
@@ -171,13 +171,13 @@ background: url(./images/Ellipse.png);  background-position: bottom;  background
             .logo_slider .slider_bg img{width: 80px;}
             section{padding: 50px 0;}
             .blog_slider .blog_section_bg{background-color: #fff;border: 1px solid #E4E4E4;border-radius: 5px;overflow: hidden;}
-            .blog_slider .blog_section_bg h6{font-family: "Montserrat", sans-serif; font-size: 12px;font-weight: 600;text-transform: capitalize;margin-bottom: 0px;padding: 15px 10px;text-align: center;}
+            .blog_slider .blog_section_bg h6{font-family: "Poppins", sans-serif; font-size: 12px;font-weight: 600;text-transform: capitalize;margin-bottom: 0px;padding: 15px 10px;text-align: center;}
             .shop_by_category .category_section_bg{border: 1px solid #E4E4E4;border-radius: 5px;overflow: hidden;}
             .shop_by_category .category_section_bg ul{list-style: none;margin-bottom: 0px; padding: 12px;column-count: 2;}
-            .shop_by_category .category_section_bg ul li h6{font-weight: 600;font-size: 11px;text-transform: capitalize;font-family: "Montserrat", sans-serif;margin-bottom: 10px;}
+            .shop_by_category .category_section_bg ul li h6{font-weight: 600;font-size: 11px;text-transform: capitalize;font-family: "Poppins", sans-serif;margin-bottom: 10px;}
             .shop_by_category .category_section_bg a{background-color: #FA6905;border-radius: 5px;padding: 5px 10px;display: inline-block;color: #fff;text-decoration: none;font-family: "Poppins", sans-serif;font-size: 11px;text-transform: uppercase;}
             .swiper-button-lock {display: flex;}
-            .top_product_slider .top_product_section_bg h5{font-family: "Montserrat", sans-serif; font-size: 15px;font-weight: 600;text-transform: capitalize;margin-bottom: 0px;padding: 15px 10px 5px; }
+            .top_product_slider .top_product_section_bg h5{font-family: "Poppins", sans-serif; font-size: 15px;font-weight: 600;text-transform: capitalize;margin-bottom: 0px;padding: 15px 10px 5px; }
             .top_product_slider .top_product_section_bg{border: 1px solid #E4E4E4;border-radius: 5px;overflow: hidden;position: relative;transition: all 0.5s;}
             .top_product_slider .top_product_section_bg div{padding: 0px 10px 15px;}
             .top_product_slider .top_product_section_bg div span{color: #7E7E7E;font-size: 11px;font-weight: 400;font-family: "Poppins", sans-serif;}
@@ -189,10 +189,10 @@ background: url(./images/Ellipse.png);  background-position: bottom;  background
 
             /* -------------------------------------------------- */
 
-.main-title h4{color: #000000;font-family: "Montserrat", sans-serif;font-size: 13px;font-weight: 600;text-transform: capitalize;text-align: center;}
+.main-title h4{color: #000000;font-family: "Poppins", sans-serif;font-size: 13px;font-weight: 600;text-transform: capitalize;text-align: center;}
             .best_seller h4, .enquiry h4{width: fit-content;margin: auto;padding: 10px;border-bottom: 1px solid #E4E4E4;}
             .best_seller{margin-top:20px; border: 1px solid #E4E4E4;border-radius: 5px;padding: 15px;}
-            .product_detail h6, .product_detail p{font-family: "Montserrat", sans-serif;font-size: 12px;font-weight: 600;margin-bottom: 0px;text-transform: capitalize;}
+            .product_detail h6, .product_detail p{font-family: "Poppins", sans-serif;font-size: 12px;font-weight: 600;margin-bottom: 0px;text-transform: capitalize;}
             .product_detail {text-align: center;margin-top: 15px;}
             .product_detail .product_img{width: 60px;}
             .enquiry{margin-top: 20px; background: #FA6905;padding: 10px 25px 25px;text-align: center;color: #fff;}
@@ -206,5 +206,5 @@ background: url(./images/Ellipse.png);  background-position: bottom;  background
             .sales_banner{position: absolute;top: 30px;left: 0;right: 0;text-align: center;}
             .sales_banner>img{width: 150px;}
             .sales_banner .sales_text span{font-size: 11px;color: #fff;font-weight: 300;font-family: "Poppins", sans-serif;text-transform: uppercase;letter-spacing: 0.5px;}
-            .sales_banner .sales_text h5{font-family: "Montserrat", sans-serif;font-size: 24px;font-weight: 500;text-transform: capitalize;color: #fff;margin-top: 5px;}
+            .sales_banner .sales_text h5{font-family: "Poppins", sans-serif;font-size: 24px;font-weight: 500;text-transform: capitalize;color: #fff;margin-top: 5px;}
             .sales_banner .sales_text a{border-bottom: 2px solid #fff;color: #fff;text-decoration: none;font-family: "Poppins", sans-serif;font-size: 11px;letter-spacing: 0.75px;}
