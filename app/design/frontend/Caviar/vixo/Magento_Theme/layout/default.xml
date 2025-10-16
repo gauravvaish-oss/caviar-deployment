@@ -61,6 +61,11 @@
                             <argument name="block_id" xsi:type="string">header_marquee</argument>
                         </arguments>
                     </block>
+                   <block class="Magento\Cms\Block\Block" name="main.menu">
+                    <arguments>
+                        <argument name="block_id" xsi:type="string">main-menu</argument>
+                    </arguments>
+                </block>
                 </container>
             </container>
             <container name="header-wrapper" label="Page Header" as="header-wrapper" htmlTag="div" htmlClass="header content">
@@ -70,11 +75,7 @@
                         <argument name="logo_size_resolver" xsi:type="object">Magento\Theme\ViewModel\Block\Html\Header\LogoSizeResolver</argument>
                     </arguments>
                 </block> -->
-                <block class="Magento\Cms\Block\Block" name="main.menu">
-                    <arguments>
-                        <argument name="block_id" xsi:type="string">main-menu</argument>
-                    </arguments>
-                </block>
+                
             </container>
         </referenceContainer>
         <referenceContainer name="page.top">
