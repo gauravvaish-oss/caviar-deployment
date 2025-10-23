@@ -1,0 +1,1472 @@
+<?xml version="1.0"?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <fieldset name="home_section_sidebar">
+    <argument name="data" xsi:type="array">
+        <item name="config" xsi:type="array">
+            <item name="label" xsi:type="string" translate="true">Home Section SIdeBar</item>
+            <item name="collapsible" xsi:type="boolean">true</item>
+            <item name="sortOrder" xsi:type="number">100</item>
+        </item>
+    </argument>
+    <fieldset name="special_trend">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true"> CountDown Timer ( Home Sidebar )</item>
+                <item name="collapsible" xsi:type="boolean">true</item>
+                <item name="sortOrder" xsi:type="number">210</item>
+                <item name="component" xsi:type="string">Magento_Ui/js/form/components/fieldset</item>
+                <item name="visible" xsi:type="boolean">true</item>
+                <item name="imports" xsi:type="array">
+                    <item name="visible" xsi:type="string">${ $.provider }:data.identifier == 'home'</item>
+                </item>
+            </item>
+        </argument>
+        <field name="special_trend_product_id" formElement="select">
+            <settings>
+                <label translate="true">Special Trend Product</label>
+                <dataType>int</dataType>
+            </settings>
+            <formElements>
+                <select>
+                    <settings>
+                        <options class="Vendor\PageBannerAttributes\Model\Config\Source\Products"/>
+                    </settings>
+                </select>
+            </formElements>
+        </field>
+        <field name="special_trend_title">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="componentType" xsi:type="string">field</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Title</item>
+                    <item name="sortOrder" xsi:type="number">20</item>
+                    <item name="dataScope" xsi:type="string">special_trend_title</item>
+                </item>
+            </argument>
+        </field>
+        <field name="special_trend_countdown" formElement="date">
+            <settings>
+                <label translate="true">Countdown</label>
+                <dataType>datetime</dataType>
+            </settings>
+        </field>
+</fieldset>
+<fieldset name="latest_products_section">
+    <argument name="data" xsi:type="array">
+        <item name="config" xsi:type="array">
+            <item name="label" xsi:type="string" translate="true">Latest Products ( Home Sidebar )</item>
+            <item name="collapsible" xsi:type="boolean">true</item>
+            <item name="sortOrder" xsi:type="number">300</item>
+        </item>
+    </argument>
+    <field name="latest_products_title">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="formElement" xsi:type="string">input</item>
+                <item name="componentType" xsi:type="string">field</item>
+                <item name="dataType" xsi:type="string">text</item>
+                <item name="label" xsi:type="string" translate="true">Title</item>
+                <item name="sortOrder" xsi:type="number">20</item>
+                <item name="dataScope" xsi:type="string">latest_products_title</item>
+            </item>
+        </argument>
+    </field>
+    <field name="latest_products_product_id" formElement="multiselect">
+            <settings>
+                <label translate="true">Select Products</label>
+                <dataType>int</dataType>
+            </settings>
+            <formElements>
+                <multiselect>
+                    <settings>
+                        <options class="Vendor\PageBannerAttributes\Model\Config\Source\Products"/>
+                    </settings>
+                </multiselect>
+            </formElements>
+        </field>
+</fieldset>
+<fieldset name="featured_products_section">
+    <argument name="data" xsi:type="array">
+        <item name="config" xsi:type="array">
+            <item name="label" xsi:type="string" translate="true">Featured Products ( Home Sidebar )</item>
+            <item name="collapsible" xsi:type="boolean">true</item>
+            <item name="sortOrder" xsi:type="number">320</item>
+        </item>
+    </argument>
+    <field name="featured_products_title">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="formElement" xsi:type="string">input</item>
+                <item name="componentType" xsi:type="string">field</item>
+                <item name="dataType" xsi:type="string">text</item>
+                <item name="label" xsi:type="string" translate="true">Title</item>
+                <item name="sortOrder" xsi:type="number">20</item>
+                <item name="dataScope" xsi:type="string">featured_products_title</item>
+            </item>
+        </argument>
+    </field>
+    <field name="featured_products_product_id" formElement="multiselect">
+            <settings>
+                <label translate="true">Select Products</label>
+                <dataType>int</dataType>
+            </settings>
+            <formElements>
+                <multiselect>
+                    <settings>
+                        <options class="Vendor\PageBannerAttributes\Model\Config\Source\Products"/>
+                    </settings>
+                </multiselect>
+            </formElements>
+        </field>
+</fieldset>
+<fieldset name="bestseller_products_section">
+    <argument name="data" xsi:type="array">
+        <item name="config" xsi:type="array">
+            <item name="label" xsi:type="string" translate="true">BestSeller Products ( Home Sidebar )</item>
+            <item name="collapsible" xsi:type="boolean">true</item>
+            <item name="sortOrder" xsi:type="number">310</item>
+        </item>
+    </argument>
+    <field name="bestseller_products_title">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="formElement" xsi:type="string">input</item>
+                <item name="componentType" xsi:type="string">field</item>
+                <item name="dataType" xsi:type="string">text</item>
+                <item name="label" xsi:type="string" translate="true">Title</item>
+                <item name="sortOrder" xsi:type="number">20</item>
+                <item name="dataScope" xsi:type="string">bestseller_products_title</item>
+            </item>
+        </argument>
+    </field>
+    <field name="bestseller_products_product_id" formElement="multiselect">
+            <settings>
+                <label translate="true">Select Products</label>
+                <dataType>int</dataType>
+            </settings>
+            <formElements>
+                <multiselect>
+                    <settings>
+                        <options class="Vendor\PageBannerAttributes\Model\Config\Source\Products"/>
+                    </settings>
+                </multiselect>
+            </formElements>
+        </field>
+</fieldset>
+<fieldset name="services_section">
+    <argument name="data" xsi:type="array">
+        <item name="config" xsi:type="array">
+            <item name="label" xsi:type="string" translate="true">Our Services ( Home Sidebar )</item>
+            <item name="collapsible" xsi:type="boolean">true</item>
+            <item name="sortOrder" xsi:type="number">220</item>
+            <item name="component" xsi:type="string">Magento_Ui/js/form/components/fieldset</item>
+            <item name="visible" xsi:type="boolean">true</item>
+            <item name="imports" xsi:type="array">
+                <item name="visible" xsi:type="string">${ $.provider }:data.identifier == 'home'</item>
+            </item>
+        </item>
+    </argument>
+    <field name="service_main_title">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="formElement" xsi:type="string">input</item>
+                <item name="componentType" xsi:type="string">field</item>
+                <item name="label" xsi:type="string" translate="true"> Title</item>
+                <item name="sortOrder" xsi:type="number">10</item>
+                <item name="dataScope" xsi:type="string">service_main_title</item>
+            </item>
+        </argument>
+    </field>
+    <field name="service_1_image">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="formElement" xsi:type="string">imageUploader</item>
+                <item name="componentType" xsi:type="string">field</item>
+                <item name="component" xsi:type="string">Magento_Ui/js/form/element/image-uploader</item>
+                <item name="label" xsi:type="string" translate="true">Service 1 Image</item>
+                <item name="dataScope" xsi:type="string">service_1_image</item>
+                <item name="uploaderConfig" xsi:type="array">
+                    <item name="url" xsi:type="url" path="catalog/category_image/upload"/>
+                </item>
+                <item name="sortOrder" xsi:type="number">10</item>
+            </item>
+        </argument>
+    </field>
+    <field name="service_1_title">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="formElement" xsi:type="string">input</item>
+                <item name="componentType" xsi:type="string">field</item>
+                <item name="label" xsi:type="string" translate="true">Service 1 Title</item>
+                <item name="sortOrder" xsi:type="number">20</item>
+                <item name="dataScope" xsi:type="string">service_1_title</item>
+            </item>
+        </argument>
+    </field>
+    <field name="service_1_description">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="formElement" xsi:type="string">textarea</item>
+                <item name="componentType" xsi:type="string">field</item>
+                <item name="label" xsi:type="string" translate="true">Service 1 Description</item>
+                <item name="sortOrder" xsi:type="number">30</item>
+                <item name="dataScope" xsi:type="string">service_1_description</item>
+            </item>
+        </argument>
+    </field>
+    <field name="service_2_image">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="formElement" xsi:type="string">imageUploader</item>
+                <item name="componentType" xsi:type="string">field</item>
+                <item name="component" xsi:type="string">Magento_Ui/js/form/element/image-uploader</item>
+                <item name="label" xsi:type="string" translate="true">Service 2 Image</item>
+                <item name="dataScope" xsi:type="string">service_2_image</item>
+                <item name="uploaderConfig" xsi:type="array">
+                    <item name="url" xsi:type="url" path="catalog/category_image/upload"/>
+                </item>
+                <item name="sortOrder" xsi:type="number">40</item>
+            </item>
+        </argument>
+    </field>
+    <field name="service_2_title">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="formElement" xsi:type="string">input</item>
+                <item name="componentType" xsi:type="string">field</item>
+                <item name="label" xsi:type="string" translate="true">Service 2 Title</item>
+                <item name="sortOrder" xsi:type="number">50</item>
+                <item name="dataScope" xsi:type="string">service_2_title</item>
+            </item>
+        </argument>
+    </field>
+    <field name="service_2_description">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="formElement" xsi:type="string">textarea</item>
+                <item name="componentType" xsi:type="string">field</item>
+                <item name="label" xsi:type="string" translate="true">Service 2 Description</item>
+                <item name="sortOrder" xsi:type="number">60</item>
+                <item name="dataScope" xsi:type="string">service_2_description</item>
+            </item>
+        </argument>
+    </field>
+    <field name="service_3_image" sortOrder="40" formElement="imageUploader">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">category</item>
+                </item>
+            </argument>
+            <settings>
+                <elementTmpl>ui/form/element/uploader/image</elementTmpl>
+                <dataType>string</dataType>
+                <label translate="true">Category Image</label>
+                <visible>true</visible>
+                <required>false</required>
+            </settings>
+            <formElements>
+                <imageUploader>
+                    <settings>
+                        <required>false</required>
+                        <uploaderConfig>
+                            <param xsi:type="url" name="url" path="catalog/category_image/upload"/>
+                        </uploaderConfig>
+                        <previewTmpl>Magento_Catalog/image-preview</previewTmpl>
+                        <openDialogTitle>Media Gallery</openDialogTitle>
+                        <initialMediaGalleryOpenSubpath>catalog/category</initialMediaGalleryOpenSubpath>
+                        <allowedExtensions>jpg jpeg gif png</allowedExtensions>
+                        <maxFileSize>4194304</maxFileSize>
+                    </settings>
+                </imageUploader>
+            </formElements>
+        </field>
+
+
+    <field name="service_3_title">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="formElement" xsi:type="string">input</item>
+                <item name="componentType" xsi:type="string">field</item>
+                <item name="label" xsi:type="string" translate="true">Service 3 Title</item>
+                <item name="sortOrder" xsi:type="number">80</item>
+                <item name="dataScope" xsi:type="string">service_3_title</item>
+            </item>
+        </argument>
+    </field>
+    <field name="service_3_description">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="formElement" xsi:type="string">textarea</item>
+                <item name="componentType" xsi:type="string">field</item>
+                <item name="label" xsi:type="string" translate="true">Service 3 Description</item>
+                <item name="sortOrder" xsi:type="number">90</item>
+                <item name="dataScope" xsi:type="string">service_3_description</item>
+            </item>
+        </argument>
+    </field>
+</fieldset>
+<fieldset name="sales_banner_section">
+    <argument name="data" xsi:type="array">
+        <item name="config" xsi:type="array">
+            <item name="label" xsi:type="string" translate="true">Sales Banner ( Home Sidebar )</item>
+            <item name="collapsible" xsi:type="boolean">true</item>
+            <item name="sortOrder" xsi:type="number">320</item>
+        </item>
+    </argument>
+
+    <field name="sales_banner_bg">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="formElement" xsi:type="string">imageUploader</item>
+                <item name="componentType" xsi:type="string">field</item>
+                <item name="component" xsi:type="string">Magento_Ui/js/form/element/image-uploader</item>
+                <item name="label" xsi:type="string" translate="true">Sale Background Image</item>
+                <item name="dataScope" xsi:type="string">sales_banner_bg</item>
+                <item name="uploaderConfig" xsi:type="array">
+                    <item name="url" xsi:type="url" path="catalog/category_image/upload"/>
+                </item>
+                <item name="sortOrder" xsi:type="number">40</item>
+            </item>
+        </argument>
+    </field>
+
+    <field name="sales_product_image">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="formElement" xsi:type="string">imageUploader</item>
+                <item name="componentType" xsi:type="string">field</item>
+                <item name="component" xsi:type="string">Magento_Ui/js/form/element/image-uploader</item>
+                <item name="label" xsi:type="string" translate="true">Sale Banner Product Image</item>
+                <item name="dataScope" xsi:type="string">sales_product_image</item>
+                <item name="uploaderConfig" xsi:type="array">
+                    <item name="url" xsi:type="url" path="catalog/category_image/upload"/>
+                </item>
+                <item name="sortOrder" xsi:type="number">40</item>
+            </item>
+        </argument>
+    </field>
+
+    <field name="sales_label">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="dataType" xsi:type="string">text</item>
+                <item name="formElement" xsi:type="string">input</item>
+                <item name="label" xsi:type="string" translate="true">Sale Label</item>
+            </item>
+        </argument>
+    </field>
+
+    <field name="sales_product_title">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="dataType" xsi:type="string">text</item>
+                <item name="formElement" xsi:type="string">input</item>
+                <item name="label" xsi:type="string" translate="true">Sale Title</item>
+            </item>
+        </argument>
+    </field>
+
+    <field name="sales_product_price">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="dataType" xsi:type="string">text</item>
+                <item name="formElement" xsi:type="string">input</item>
+                <item name="label" xsi:type="string" translate="true">Sale Price</item>
+            </item>
+        </argument>
+    </field>
+
+    <field name="sales_product_link">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="dataType" xsi:type="string">text</item>
+                <item name="formElement" xsi:type="string">input</item>
+                <item name="label" xsi:type="string" translate="true">Sale Link</item>
+            </item>
+        </argument>
+    </field>
+</fieldset>
+<fieldset name="enquiry_section">
+    <argument name="data" xsi:type="array">
+        <item name="config" xsi:type="array">
+            <item name="label" xsi:type="string" translate="true">Enquiry Section ( Home Sidebar )</item>
+            <item name="collapsible" xsi:type="boolean">true</item>
+            <item name="sortOrder" xsi:type="number">400</item>
+        </item>
+    </argument>
+
+    <field name="enquiry_title">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">Title</item>
+                <item name="formElement" xsi:type="string">input</item>
+                <item name="dataType" xsi:type="string">text</item>
+                <item name="sortOrder" xsi:type="number">10</item>
+            </item>
+        </argument>
+    </field>
+
+    <field name="enquiry_phone">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">Phone Number</item>
+                <item name="formElement" xsi:type="string">input</item>
+                <item name="dataType" xsi:type="string">text</item>
+                <item name="sortOrder" xsi:type="number">20</item>
+            </item>
+        </argument>
+    </field>
+
+    <field name="enquiry_button_text">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">Button Text</item>
+                <item name="formElement" xsi:type="string">input</item>
+                <item name="dataType" xsi:type="string">text</item>
+                <item name="sortOrder" xsi:type="number">30</item>
+            </item>
+        </argument>
+    </field>
+
+    <field name="enquiry_button_link">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">Button Link</item>
+                <item name="formElement" xsi:type="string">input</item>
+                <item name="dataType" xsi:type="string">text</item>
+                <item name="sortOrder" xsi:type="number">40</item>
+            </item>
+        </argument>
+    </field>
+</fieldset>
+<fieldset name="offer_card_section">
+    <argument name="data" xsi:type="array">
+        <item name="config" xsi:type="array">
+            <item name="label" xsi:type="string" translate="true">Offer Card Section ( Home Sidebar )</item>
+            <item name="collapsible" xsi:type="boolean">true</item>
+            <item name="sortOrder" xsi:type="number">500</item>
+        </item>
+    </argument>
+
+    <field name="offer_title">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">Offer Title</item>
+                <item name="formElement" xsi:type="string">input</item>
+                <item name="dataType" xsi:type="string">text</item>
+                <item name="sortOrder" xsi:type="number">10</item>
+            </item>
+        </argument>
+    </field>
+
+    <field name="offer_price">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">Offer Price</item>
+                <item name="formElement" xsi:type="string">input</item>
+                <item name="dataType" xsi:type="string">text</item>
+                <item name="sortOrder" xsi:type="number">20</item>
+            </item>
+        </argument>
+    </field>
+
+    <field name="offer_product_image">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="formElement" xsi:type="string">imageUploader</item>
+                <item name="componentType" xsi:type="string">field</item>
+                <item name="component" xsi:type="string">Magento_Ui/js/form/element/image-uploader</item>
+                <item name="label" xsi:type="string" translate="true">Offer Product Image</item>
+                <item name="dataScope" xsi:type="string">offer_product_image</item>
+                <item name="uploaderConfig" xsi:type="array">
+                    <item name="url" xsi:type="url" path="catalog/category_image/upload"/>
+                </item>
+                <item name="sortOrder" xsi:type="number">40</item>
+            </item>
+        </argument>
+    </field>
+</fieldset>
+<fieldset name="testimonials_section">
+    <argument name="data" xsi:type="array">
+        <item name="config" xsi:type="array">
+            <item name="label" xsi:type="string" translate="true">Testimonials ( Home Sidebar )</item>
+            <item name="collapsible" xsi:type="boolean">true</item>
+            <item name="sortOrder" xsi:type="number">550</item>
+        </item>
+    </argument>
+    <field name="testimonials_title">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="formElement" xsi:type="string">input</item>
+                <item name="componentType" xsi:type="string">field</item>
+                <item name="dataType" xsi:type="string">text</item>
+                <item name="label" xsi:type="string" translate="true">Title</item>
+                <item name="sortOrder" xsi:type="number">20</item>
+                <item name="dataScope" xsi:type="string">testimonials_title</item>
+            </item>
+        </argument>
+    </field>
+    <field name="testimonials_review_id" formElement="multiselect">
+            <settings>
+                <label translate="true">Select Reviews</label>
+                <dataType>int</dataType>
+            </settings>
+            <formElements>
+                <multiselect>
+                    <settings>
+                        <options class="Vendor\PageBannerAttributes\Model\Config\Source\ReviewOptions"/>
+                    </settings>
+                </multiselect>
+            </formElements>
+        </field>
+</fieldset>
+</fieldset>
+<fieldset name="home_main_section">
+    <argument name="data" xsi:type="array">
+        <item name="config" xsi:type="array">
+            <item name="label" xsi:type="string" translate="true">Home Main Section</item>
+            <item name="collapsible" xsi:type="boolean">true</item>
+            <item name="sortOrder" xsi:type="number">100</item>
+        </item>
+    </argument>
+<fieldset name="main_banner_slider">
+    <argument name="data" xsi:type="array">
+        <item name="config" xsi:type="array">
+            <item name="label" xsi:type="string" translate="true">Banner Slider ( Home Main Content )</item>
+            <item name="collapsible" xsi:type="boolean">true</item>
+            <item name="sortOrder" xsi:type="number">320</item>
+        </item>
+    </argument>
+
+    <field name="banner_1">
+       <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="formElement" xsi:type="string">imageUploader</item>
+                <item name="componentType" xsi:type="string">field</item>
+                <item name="component" xsi:type="string">Magento_Ui/js/form/element/image-uploader</item>
+                <item name="label" xsi:type="string" translate="true">Banner 1</item>
+                <item name="dataScope" xsi:type="string">banner_1</item>
+                <item name="uploaderConfig" xsi:type="array">
+                    <item name="url" xsi:type="url" path="catalog/category_image/upload"/>
+                </item>
+                <item name="sortOrder" xsi:type="number">40</item>
+            </item>
+        </argument>
+    </field>
+    <field name="banner_2">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="formElement" xsi:type="string">imageUploader</item>
+                <item name="componentType" xsi:type="string">field</item>
+                <item name="component" xsi:type="string">Magento_Ui/js/form/element/image-uploader</item>
+                <item name="label" xsi:type="string" translate="true">Banner 2</item>
+                <item name="dataScope" xsi:type="string">banner_2</item>
+                <item name="uploaderConfig" xsi:type="array">
+                    <item name="url" xsi:type="url" path="catalog/category_image/upload"/>
+                </item>
+                <item name="sortOrder" xsi:type="number">40</item>
+            </item>
+        </argument>
+    </field>
+    <field name="banner_3">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="formElement" xsi:type="string">imageUploader</item>
+                <item name="componentType" xsi:type="string">field</item>
+                <item name="component" xsi:type="string">Magento_Ui/js/form/element/image-uploader</item>
+                <item name="label" xsi:type="string" translate="true">Banner 3</item>
+                <item name="dataScope" xsi:type="string">banner_3</item>
+                <item name="uploaderConfig" xsi:type="array">
+                    <item name="url" xsi:type="url" path="catalog/category_image/upload"/>
+                </item>
+                <item name="sortOrder" xsi:type="number">40</item>
+            </item>
+        </argument>
+    </field>
+</fieldset>
+<fieldset name="offer_section">
+    <argument name="data" xsi:type="array">
+        <item name="config" xsi:type="array">
+            <item name="label" xsi:type="string" translate="true">Offer Section ( Home Main Content )</item>
+            <item name="collapsible" xsi:type="boolean">true</item>
+            <item name="sortOrder" xsi:type="number">400</item>
+            <item name="component" xsi:type="string">Magento_Ui/js/form/components/fieldset</item>
+        </item>
+    </argument>
+
+    <!-- Offer Label -->
+    <field name="offer_label_1">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="formElement" xsi:type="string">input</item>
+                <item name="componentType" xsi:type="string">field</item>
+                <item name="label" xsi:type="string" translate="true">Offer Label 1</item>
+                <item name="sortOrder" xsi:type="number">10</item>
+                <item name="dataScope" xsi:type="string">offer_label_1</item>
+            </item>
+        </argument>
+    </field>
+
+    <!-- Offer Title -->
+    <field name="offer_title_1">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="formElement" xsi:type="string">input</item>
+                <item name="componentType" xsi:type="string">field</item>
+                <item name="label" xsi:type="string" translate="true">Offer Title 1</item>
+                <item name="sortOrder" xsi:type="number">20</item>
+                <item name="dataScope" xsi:type="string">offer_title_1</item>
+            </item>
+        </argument>
+    </field>
+
+    <!-- Offer Image -->
+    <field name="offer_image_1">
+         <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="formElement" xsi:type="string">imageUploader</item>
+                <item name="componentType" xsi:type="string">field</item>
+                <item name="component" xsi:type="string">Magento_Ui/js/form/element/image-uploader</item>
+                <item name="label" xsi:type="string" translate="true">Banner 2</item>
+                <item name="dataScope" xsi:type="string">offer_image_1</item>
+                <item name="uploaderConfig" xsi:type="array">
+                    <item name="url" xsi:type="url" path="catalog/category_image/upload"/>
+                </item>
+                <item name="sortOrder" xsi:type="number">40</item>
+            </item>
+        </argument>
+    </field>
+<!-- Offer Label -->
+    <field name="offer_label_2">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="formElement" xsi:type="string">input</item>
+                <item name="componentType" xsi:type="string">field</item>
+                <item name="label" xsi:type="string" translate="true">Offer Label 2</item>
+                <item name="sortOrder" xsi:type="number">40</item>
+                <item name="dataScope" xsi:type="string">offer_label_2</item>
+            </item>
+        </argument>
+    </field>
+
+    <!-- Offer Title -->
+    <field name="offer_title_2">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="formElement" xsi:type="string">input</item>
+                <item name="componentType" xsi:type="string">field</item>
+                <item name="label" xsi:type="string" translate="true">Offer Title 2</item>
+                <item name="sortOrder" xsi:type="number">50</item>
+                <item name="dataScope" xsi:type="string">offer_title_2</item>
+            </item>
+        </argument>
+    </field>
+
+    <!-- Offer Image -->
+    <field name="offer_image_2">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="formElement" xsi:type="string">imageUploader</item>
+                <item name="componentType" xsi:type="string">field</item>
+                <item name="component" xsi:type="string">Magento_Ui/js/form/element/image-uploader</item>
+                <item name="label" xsi:type="string" translate="true">Banner 2</item>
+                <item name="dataScope" xsi:type="string">offer_image_2</item>
+                <item name="uploaderConfig" xsi:type="array">
+                    <item name="url" xsi:type="url" path="catalog/category_image/upload"/>
+                </item>
+                <item name="sortOrder" xsi:type="number">40</item>
+            </item>
+        </argument>
+    </field>
+
+</fieldset>
+<fieldset name="shop_banner_section">
+    <argument name="data" xsi:type="array">
+        <item name="config" xsi:type="array">
+            <item name="label" xsi:type="string" translate="true">Shop Banner Section ( Home Main Content )</item>
+            <item name="collapsible" xsi:type="boolean">true</item>
+            <item name="sortOrder" xsi:type="number">100</item>
+            <item name="component" xsi:type="string">Magento_Ui/js/form/components/fieldset</item>
+        </item>
+    </argument>
+
+    <!-- Banner Image -->
+    <field name="shop_banner_image">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="formElement" xsi:type="string">imageUploader</item>
+                <item name="componentType" xsi:type="string">field</item>
+                <item name="component" xsi:type="string">Magento_Ui/js/form/element/image-uploader</item>
+                <item name="label" xsi:type="string" translate="true">Banner Background Image</item>
+                <item name="dataScope" xsi:type="string">shop_banner_image</item>
+                <item name="uploaderConfig" xsi:type="array">
+                    <item name="url" xsi:type="url" path="catalog/category_image/upload"/>
+                </item>
+                <item name="sortOrder" xsi:type="number">40</item>
+            </item>
+        </argument>
+    </field>
+
+    <!-- Banner Subtitle -->
+    <field name="shop_banner_subtitle">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="formElement" xsi:type="string">input</item>
+                <item name="componentType" xsi:type="string">field</item>
+                <item name="label" xsi:type="string" translate="true">Banner Subtitle</item>
+                <item name="sortOrder" xsi:type="number">20</item>
+                <item name="dataScope" xsi:type="string">shop_banner_subtitle</item>
+            </item>
+        </argument>
+    </field>
+
+    <!-- Banner Title -->
+    <field name="shop_banner_title">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="formElement" xsi:type="string">input</item>
+                <item name="componentType" xsi:type="string">field</item>
+                <item name="label" xsi:type="string" translate="true">Banner Title</item>
+                <item name="sortOrder" xsi:type="number">30</item>
+                <item name="dataScope" xsi:type="string">shop_banner_title</item>
+            </item>
+        </argument>
+    </field>
+
+    <!-- Banner Description -->
+    <field name="shop_banner_description">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="formElement" xsi:type="string">textarea</item>
+                <item name="componentType" xsi:type="string">field</item>
+                <item name="label" xsi:type="string" translate="true">Banner Description</item>
+                <item name="sortOrder" xsi:type="number">40</item>
+                <item name="dataScope" xsi:type="string">shop_banner_description</item>
+            </item>
+        </argument>
+    </field>
+
+    <!-- Banner Button Text -->
+    <field name="shop_banner_button_text">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="formElement" xsi:type="string">input</item>
+                <item name="componentType" xsi:type="string">field</item>
+                <item name="label" xsi:type="string" translate="true">Button Text</item>
+                <item name="sortOrder" xsi:type="number">50</item>
+                <item name="dataScope" xsi:type="string">shop_banner_button_text</item>
+            </item>
+        </argument>
+    </field>
+
+    <!-- Banner Button Link -->
+    <field name="shop_banner_button_link">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="formElement" xsi:type="string">input</item>
+                <item name="componentType" xsi:type="string">field</item>
+                <item name="label" xsi:type="string" translate="true">Button Link</item>
+                <item name="sortOrder" xsi:type="number">60</item>
+                <item name="dataScope" xsi:type="string">shop_banner_button_link</item>
+            </item>
+        </argument>
+    </field>
+</fieldset>
+<fieldset name="trending_products_section">
+    <argument name="data" xsi:type="array">
+        <item name="config" xsi:type="array">
+            <item name="label" xsi:type="string" translate="true">Trending Products ( Home Main Content )</item>
+            <item name="collapsible" xsi:type="boolean">true</item>
+            <item name="sortOrder" xsi:type="number">320</item>
+        </item>
+    </argument>
+
+    <!-- Section Title -->
+    <field name="trending_products_title">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="formElement" xsi:type="string">input</item>
+                <item name="componentType" xsi:type="string">field</item>
+                <item name="dataType" xsi:type="string">text</item>
+                <item name="label" xsi:type="string" translate="true">Section Title</item>
+                <item name="sortOrder" xsi:type="number">10</item>
+                <item name="dataScope" xsi:type="string">trending_products_title</item>
+            </item>
+        </argument>
+    </field>
+
+    <!-- New Product Categories -->
+    <field name="trending_product_categories" formElement="multiselect">
+        <settings>
+            <label translate="true">Select Categories</label>
+            <dataType>int</dataType>
+            <validation>
+                <rule name="validate-max-3" xsi:type="boolean">true</rule>
+            </validation>
+        </settings>
+        <formElements>
+            <multiselect>
+                <settings>
+                    <options class="Vendor\PageBannerAttributes\Model\Config\Source\CategoryOptions" />
+                </settings>
+            </multiselect>
+        </formElements>
+    </field>
+</fieldset>
+<fieldset name="product_category_section">
+    <argument name="data" xsi:type="array">
+        <item name="config" xsi:type="array">
+            <item name="label" xsi:type="string" translate="true">Product Category ( Home Main Content )</item>
+            <item name="collapsible" xsi:type="boolean">true</item>
+            <item name="sortOrder" xsi:type="number">320</item>
+        </item>
+    </argument>
+
+    <!-- Section Title -->
+    <field name="product_category_title">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="formElement" xsi:type="string">input</item>
+                <item name="componentType" xsi:type="string">field</item>
+                <item name="dataType" xsi:type="string">text</item>
+                <item name="label" xsi:type="string" translate="true">Section Title</item>
+                <item name="sortOrder" xsi:type="number">10</item>
+                <item name="dataScope" xsi:type="string">product_category_title</item>
+            </item>
+        </argument>
+    </field>
+
+    <!-- New Product Categories -->
+    <field name="product_category_categories" formElement="multiselect">
+        <settings>
+            <label translate="true">Select Categories</label>
+            <dataType>int</dataType>
+            <validation>
+                <rule name="validate-max-3" xsi:type="boolean">true</rule>
+            </validation>
+        </settings>
+        <formElements>
+            <multiselect>
+                <settings>
+                    <options class="Vendor\PageBannerAttributes\Model\Config\Source\CategoryOptions" />
+                </settings>
+            </multiselect>
+        </formElements>
+    </field>
+</fieldset>
+<fieldset name="top_products_section">
+    <argument name="data" xsi:type="array">
+        <item name="config" xsi:type="array">
+            <item name="label" xsi:type="string" translate="true">Top Product’s  ( Home Main Content )</item>
+            <item name="collapsible" xsi:type="boolean">true</item>
+            <item name="sortOrder" xsi:type="number">320</item>
+        </item>
+    </argument>
+
+    <!-- Section Title -->
+    <field name="top_products_title">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="formElement" xsi:type="string">input</item>
+                <item name="componentType" xsi:type="string">field</item>
+                <item name="dataType" xsi:type="string">text</item>
+                <item name="label" xsi:type="string" translate="true">Section Title</item>
+                <item name="sortOrder" xsi:type="number">10</item>
+                <item name="dataScope" xsi:type="string">top_products_title</item>
+            </item>
+        </argument>
+    </field>
+
+    <!-- New Product Categories -->
+    <field name="top_products_categories" formElement="multiselect">
+        <settings>
+            <label translate="true">Select Categories</label>
+            <dataType>int</dataType>
+            <validation>
+                <rule name="validate-max-3" xsi:type="boolean">true</rule>
+            </validation>
+        </settings>
+        <formElements>
+            <multiselect>
+                <settings>
+                    <options class="Vendor\PageBannerAttributes\Model\Config\Source\CategoryOptions" />
+                </settings>
+            </multiselect>
+        </formElements>
+    </field>
+</fieldset>
+</fieldset>
+
+<!-- <fieldset name="about_us_section">
+    <argument name="data" xsi:type="array">
+        <item name="config" xsi:type="array">
+            <item name="label" xsi:type="string" translate="true">About Us Section</item>
+            <item name="collapsible" xsi:type="boolean">true</item>
+            <item name="sortOrder" xsi:type="number">320</item>
+        </item>
+    </argument>
+    <fieldset name="banner_settings">
+        <settings>
+            <collapsible>true</collapsible>
+            <label translate="true">Banner Settings</label>
+        </settings>
+
+        <field name="about_banner1_image" formElement="imageUploader">
+            <settings>
+                <dataType>string</dataType>
+                <label translate="true">Banner 1 Image</label>
+            </settings>
+            <formElements>
+                <imageUploader>
+                    <settings>
+                        <required>false</required>
+                        <uploaderConfig>
+                            <param xsi:type="url" name="url" path="catalog/category_image/upload"/>
+                        </uploaderConfig>
+                        <previewTmpl>Magento_Catalog/image-preview</previewTmpl>
+                        <openDialogTitle>Media Gallery</openDialogTitle>
+                        <initialMediaGalleryOpenSubpath>catalog/category</initialMediaGalleryOpenSubpath>
+                        <allowedExtensions>jpg jpeg gif png</allowedExtensions>
+                        <maxFileSize>4194304</maxFileSize>
+                    </settings>
+                </imageUploader>
+            </formElements>
+        </field>
+        <field name="about_banner1_subtitle" formElement="input">
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Banner 1 Subtitle</label>
+            </settings>
+        </field>
+        <field name="about_banner1_title" formElement="input">
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Banner 1 Title</label>
+            </settings>
+        </field>
+        <field name="about_banner1_button_text" formElement="input">
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Banner 1 Button Text</label>
+            </settings>
+        </field>
+        <field name="about_banner1_button_link" formElement="input">
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Banner 1 Button Link</label>
+            </settings>
+        </field>
+        <field name="about_banner2_image" formElement="imageUploader">
+            <settings>
+                <dataType>string</dataType>
+                <label translate="true">Banner 2 Image</label>
+            </settings>
+            <formElements>
+                <imageUploader>
+                    <settings>
+                        <required>false</required>
+                        <uploaderConfig>
+                            <param xsi:type="url" name="url" path="catalog/category_image/upload"/>
+                        </uploaderConfig>
+                        <previewTmpl>Magento_Catalog/image-preview</previewTmpl>
+                        <openDialogTitle>Media Gallery</openDialogTitle>
+                        <initialMediaGalleryOpenSubpath>catalog/category</initialMediaGalleryOpenSubpath>
+                        <allowedExtensions>jpg jpeg gif png</allowedExtensions>
+                        <maxFileSize>4194304</maxFileSize>
+                    </settings>
+                </imageUploader>
+            </formElements>
+        </field>
+        <field name="about_banner2_subtitle" formElement="input">
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Banner 2 Subtitle</label>
+            </settings>
+        </field>
+        <field name="about_banner2_title" formElement="input">
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Banner 2 Title</label>
+            </settings>
+        </field>
+        <field name="about_banner2_button_text" formElement="input">
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Banner 2 Button Text</label>
+            </settings>
+        </field>
+        <field name="about_banner2_button_link" formElement="input">
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Banner 2 Button Link</label>
+            </settings>
+        </field>
+    </fieldset>
+    <fieldset name="about_page_settings">
+        <settings>
+            <collapsible>true</collapsible>
+            <label translate="true">Banner Image</label>
+        </settings>
+
+        <field name="about_banner_image" formElement="imageUploader">
+            <settings>
+                <dataType>string</dataType>
+                <label translate="true">Banner Image</label>
+            </settings>
+            <formElements>
+                <imageUploader>
+                    <settings>
+                        <required>false</required>
+                        <uploaderConfig>
+                            <param xsi:type="url" name="url" path="catalog/category_image/upload"/>
+                        </uploaderConfig>
+                        <previewTmpl>Magento_Catalog/image-preview</previewTmpl>
+                        <openDialogTitle>Media Gallery</openDialogTitle>
+                        <initialMediaGalleryOpenSubpath>catalog/category</initialMediaGalleryOpenSubpath>
+                        <allowedExtensions>jpg jpeg gif png</allowedExtensions>
+                        <maxFileSize>4194304</maxFileSize>
+                    </settings>
+                </imageUploader>
+            </formElements>
+        </field>
+    </fieldset>
+    <fieldset name="vision_mission_settings">
+        <settings>
+            <collapsible>true</collapsible>
+            <label translate="true">Vision And Mission Section</label>
+        </settings>
+
+        <field name="vision_title" formElement="input">
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Vision Title</label>
+            </settings>
+        </field>
+        <field name="vision_description" formElement="textarea">
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Vision Description</label>
+            </settings>
+        </field>
+        <field name="vision_image" formElement="imageUploader">
+            <settings>
+                <dataType>string</dataType>
+                <label translate="true">Vision Image</label>
+            </settings>
+            <formElements>
+                <imageUploader>
+                    <settings>
+                        <required>false</required>
+                        <uploaderConfig>
+                            <param xsi:type="url" name="url" path="catalog/category_image/upload"/>
+                        </uploaderConfig>
+                        <previewTmpl>Magento_Catalog/image-preview</previewTmpl>
+                        <openDialogTitle>Media Gallery</openDialogTitle>
+                        <initialMediaGalleryOpenSubpath>catalog/category</initialMediaGalleryOpenSubpath>
+                        <allowedExtensions>jpg jpeg gif png</allowedExtensions>
+                        <maxFileSize>4194304</maxFileSize>
+                    </settings>
+                </imageUploader>
+            </formElements>
+        </field>
+
+        <field name="mission_title" formElement="input">
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Mission Title</label>
+            </settings>
+        </field>
+        <field name="mission_description" formElement="textarea">
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Mission Description</label>
+            </settings>
+        </field>
+        <field name="mission_image" formElement="imageUploader">
+            <settings>
+                <dataType>string</dataType>
+                <label translate="true">Mission Image</label>
+            </settings>
+            <formElements>
+                <imageUploader>
+                    <settings>
+                        <required>false</required>
+                        <uploaderConfig>
+                            <param xsi:type="url" name="url" path="catalog/category_image/upload"/>
+                        </uploaderConfig>
+                        <previewTmpl>Magento_Catalog/image-preview</previewTmpl>
+                        <openDialogTitle>Media Gallery</openDialogTitle>
+                        <initialMediaGalleryOpenSubpath>catalog/category</initialMediaGalleryOpenSubpath>
+                        <allowedExtensions>jpg jpeg gif png</allowedExtensions>
+                        <maxFileSize>4194304</maxFileSize>
+                    </settings>
+                </imageUploader>
+            </formElements>
+        </field>
+    </fieldset>
+    <fieldset name="quality_warranty_settings">
+        <settings>
+            <collapsible>true</collapsible>
+            <label translate="true">Quality And Warranty Section</label>
+        </settings>
+        <field name="quality_1_image" formElement="imageUploader">
+            <settings>
+                <dataType>string</dataType>
+                <label translate="true">Item 1 Image</label>
+            </settings>
+            <formElements>
+                <imageUploader>
+                    <settings>
+                        <required>false</required>
+                        <uploaderConfig>
+                            <param xsi:type="url" name="url" path="catalog/category_image/upload"/>
+                        </uploaderConfig>
+                        <previewTmpl>Magento_Catalog/image-preview</previewTmpl>
+                        <openDialogTitle>Media Gallery</openDialogTitle>
+                        <initialMediaGalleryOpenSubpath>catalog/category</initialMediaGalleryOpenSubpath>
+                        <allowedExtensions>jpg jpeg gif png</allowedExtensions>
+                        <maxFileSize>4194304</maxFileSize>
+                    </settings>
+                </imageUploader>
+            </formElements>
+        </field>
+        <field name="quality_1_title" formElement="input">
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Item 1 Title</label>
+            </settings>
+        </field>
+        <field name="quality_1_description" formElement="textarea">
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Item 1 Description</label>
+            </settings>
+        </field>
+        <field name="quality_2_image" formElement="imageUploader">
+            <settings>
+                <dataType>string</dataType>
+                <label translate="true">Item 2 Image</label>
+            </settings>
+            <formElements>
+                <imageUploader>
+                    <settings>
+                        <required>false</required>
+                        <uploaderConfig>
+                            <param xsi:type="url" name="url" path="catalog/category_image/upload"/>
+                        </uploaderConfig>
+                        <previewTmpl>Magento_Catalog/image-preview</previewTmpl>
+                        <openDialogTitle>Media Gallery</openDialogTitle>
+                        <initialMediaGalleryOpenSubpath>catalog/category</initialMediaGalleryOpenSubpath>
+                        <allowedExtensions>jpg jpeg gif png</allowedExtensions>
+                        <maxFileSize>4194304</maxFileSize>
+                    </settings>
+                </imageUploader>
+            </formElements>
+        </field>
+        <field name="quality_2_title" formElement="input">
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Item 2 Title</label>
+            </settings>
+        </field>
+        <field name="quality_2_description" formElement="textarea">
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Item 2 Description</label>
+            </settings>
+        </field>
+        <field name="quality_3_image" formElement="imageUploader">
+            <settings>
+                <dataType>string</dataType>
+                <label translate="true">Item 3 Image</label>
+            </settings>
+            <formElements>
+                <imageUploader>
+                    <settings>
+                        <required>false</required>
+                        <uploaderConfig>
+                            <param xsi:type="url" name="url" path="catalog/category_image/upload"/>
+                        </uploaderConfig>
+                        <previewTmpl>Magento_Catalog/image-preview</previewTmpl>
+                        <openDialogTitle>Media Gallery</openDialogTitle>
+                        <initialMediaGalleryOpenSubpath>catalog/category</initialMediaGalleryOpenSubpath>
+                        <allowedExtensions>jpg jpeg gif png</allowedExtensions>
+                        <maxFileSize>4194304</maxFileSize>
+                    </settings>
+                </imageUploader>
+            </formElements>
+        </field>
+        <field name="quality_3_title" formElement="input">
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Item 3 Title</label>
+            </settings>
+        </field>
+        <field name="quality_3_description" formElement="textarea">
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Item 3 Description</label>
+            </settings>
+        </field>
+    </fieldset>
+    <fieldset name="trending_products_settings">
+        <settings>
+            <collapsible>true</collapsible>
+            <label translate="true">Trending Products Section</label>
+        </settings>
+
+        <field name="trending_products_title" formElement="input">
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Section Title</label>
+            </settings>
+        </field>
+
+        <field name="trending_products_product_ids" formElement="multiselect">
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Select Products (max 3)</label>
+                <validation>
+                    <rule name="max_number" xsi:type="number">3</rule>
+                </validation>
+            </settings>
+            <formElements>
+                    <multiselect>
+                        <settings>
+                            <options class="Vendor\PageBannerAttributes\Model\Config\Source\Products" />
+                        </settings>
+                    </multiselect>
+                </formElements>
+        </field>
+    </fieldset>
+    <fieldset name="top_selling_products_settings">
+        <settings>
+            <collapsible>true</collapsible>
+            <label translate="true">Top Selling Products Section</label>
+        </settings>
+
+        <field name="top_selling_products_title" formElement="input">
+            <settings><label translate="true">Section Title</label></settings>
+        </field>
+        <field name="top_selling_offer_1_title" formElement="input">
+            <settings><label translate="true">Offer 1 Title</label></settings>
+        </field>
+        <field name="top_selling_offer_1_price" formElement="input">
+            <settings><label translate="true">Offer 1 Price</label></settings>
+        </field>
+        <field name="top_selling_offer_1_image" formElement="imageUploader">
+            <settings><label translate="true">Offer 1 Image</label></settings>
+            <formElements>
+                <imageUploader>
+                    <settings>
+                        <required>false</required>
+                        <uploaderConfig>
+                            <param xsi:type="url" name="url" path="catalog/category_image/upload"/>
+                        </uploaderConfig>
+                        <previewTmpl>Magento_Catalog/image-preview</previewTmpl>
+                        <openDialogTitle>Media Gallery</openDialogTitle>
+                        <initialMediaGalleryOpenSubpath>catalog/category</initialMediaGalleryOpenSubpath>
+                        <allowedExtensions>jpg jpeg gif png</allowedExtensions>
+                        <maxFileSize>4194304</maxFileSize>
+                    </settings>
+                </imageUploader>
+            </formElements>
+        </field>
+        <field name="top_selling_offer_2_title" formElement="input">
+            <settings><label translate="true">Offer 2 Title</label></settings>
+        </field>
+        <field name="top_selling_offer_2_price" formElement="input">
+            <settings><label translate="true">Offer 2 Price</label></settings>
+        </field>
+        <field name="top_selling_offer_2_image" formElement="imageUploader">
+            <settings><label translate="true">Offer 2 Image</label></settings>
+            <formElements>
+                <imageUploader>
+                    <settings>
+                        <required>false</required>
+                        <uploaderConfig>
+                            <param xsi:type="url" name="url" path="catalog/category_image/upload"/>
+                        </uploaderConfig>
+                        <previewTmpl>Magento_Catalog/image-preview</previewTmpl>
+                        <openDialogTitle>Media Gallery</openDialogTitle>
+                        <initialMediaGalleryOpenSubpath>catalog/category</initialMediaGalleryOpenSubpath>
+                        <allowedExtensions>jpg jpeg gif png</allowedExtensions>
+                        <maxFileSize>4194304</maxFileSize>
+                    </settings>
+                </imageUploader>
+            </formElements>
+        </field>
+        <field name="top_selling_offer_3_title" formElement="input">
+            <settings><label translate="true">Offer 3 Title</label></settings>
+        </field>
+        <field name="top_selling_offer_3_price" formElement="input">
+            <settings><label translate="true">Offer 3 Price</label></settings>
+        </field>
+        <field name="top_selling_offer_3_image" formElement="imageUploader">
+            <settings><label translate="true">Offer 3 Image</label></settings>
+            <formElements>
+                <imageUploader>
+                    <settings>
+                        <required>false</required>
+                        <uploaderConfig>
+                            <param xsi:type="url" name="url" path="catalog/category_image/upload"/>
+                        </uploaderConfig>
+                        <previewTmpl>Magento_Catalog/image-preview</previewTmpl>
+                        <openDialogTitle>Media Gallery</openDialogTitle>
+                        <initialMediaGalleryOpenSubpath>catalog/category</initialMediaGalleryOpenSubpath>
+                        <allowedExtensions>jpg jpeg gif png</allowedExtensions>
+                        <maxFileSize>4194304</maxFileSize>
+                    </settings>
+                </imageUploader>
+            </formElements>
+        </field>
+    </fieldset>
+    <fieldset name="top_product_slider_settings">
+        <settings>
+            <collapsible>true</collapsible>
+            <label translate="true">Top Product Slider Section</label>
+        </settings>
+
+        <field name="top_product_slider_title" formElement="input">
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Section Title</label>
+            </settings>
+        </field>
+
+        <field name="top_product_slider_categories" formElement="multiselect">
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Select Categories (max 3)</label>
+                <validation>
+                    <rule name="max_number" xsi:type="number">3</rule>
+                </validation>
+            </settings>
+            <formElements>
+                    <multiselect>
+                        <settings>
+                            <options class="Vendor\PageBannerAttributes\Model\Config\Source\CategoryOptions"/>
+                        </settings>
+                    </multiselect>
+                </formElements>
+        </field>
+    </fieldset>
+    <fieldset name="brand_slider_settings">
+        <settings>
+            <collapsible>true</collapsible>
+            <label translate="true">Brand/Logo Slider Section</label>
+        </settings>
+        <field name="about_brand_1_image" formElement="imageUploader">
+            <settings><label translate="true">Brand 1 Logo</label></settings>
+            <formElements>
+                <imageUploader>
+                    <settings>
+                        <required>false</required>
+                        <uploaderConfig>
+                            <param xsi:type="url" name="url" path="catalog/category_image/upload"/>
+                        </uploaderConfig>
+                        <previewTmpl>Magento_Catalog/image-preview</previewTmpl>
+                        <openDialogTitle>Media Gallery</openDialogTitle>
+                        <initialMediaGalleryOpenSubpath>catalog/category</initialMediaGalleryOpenSubpath>
+                        <allowedExtensions>jpg jpeg gif png</allowedExtensions>
+                        <maxFileSize>4194304</maxFileSize>
+                    </settings>
+                </imageUploader>
+            </formElements>
+        </field>
+        <field name="about_brand_2_image" formElement="imageUploader">
+            <settings><label translate="true">Brand 2 Logo</label></settings>
+            <formElements>
+                <imageUploader>
+                    <settings>
+                        <required>false</required>
+                        <uploaderConfig>
+                            <param xsi:type="url" name="url" path="catalog/category_image/upload"/>
+                        </uploaderConfig>
+                        <previewTmpl>Magento_Catalog/image-preview</previewTmpl>
+                        <openDialogTitle>Media Gallery</openDialogTitle>
+                        <initialMediaGalleryOpenSubpath>catalog/category</initialMediaGalleryOpenSubpath>
+                        <allowedExtensions>jpg jpeg gif png</allowedExtensions>
+                        <maxFileSize>4194304</maxFileSize>
+                    </settings>
+                </imageUploader>
+            </formElements>
+        </field>
+        <field name="about_brand_3_image" formElement="imageUploader">
+            <settings><label translate="true">Brand 3 Logo</label></settings>
+            <formElements>
+                <imageUploader>
+                    <settings>
+                        <required>false</required>
+                        <uploaderConfig>
+                            <param xsi:type="url" name="url" path="catalog/category_image/upload"/>
+                        </uploaderConfig>
+                        <previewTmpl>Magento_Catalog/image-preview</previewTmpl>
+                        <openDialogTitle>Media Gallery</openDialogTitle>
+                        <initialMediaGalleryOpenSubpath>catalog/category</initialMediaGalleryOpenSubpath>
+                        <allowedExtensions>jpg jpeg gif png</allowedExtensions>
+                        <maxFileSize>4194304</maxFileSize>
+                    </settings>
+                </imageUploader>
+            </formElements>
+        </field>
+        <field name="about_brand_4_image" formElement="imageUploader">
+            <settings><label translate="true">Brand 4 Logo</label></settings>
+            <formElements>
+                <imageUploader>
+                    <settings>
+                        <required>false</required>
+                        <uploaderConfig>
+                            <param xsi:type="url" name="url" path="catalog/category_image/upload"/>
+                        </uploaderConfig>
+                        <previewTmpl>Magento_Catalog/image-preview</previewTmpl>
+                        <openDialogTitle>Media Gallery</openDialogTitle>
+                        <initialMediaGalleryOpenSubpath>catalog/category</initialMediaGalleryOpenSubpath>
+                        <allowedExtensions>jpg jpeg gif png</allowedExtensions>
+                        <maxFileSize>4194304</maxFileSize>
+                    </settings>
+                </imageUploader>
+            </formElements>
+        </field>
+        <field name="about_brand_5_image" formElement="imageUploader">
+            <settings><label translate="true">Brand 5 Logo</label></settings>
+            <formElements>
+                <imageUploader>
+                    <settings>
+                        <required>false</required>
+                        <uploaderConfig>
+                            <param xsi:type="url" name="url" path="catalog/category_image/upload"/>
+                        </uploaderConfig>
+                        <previewTmpl>Magento_Catalog/image-preview</previewTmpl>
+                        <openDialogTitle>Media Gallery</openDialogTitle>
+                        <initialMediaGalleryOpenSubpath>catalog/category</initialMediaGalleryOpenSubpath>
+                        <allowedExtensions>jpg jpeg gif png</allowedExtensions>
+                        <maxFileSize>4194304</maxFileSize>
+                    </settings>
+                </imageUploader>
+            </formElements>
+        </field>
+        <field name="about_brand_6_image" formElement="imageUploader">
+            <settings><label translate="true">Brand 6 Logo</label></settings>
+            <formElements>
+                <imageUploader>
+                    <settings>
+                        <required>false</required>
+                        <uploaderConfig>
+                            <param xsi:type="url" name="url" path="catalog/category_image/upload"/>
+                        </uploaderConfig>
+                        <previewTmpl>Magento_Catalog/image-preview</previewTmpl>
+                        <openDialogTitle>Media Gallery</openDialogTitle>
+                        <initialMediaGalleryOpenSubpath>catalog/category</initialMediaGalleryOpenSubpath>
+                        <allowedExtensions>jpg jpeg gif png</allowedExtensions>
+                        <maxFileSize>4194304</maxFileSize>
+                    </settings>
+                </imageUploader>
+            </formElements>
+        </field>
+    </fieldset>
+</fieldset> -->
+
+</form>

@@ -1,0 +1,126 @@
+<div class="topbar">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 p-md-1">
+                <img src="<?= $block->getViewFileUrl('images/tag.png') ?>" alt="" class="me-md-2 me-1 tag_size">
+                World's Fastest Online Shopping Destination to our store here.
+            </div>
+            <div class="order-tracker col-md-6 d-flex justify-content-end">
+                <img src="<?= $block->getViewFileUrl('images/fast-delivery.png') ?>" alt="truck">
+                <p class="track-text mb-0">Track Your Order</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<nav class="navbar navbar-expand-lg bg-body-tertiary py-lg-3">
+    <div class="container">
+      <div>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" href="#">
+          <img src="images/caviar_logo.png" alt="">
+        </a>
+      </div>
+      <div class="collapse navbar-collapse justify-content-center" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Home</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">shop</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">shop 1</a></li>
+              <li><a class="dropdown-item" href="#">shop 2</a></li>
+              <li><a class="dropdown-item" href="#">shop 3</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Products</a><span class="cart-count">New</span>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Products 1</a></li>
+              <li><a class="dropdown-item" href="#">Products 2</a></li>
+              <li><a class="dropdown-item" href="#">Products 3</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">blog</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">blog 1</a></li>
+              <li><a class="dropdown-item" href="#">blog 2</a></li>
+              <li><a class="dropdown-item" href="#">blog 3</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">about</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">about 1</a></li>
+              <li><a class="dropdown-item" href="#">about 2</a></li>
+              <li><a class="dropdown-item" href="#">about 3</a></li>
+            </ul>
+          </li>
+          <li class="nav-item position-relative">
+            <a class="nav-link" href="#">Offers</a><span class="cart-count offer_price_badge">Pro</span>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Brand</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Brand 1</a></li>
+              <li><a class="dropdown-item" href="#">Brand 2</a></li>
+              <li><a class="dropdown-item" href="#">Brand 3</a></li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Features</a>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <ul class="flex_icon">
+          <li><a href="#"><img src="<?= $block->getViewFileUrl('images/user.png'); ?>" alt="img"></a></li>
+          <li><a href="#"><img src="<?= $block->getViewFileUrl('images/wishlist.png');?>" alt="img"></a></li>
+          <li><a href="#"><img src="<?= $block->getViewFileUrl('images/caviar_cart.png'); ?>" alt="img"><span class="cart-count cart_count_badge">3</span></a></li>
+        </ul>
+      </div>
+    </div>
+</nav>
+<div class="top-category-bar ">
+  <div class="container">
+    <div class="row align-items-center">
+      <!-- Left Side: Toggle + Title -->
+      <div class="col-md-3 d-flex align-items-center p-md-0">
+        <div class="category_menu">
+          <button onclick="toggleMyDiv()" class="top_category"><img src="<?= $block->getViewFileUrl('images/toggle.png'); ?>" alt=""> Top
+            Category</button>
+          <div class="nav_below_item nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+            <div id="toggle_section">
+              <button class="nav-link active" id="v-pills-new_product-tab" data-bs-toggle="pill" data-bs-target="#v-pills-new_product" type="button" role="tab" aria-controls="v-pills-new_product" aria-selected="true"><img src="images/tv_icon.png" alt="">new product</button>
+              <button class="nav-link" id="v-pills-kitchen_appliance-tab" data-bs-toggle="pill" data-bs-target="#v-pills-kitchen_appliance" type="button" role="tab" aria-controls="v-pills-kitchen_appliance" aria-selected="false" tabindex="-1"><img src="images/fridge_icon.png" alt="">kitchen appliance</button>
+              <button class="nav-link" id="v-pills-electronic_home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-electronic_home" type="button" role="tab" aria-controls="v-pills-electronic_home" aria-selected="false" tabindex="-1"><img src="images/headphone_icon.png" alt="">electronic &amp; home</button>
+              <button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false" tabindex="-1"><img src="images/washing-machine_icon.png" alt="">home accessorise</button>
+              <button class="nav-link" id="v-pills-desktop_product-tab" data-bs-toggle="pill" data-bs-target="#v-pills-desktop_product" type="button" role="tab" aria-controls="v-pills-desktop_product" aria-selected="false" tabindex="-1"><img src="images/press.png" alt="">desktop
+                product</button>
+              <button class="nav-link" id="v-pills-all_category-tab" data-bs-toggle="pill" data-bs-target="#v-pills-all_category" type="button" role="tab" aria-controls="v-pills-all_category" aria-selected="false" tabindex="-1"><img src="images/phone_icon.png" alt="">see all category</button>
+            </div>
+          </div>
+        </div>
+</div>
+        <!-- Right Side: Search Bar -->
+        <div class="col-md-9">
+          <form class="d-flex search-form">
+            <input type="text" class="form-control search-input" placeholder="Search For Products">
+            <select class="form-select category-select">
+              <option>All Categories</option>
+              <option>Electronics</option>
+              <option>Fashion</option>
+              <option>Sports</option>
+            </select>
+            <button class="btn search-btn" type="submit">
+              <i class="bi bi-search"></i>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>

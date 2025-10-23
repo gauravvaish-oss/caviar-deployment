@@ -31,7 +31,7 @@ return [
         'connection' => [
             'default' => [
                 'host' => 'localhost',
-                'dbname' => 'caviar2',
+                'dbname' => 'cav',
                 'username' => 'root',
                 'password' => '',
                 'model' => 'mysql4',
@@ -75,7 +75,7 @@ return [
         'full_page' => 0,
         'config_webservice' => 1,
         'translate' => 1,
-        'goomento_pagebuilder_frontend' => 1,
+        'goomento_pagebuilder_frontend' => 0,
         'goomento_pagebuilder_backend' => 1
     ],
     'downloadable_domains' => [

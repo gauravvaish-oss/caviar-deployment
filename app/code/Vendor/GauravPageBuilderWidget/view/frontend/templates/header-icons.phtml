@@ -1,31 +1,44 @@
 <?php
-    $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
-    $assetRepo = $objectManager->get(\Magento\Framework\View\Asset\Repository::class);
+$eyeIcon     = $block->getIconUrl('user.png');
+$heartIcon   = $block->getIconUrl('wishlist.png');
+$shuffleIcon = $block->getIconUrl('caviar_cart.png');
 
- $eyeIcon     = $assetRepo->getUrl("Vendor_GauravPageBuilderWidget::images/user.png");
-    $heartIcon   = $assetRepo->getUrl("Vendor_GauravPageBuilderWidget::images/wishlist.png");
-    $shuffleIcon = $assetRepo->getUrl("Vendor_GauravPageBuilderWidget::images/caviar_cart.png");
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
 
+$checkoutSession = $objectManager->get(\Magento\Checkout\Model\Session::class);
+$customerSession = $objectManager->get(\Magento\Customer\Model\Session::class);
+
+$quote = $checkoutSession->getQuote();
+$totalProducts = (int) $quote->getItemsQty();
+
+$isLoggedIn = $customerSession->isLoggedIn();
 ?>
+
 <ul class="flex_icon">
     <li>
-        <a href="<?php echo $block->getUrl('customer/account'); ?>">
-            <img src="<?php echo $eyeIcon; ?>" alt="User">
+        <a href="<?= $block->getUrl('customer/account'); ?>">
+            <img src="<?= $eyeIcon; ?>" alt="User">
         </a>
     </li>
+
+        <li>
+            <a href="<?= $block->getUrl('wishlist'); ?>">
+                <img src="<?= $heartIcon; ?>" alt="Wishlist">
+                    <?php if ($isLoggedIn): ?>
+
+                <span class="wishlist-count cart_count_badge">
+                    <?= $block->getWishlistCount(); ?>
+                </span>
+                    <?php endif; ?>
+
+            </a>
+        </li>
+
     <li>
-        <a href="<?php echo $block->getUrl('wishlist'); ?>">
-            <img src="<?php echo $heartIcon; ?>" alt="Wishlist">
-            <span class="wishlist-count cart_count_badge">
-                <?php echo $block->getWishlistCount(); ?>
-            </span>
-        </a>
-    </li>
-    <li>
-        <a href="<?php echo $block->getUrl('checkout/cart'); ?>">
-            <img src="<?php echo $shuffleIcon; ?>" alt="Cart">
+        <a href="<?= $block->getUrl('checkout/cart'); ?>">
+            <img src="<?= $shuffleIcon; ?>" alt="Cart">
             <span class="cart-count cart_count_badge">
-                <?php echo $block->getCartCount(); ?>
+                <?= $totalProducts; ?>
             </span>
         </a>
     </li>

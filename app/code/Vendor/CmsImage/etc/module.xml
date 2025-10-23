@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.w3.org/2001/XMLSchema-instance
+        http://www.magento.com/xml/ns/magento/module.xsd">
+    <module name="Vendor_CmsImage" setup_version="1.0.0" />
+</config>
