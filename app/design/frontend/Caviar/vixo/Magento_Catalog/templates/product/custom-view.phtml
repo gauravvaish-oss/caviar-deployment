@@ -311,13 +311,6 @@ echo $block->getLayout()
     <section class="full-image-section real-world" style="background: url('https://caviar-development.netlify.app/images/product-single/full-image.jpg');background-size: cover;background-repeat: no-repeat;">
         <h2>Built for the real world.</h2>
     </section>
-
-<?php
-echo $block->getLayout()
-    ->createBlock(\Magento\Review\Block\Product\View\ListView::class)
-    ->setTemplate('Magento_Catalog::product/custom-items.phtml')
-    ->toHtml();
-?>
 <script>
     require(['jquery', 'mage/dataPost'], function($) {
     $(document).ready(function () {
