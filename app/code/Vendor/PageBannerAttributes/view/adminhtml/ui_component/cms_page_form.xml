@@ -187,6 +187,7 @@
                 <item name="component" xsi:type="string">Magento_Ui/js/form/element/image-uploader</item>
                 <item name="label" xsi:type="string" translate="true">Service 1 Image</item>
                 <item name="dataScope" xsi:type="string">service_1_image</item>
+                <item name="dataType" xsi:type="string">string</item>
                 <item name="uploaderConfig" xsi:type="array">
                     <item name="url" xsi:type="url" path="catalog/category_image/upload"/>
                 </item>

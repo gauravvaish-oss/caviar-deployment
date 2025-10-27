@@ -31,7 +31,7 @@ return [
         'connection' => [
             'default' => [
                 'host' => 'localhost',
-                'dbname' => 'cav',
+                'dbname' => 'cavdb27oct',
                 'username' => 'root',
                 'password' => '',
                 'model' => 'mysql4',
