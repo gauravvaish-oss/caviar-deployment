@@ -3793,3 +3793,17 @@ label input[type="checkbox"]:checked::after {
         gap: 2px !important;
     }
 }
+.accordion-button::after {
+            background-image: url(./images/product-single/Vector.png);
+        }
+
+        .accordion-button:not(.collapsed)::after {
+            background-image: url(./images/product-single/Opened.png);
+        }
+
+        section.camera-out-section.position-relative {
+    padding: 50px 0;
+}
+section.camera-section {
+    padding: 50px 0;
+}
