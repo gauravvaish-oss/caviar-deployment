@@ -59,7 +59,7 @@ class GetProducts extends Action
                 $products[] = [
                     'id'    => $product->getId(),
                     'name'  => $product->getName(),
-                    'price' => $product->getPrice(),
+                    'price' => number_format($product->getPrice(), 2),
                     'url'   => $product->getProductUrl(),
                     'image' => $imagePath && $imagePath !== 'no_selection'
                                 ? $mediaUrl . 'catalog/product' . $imagePath

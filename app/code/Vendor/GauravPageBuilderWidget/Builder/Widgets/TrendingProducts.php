@@ -155,7 +155,7 @@ protected function contentTemplate()
                 products.forEach(function(product){
                     // Desktop card
                     var desktopHtml = `
-                        <div class="col-lg-4 col-md-6">
+                        <div class="col-lg-4 col-md-6 p-2">
                             <div class="product-card">
                                 <div class="product-image">
                                     <img class="product-img" src="${product.image}" alt="${product.name}">
@@ -170,7 +170,7 @@ protected function contentTemplate()
                                 <div class="product-info">
                                     <h5 class="product-title">${product.name}</h5>
                                     <div class="product-price">
-                                        <span class="current-price">₹${product.price}</span>
+                                        <span class="current-price">₹${product.price.toFixed(2)}</span>
                                         <span class="original-price">₹${Math.round(product.price * 1.4)}</span>
                                     </div>
                                 </div>
@@ -337,7 +337,7 @@ protected function render(): string
                     
                     // Desktop card
                     var desktopHtml = `
-                        <div class="col-lg-4 col-md-6">
+                        <div class="col-lg-4 col-md-6 p-2">
                             <div class="product-card">
                                 <div class="product-image">
                                     <img class="product-img" src="${product.image}" alt="${product.name}">
@@ -360,7 +360,7 @@ protected function render(): string
                                 <div class="product-info">
                                     <h5 class="product-title">${product.name}</h5>
                                     <div class="product-price">
-                                        <span class="current-price">₹${product.price}</span>
+                                        <span class="current-price">₹${product.price.toFixed(2)}</span>
                                         <span class="original-price">₹${Math.round(product.price * 1.4)}</span>
                                     </div>
                                 </div>
@@ -392,7 +392,7 @@ protected function render(): string
                                 <div class="product-info">
                                     <h5 class="product-title">${product.name}</h5>
                                     <div class="product-price">
-                                        <span class="current-price">₹${product.price}</span>
+                                        <span class="current-price">₹${product.price.toFixed(2)}</span>
                                         <span class="original-price">₹${Math.round(product.price * 1.4)}</span>
                                     </div>
                                 </div>

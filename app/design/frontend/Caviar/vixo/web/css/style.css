@@ -4739,3 +4739,31 @@ section.camera-section {
         width: 50px !important;}
     .swiper.main-swiper{height: auto;}
         }
+.product-title {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+input.form-control.search-input {
+    background: transparent !important;
+}
+input.form-control.search-input::placeholder {
+    color: #fff !important;
+}
+
+.product-image img {
+    width: auto;
+    height: 250px;
+    object-fit: cover;
+}
+
+.product-title {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
