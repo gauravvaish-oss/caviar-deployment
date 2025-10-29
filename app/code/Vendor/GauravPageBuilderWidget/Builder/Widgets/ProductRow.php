@@ -119,7 +119,7 @@ class ProductRow extends AbstractWidget
                                 var p = response.product;
 
                                 var html = `
-                                <div class="col-lg-4 col-md-6 p-2">
+                                <div class="col-lg-4 col-md-6">
                                     <div class="product-card">
                                         <div class="product-image">
                                             <img class="product-img" src="${p.image}" alt="${p.name}">

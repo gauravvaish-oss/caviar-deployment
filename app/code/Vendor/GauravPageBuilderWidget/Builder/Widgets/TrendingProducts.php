@@ -170,7 +170,7 @@ protected function contentTemplate()
                                 <div class="product-info">
                                     <h5 class="product-title">${product.name}</h5>
                                     <div class="product-price">
-                                        <span class="current-price">₹${product.price.toFixed(2)}</span>
+                                        <span class="current-price">₹${product.price}</span>
                                         <span class="original-price">₹${Math.round(product.price * 1.4)}</span>
                                     </div>
                                 </div>
@@ -360,7 +360,7 @@ protected function render(): string
                                 <div class="product-info">
                                     <h5 class="product-title">${product.name}</h5>
                                     <div class="product-price">
-                                        <span class="current-price">₹${product.price.toFixed(2)}</span>
+                                        <span class="current-price">₹${product.price}</span>
                                         <span class="original-price">₹${Math.round(product.price * 1.4)}</span>
                                     </div>
                                 </div>
@@ -392,7 +392,7 @@ protected function render(): string
                                 <div class="product-info">
                                     <h5 class="product-title">${product.name}</h5>
                                     <div class="product-price">
-                                        <span class="current-price">₹${product.price.toFixed(2)}</span>
+                                        <span class="current-price">₹${product.price}</span>
                                         <span class="original-price">₹${Math.round(product.price * 1.4)}</span>
                                     </div>
                                 </div>

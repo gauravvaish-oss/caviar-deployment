@@ -73,8 +73,6 @@ class EntryPointPlugin
         $widgetsManager->registerWidgetType(
             \Vendor\GauravPageBuilderWidget\Builder\Widgets\TrendingProducts::class
         );
-        
-        
         return [$widgetsManager];
     }
 }

@@ -16,7 +16,7 @@ $products = $block->getLatestProducts();
                 <h6><?= $block->escapeHtml($product->getName()); ?></h6>
                 <img src="<?= $block->getViewFileUrl('images/stars.png'); ?>" alt="rating" class="img-fluid">
                 <p>
-                    <?= $block->formatPrice($product->getFinalPrice()); ?>
+<?= $block->escapeHtml(number_format($product->getFinalPrice(), 2)); ?>
                 </p>
             </a>
         </div>

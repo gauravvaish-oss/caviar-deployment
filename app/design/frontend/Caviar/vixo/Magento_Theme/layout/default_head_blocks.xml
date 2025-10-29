@@ -10,6 +10,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <remove src="css/style-l.css" />
 <remove src="css/style-m.css" />
+<css src="style.css" />
         <css src="mage/calendar.css"/>
         <script src="requirejs/require.js"/>
          <link src="https://fonts.googleapis.com" src_type="url" rel="preconnect"/>

@@ -357,7 +357,6 @@ return [
         'PayPal_Braintree' => 1,
         'PayPal_BraintreeGraphQl' => 1,
         'Snowdog_Menu' => 1,
-        'Sparsh_Testimonials' => 1,
         'Temando_ShippingRemover' => 1,
         'Vendor_CmsImage' => 1,
         'Vendor_CustomMinicart' => 1,
