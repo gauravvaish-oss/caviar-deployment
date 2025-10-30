@@ -97,20 +97,31 @@ $galleryImages = $product->getMediaGalleryImages();
                     </div>
 
                     <div class="button-group d-flex mb-3">
-<button class="btn add-to-cart"
+<button class="btn btn-cart"
         type="button"
-        data-post='<?= /* JSON encode for safety */ $block->escapeHtml(
-            json_encode([
-                'action' => $block->getAddToCartUrl($product),
-                'data'   => [
-                    'product'  => $product->getId(),
-                    'form_key' => $formKey
-                ]
-            ])
-        ); ?>'>
-        Add To Cart
-    </button>
-                            <button class="btn buy-now">Buy It Now</button>
+        data-post='<?= $block->escapeHtml(json_encode([
+            'action' => $block->getAddToCartUrl($product),
+            'data'   => [
+                'product'  => $product->getId(),
+                'form_key' => $formKey,
+                'qty'      => 1 // default
+            ]
+        ])) ?>'>
+    Add To Cart
+</button>
+<button class="btn buy-now"
+        type="button"
+        data-post='<?= $block->escapeHtml(json_encode([
+            'action' => $block->getAddToCartUrl($product),
+            'data'   => [
+                'product'  => $product->getId(),
+                'form_key' => $formKey,
+                'qty'      => 1 // default
+            ]
+        ])) ?>'>
+    Buy It Now
+</button>
+           
                         <button class="btn bulk-order">Bulk Order</button>
                     </div>
 
@@ -188,147 +199,14 @@ $galleryImages = $product->getMediaGalleryImages();
         </div>
     </section>
 
-
-    <section class="long-bar-section">
-        <!-- Promo Bar -->
-        <div class="promo-bar">
-            <div class="promo-text">
-                <span>USE CODE FRIDAY50 FOR 50% OFF</span>
-                <span>USE CODE FRIDAY50 FOR 50% OFF</span>
-                <span>USE CODE FRIDAY50 FOR 50% OFF</span>
-                <span>USE CODE FRIDAY50 FOR 50% OFF</span>
-                <span>USE CODE FRIDAY50 FOR 50% OFF</span>
-            </div>
-        </div>
-    </section>
-
-    <section class="specs-details">
-        <div class="">
-            <!-- Section Title -->
-            <h2 class="section-title">What's included</h2>
-
-            <!-- 4 Icon Row -->
-            <div class="row justify-content-center text-center mb-5">
-                <div class="col-6 col-md-3 icon-box">
-                    <img src="<?= $block->getViewFileUrl('./images/product-single/DSLR.png'); ?>" alt="Nikon Z5">
-                    <p class="icon-name">Nikon Z5</p>
-                </div>
-                <div class="col-6 col-md-3 icon-box">
-                    <img src="<?= $block->getViewFileUrl('./images/product-single/Lens (1).png'); ?>" alt="Lens">
-                    <p class="icon-name">20mm Lens</p>
-                </div>
-                <div class="col-6 col-md-3 icon-box">
-                    <img src="<?= $block->getViewFileUrl('./images/product-single/Charger.png'); ?>" alt="Cable">
-                    <p class="icon-name">Charging Cable</p>
-                </div>
-                <div class="col-6 col-md-3 icon-box">
-                    <img src="<?= $block->getViewFileUrl('./images/product-single/ST.png'); ?>" alt="Adobe Subscription">
-                    <p class="icon-name">Adobe Stock Subscription</p>
-                </div>
-            </div>
-
-            <!-- Orange Info Block -->
-            <div class="info-block">
-                <div class="row text-content">
-                    <div class="col-lg-6">
-                        <div class="side-text">
-                            <h3>Expand your creative playground</h3>
-                            <p>
-                                Your full frame journey begins with the Z 5. Simple yet sophisticated, compact yet
-                                powerful, the Z 5 is built to grow with you. It’s everything you’d expect from a full
-                                frame mirrorless camera—intense detail, expansive views, brilliant low light
-                                capabilities, 4K UHD video and more—plus all the innovative tools you need to push the
-                                limits of your creativity.
-
-                            </p>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <img class="side-image" src="<?= $block->getViewFileUrl('./images/product-single/Image (1).png'); ?>" alt="Camera">
-
-                    </div>
-
-                </div>
-            </div>
-
-            <!-- 3-Column Features -->
-            <div class="row text-center">
-                <div class="col-md-4 feature-box p-2">
-                    <img src="<?= $block->getViewFileUrl('./images/product-single/Chip (1).png'); ?>" alt="Super powered">
-                    <h5>Super powered.</h5>
-                    <p>
-                        Powered by Nikon’s EXPEED 6 image processor, the Z 5 delivers stunning image quality with
-                        enhanced sharpness,
-                        clarity, and detail.
-                    </p>
-                </div>
-                <div class="col-md-4 feature-box p-2">
-                    <img src="<?= $block->getViewFileUrl('./images/product-single/Sutter Speed.png'); ?>" alt="Stability">
-                    <h5>The stability you crave.</h5>
-                    <p>
-                        With 5-axis in-body image stabilization, you can shoot handheld and still achieve crystal-clear
-                        photos and videos,
-                        even in low light.
-                    </p>
-                </div>
-                <div class="col-md-4 feature-box p-2">
-                    <img src="<?= $block->getViewFileUrl('./images/product-single/Stability.png'); ?>" alt="Speed">
-                    <h5>In the blink of an iris.</h5>
-                    <p>
-                        Experience blazing-fast autofocus performance that captures subjects instantly, whether you’re
-                        shooting portraits or motion.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
 <?php
 echo $block->getLayout()
     ->createBlock(\Magento\Review\Block\Product\View\ListView::class)
     ->setTemplate('Magento_Catalog::product/custom-review.phtml')
     ->toHtml();
 ?>
-    <section class="camera-out-section position-relative">
-        <div class="help-section">
-            <div class="help-text">
-                <h2>Got a question? We are here to help</h2>
-                <p>If you don’t find an answer in our FAQ page, please contact us below, our customer support is
-                    available Monday to Friday: 9am- 5pm.</p>
-                <div class="team-avatars">
-                    <img src="<?= $block->getViewFileUrl('./images/product-single/big-review.jpg'); ?>" alt="">
-                    <img src="<?= $block->getViewFileUrl('./images/product-single/big-review.jpg'); ?>" alt="">
-                    <img src="<?= $block->getViewFileUrl('./images/product-single/big-review.jpg'); ?>" alt="">
-                </div>
-                <div class="contact-btn">
-                    <button class="btn">Contact us</button>
-                    <small>You’ll get a response within 24 hours</small>
-                </div>
-            </div>
-            <img src="<?= $block->getViewFileUrl('./images/product-single/big-camera.png'); ?>" alt="Camera" class="help-image">
-        </div>
-    </section>
 
-    <section class="full-image-section real-world" style="background: url('https://caviar-development.netlify.app/images/product-single/full-image.jpg');background-size: cover;background-repeat: no-repeat;">
-        <h2>Built for the real world.</h2>
-    </section>
 <script>
-    require(['jquery', 'mage/dataPost'], function($) {
-    $(document).ready(function () {
-        // Attach Magento dataPost to our custom Add to Cart button
-        $('.add-to-cart').mage('dataPost');
-
-        // Optional: show quick feedback
-        $('.add-to-cart').on('click', function() {
-            let $btn = $(this);
-            $btn.text('Adding...').prop('disabled', true);
-
-            // Wait a bit, then revert (Magento reloads minicart automatically)
-            setTimeout(() => {
-                $btn.text('Add To Cart').prop('disabled', false);
-            }, 1500);
-        });
-    });
-});
 require([
     'jquery',
     'swiper' // Make sure Swiper is available (add path if custom)
@@ -388,5 +266,97 @@ $('.accordion-button').on('click', function() {
             $(this).toggleClass('collapsed');
         });
     });
+    function increaseQty() {
+    let q = parseInt($('#qty').text());
+    q++;
+    $('#qty').text(q);
+}
+
+function decreaseQty() {
+    let q = parseInt($('#qty').text());
+    if (q > 1) q--;
+    $('#qty').text(q);
+}
 });
 </script>
+<script>
+require(['jquery', 'mage/dataPost'], function($) {
+    'use strict';
+
+    function readQty() {
+        let txt = $('#qty').text();
+        return parseInt(txt.replace(/\D/g,'')) || 1;
+    }
+
+    function writeQty(n) {
+        n = parseInt(n) || 1;
+        if (n < 1) n = 1;
+        $('#qty').text(n);
+        $('#qty-input').val(n);
+    }
+
+    window.increaseQty = function() {
+        writeQty(readQty() + 1);
+    };
+
+    window.decreaseQty = function() {
+        let q = readQty();
+        writeQty(q > 1 ? q - 1 : 1);
+    };
+
+    $(document).on('selectstart', '#qty', function(e) { e.preventDefault(); });
+
+    // ✅ Add to Cart (Normal)
+    $(document).on('click', '.btn-cart', function (e) {
+        e.preventDefault();
+        let $btn = $(this);
+        let qty   = readQty();
+        let config = $btn.data('post');
+
+        if (typeof config === 'string') config = JSON.parse(config);
+        config.data.qty = qty;
+
+        $btn.prop('disabled', true).text('Adding...');
+
+        try {
+            $.mage.dataPost().postData(config);
+        } catch(err) {
+            console.error(err);
+        }
+
+        setTimeout(function(){
+            $btn.prop('disabled', false).text('Add To Cart');
+        }, 1500);
+    });
+
+    // ✅ Buy Now (Add to cart then redirect to checkout)
+    $(document).on('click', '.buy-now', function (e) {
+        e.preventDefault();
+
+        let $btn = $(this);
+        let qty   = readQty();
+        let config = $btn.data('post');
+
+        if (typeof config === 'string') config = JSON.parse(config);
+        config.data.qty = qty;
+
+        $btn.prop('disabled', true).text('Processing...');
+
+        $.ajax({
+            url: config.action,
+            type: 'POST',
+            data: config.data,
+            success: function () {
+                window.location.href = '<?= $block->getUrl("checkout") ?>';
+            },
+            error: function () {
+                $btn.prop('disabled', false).text('Buy It Now');
+                alert('Unable to process Buy Now. Please try again.');
+            }
+        });
+    });
+
+});
+</script>
+
+
