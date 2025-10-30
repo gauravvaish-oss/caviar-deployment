@@ -184,7 +184,6 @@ class TopCategoryBar extends AbstractWidget
                                 <div id="toggle_section">
                                     <?php foreach($menu_items as $menu){ ?>
                                         <button class="nav-link" id="v-pills-new_product-tab" data-bs-toggle="pill" data-bs-target="#v-pills-new_product" type="button" role="tab" aria-controls="v-pills-new_product" aria-selected="true">
-                                        <img src="<?= $menu['icon']['url']; ?>" alt="">
                                         <?php echo $menu['title']; ?></button>
                                     <?php } ?>  
                                 </div>

@@ -170,7 +170,7 @@ protected function contentTemplate()
                                 <div class="product-info">
                                     <h5 class="product-title">${product.name}</h5>
                                     <div class="product-price">
-                                        <span class="current-price">₹${product.price.toFixed(2)}</span>
+                                        <span class="current-price">₹${product.price}</span>
                                         <span class="original-price">₹${Math.round(product.price * 1.4)}</span>
                                     </div>
                                 </div>
@@ -283,7 +283,7 @@ protected function render(): string
             // 1️⃣ Create dynamic tabs
             categoryArray.forEach(function(categoryId, index) {
                 categoryId = categoryId.trim();
-                var tabHtml = `<button class="tab-btn ${index === 0 ? 'active' : ''}" data-category="${categoryId}">Loading...</button>`;
+                var tabHtml = `<button class="tab-btn ${index === 0 ? 'active' : ''}" data-category="${categoryId}"></button>`;
                 $tabsWrapper.append(tabHtml);
 
                 // Fetch category name for the tab
@@ -294,7 +294,7 @@ protected function render(): string
                     data: { category_id: categoryId, form_key: formKey },
                     success: function(response) {
                         if (response.success) {
-                            $tabsWrapper.find(`button[data-category='${categoryId}']`).text(response.category_name);
+                            $tabsWrapper.find(`button[data-category='${categoryId}']`).value(response.category_name);
 
                             // Auto-load first category
                             if(index === 0){
@@ -360,7 +360,7 @@ protected function render(): string
                                 <div class="product-info">
                                     <h5 class="product-title">${product.name}</h5>
                                     <div class="product-price">
-                                        <span class="current-price">₹${product.price.toFixed(2)}</span>
+                                        <span class="current-price">₹${product.price}</span>
                                         <span class="original-price">₹${Math.round(product.price * 1.4)}</span>
                                     </div>
                                 </div>
@@ -392,7 +392,7 @@ protected function render(): string
                                 <div class="product-info">
                                     <h5 class="product-title">${product.name}</h5>
                                     <div class="product-price">
-                                        <span class="current-price">₹${product.price.toFixed(2)}</span>
+                                        <span class="current-price">₹${product.price}</span>
                                         <span class="original-price">₹${Math.round(product.price * 1.4)}</span>
                                     </div>
                                 </div>

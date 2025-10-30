@@ -1,0 +1,193 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="landofcoder" translate="label" sortOrder="10">
+            <label>landofcoder</label>
+        </tab>
+        <section id="loffastorder" translate="label" sortOrder="130" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Fast Order</label>
+            <tab>landofcoder</tab>
+            <resource>Lof_FastOrder::config_lof_fastorder</resource>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="1">
+                <label>General Configuration</label>
+                <field id="enabled" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="1" canRestore="1">
+                    <label>Module Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="route" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Custom Route code</label>
+                </field>
+                <field id="page_title" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Page Title</label>
+                </field>
+                <field id="meta_description" translate="label comment" type="textarea" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Page Meta Description</label>
+                </field>
+                <field id="meta_keywords" translate="label comment" type="textarea" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Page Meta Keywords</label>
+                </field>
+                <field id="show_breadcrumbs" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="select" canRestore="1">
+                    <label>Module enable breadcrumbs</label>
+                    <comment>Enable/disable module breadcrumb block on quickview</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="enable_upload_csv" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="select" canRestore="1">
+                    <label>Enable Upload CSV</label>
+                    <comment>enable/disable upload CSV</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="enable_instant_search" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="select" canRestore="1">
+                    <label>Enable Instant Search</label>
+                    <comment/>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="enable_multi_productsku" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="select" canRestore="1">
+                    <label>Enable Add Multi Product SKUs</label>
+                    <comment/>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="enable_special_groups" translate="label" type="multiselect" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Enabled for Customer Groups</label>
+                    <source_model>Lof\FastOrder\Model\Config\Source\GroupCollection</source_model>
+                </field>
+            </group>
+            <group id="position" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label">
+                <field id="not_show_menu" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="select" canRestore="1">
+                    <label>Don't show menu</label>
+                    <comment/>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <label>Position of Fast order shortcut</label>
+                <field id="position_shortcut" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="multiselect" canRestore="1">
+                    <label>Position of Fast order shortcut</label>
+                    <source_model>Lof\FastOrder\Model\Config\Source\PositionOption</source_model>
+                    <comment/>
+                    <depends>
+                        <field id="loffastorder/position/not_show_menu">0</field>
+                    </depends>
+                </field>
+            </group>
+            <group id="search" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="20" translate="label">
+                <label>Search Setting</label>
+                <field id="autosearch_minimum_character" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="text" canRestore="1">
+                    <label>Autosearch minimum character</label>
+                    <validate>required-entry validate-digits validate-not-negative-number validate-digits-range digits-range-0-100</validate>
+                    <comment/>
+                </field>
+                <field id="apply_search_attributes" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="multiselect" canRestore="1">
+                    <label>Apply Search By Product Attributes</label>
+                    <source_model>Lof\FastOrder\Model\Config\Source\AvailableAttributes</source_model>
+                </field>
+                <field id="limit_search_results" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="text" canRestore="1">
+                    <label>Limit Search Results</label>
+                    <validate>required-entry validate-digits validate-not-negative-number validate-digits-range digits-range-0-100</validate>
+                    <comment>Enter the number to limit search results</comment>
+                </field>
+                <field id="display_image_product" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="select" canRestore="1">
+                    <label>Enable Display Product Image</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="enable_filter_attribute" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="15" translate="label comment" type="select" canRestore="1">
+                    <label>Enable Filter Product Attribute</label>
+                    <comment>Show new filter field on fastorder, allow filter products by attributes. Example: filter by barcode number.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="attribute_code" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="20" translate="label comment" type="text" canRestore="1">
+                    <label>Filter by Attribute Code</label>
+                    <comment><![CDATA[Input the attribute code with format: <strong>attribute_code</strong> or <strong>attribute_code1|attribute_code2|attribute_code3...</strong>]]></comment>
+                    <depends>
+						<field id="enable_filter_attribute">1</field>
+					</depends>
+                </field>
+                <field id="filter_label" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="25" translate="label comment" type="text" canRestore="1">
+                    <label>Filter Label</label>
+                    <comment><![CDATA[Input the filter label text will show on fast order]]></comment>
+                    <depends>
+						<field id="enable_filter_attribute">1</field>
+					</depends>
+                </field>
+                <field id="filter_placeholder" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="30" translate="label comment" type="text" canRestore="1">
+                    <label>Filter Place Holder</label>
+                    <comment><![CDATA[Input the filter place holder for search input will show on fast order]]></comment>
+                    <depends>
+						<field id="enable_filter_attribute">1</field>
+					</depends>
+                </field>
+                <field id="filter_input_width" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="32" translate="label comment" type="text" canRestore="1">
+                    <label>Filter Input Width</label>
+                    <comment><![CDATA[Input width of input search. Example: 50px. Empty to not use.]]></comment>
+                    <depends>
+						<field id="enable_filter_attribute">1</field>
+					</depends>
+                </field>
+            </group>
+            <group id="design" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="30" translate="label">
+                <label>Design Setting</label>
+                <field id="color_heading_background" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Heading Background Color</label>
+                    <frontend_model>Lof\FastOrder\Block\Color</frontend_model>
+                </field>
+                <field id="color_heading_text" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Heading Text Color</label>
+                    <frontend_model>Lof\FastOrder\Block\Color</frontend_model>
+                </field>
+                <field id="color_background_button" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label> Heading Background Button</label>
+                    <frontend_model>Lof\FastOrder\Block\Color</frontend_model>
+                </field>
+            </group>
+            <group id="translate" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="40" translate="label comment">
+                <label>Translate Setting</label>
+                <field id="text_fastorder" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="0" translate="label" type="text" canRestore="1">
+                    <label>Fast order</label>
+                </field>
+                <field id="text_products" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="3" translate="label" type="text" canRestore="1">
+                    <label>Product(s)</label>
+                </field>
+                <field id="text_sku" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="text" canRestore="1">
+                    <label>Sku</label>
+                </field>
+                <field id="text_qty" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="12" translate="label" type="text" canRestore="1">
+                    <label>Qty</label>
+                </field>
+                <field id="text_subtotal" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="14" translate="label" type="text" canRestore="1">
+                    <label>Subtotal</label>
+                </field>
+                <field id="text_action" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="14" translate="label" type="text" canRestore="1">
+                    <label>Action</label>
+                </field>
+                <field id="text_total_qty" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="15" translate="label" type="text" canRestore="1">
+                    <label>Total Qty:</label>
+                </field>
+                <field id="text_sub_total" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="16" translate="label" type="text" canRestore="1">
+                    <label>Sub total:</label>
+                </field>
+                <field id="text_add_to_cart" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="18" translate="label" type="text" canRestore="1">
+                    <label>ADD TO CART</label>
+                </field>
+                <field id="text_checkout" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="19" translate="label" type="text" canRestore="1">
+                    <label>CHECKOUT</label>
+                </field>
+                <field id="text_add_from_file" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="20" translate="label" type="text" canRestore="1">
+                    <label>Add from file</label>
+                </field>
+                <field id="text_choose_file" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="22" translate="label" type="text" canRestore="1">
+                    <label>Choose File</label>
+                </field>
+                <field id="text_download_a_samle_csv_file" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="24" translate="label" type="text" canRestore="1">
+                    <label>Download a sample CSV file</label>
+                </field>
+                <field id="text_enter_multiple_skus" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="26" translate="label" type="text" canRestore="1">
+                    <label>Enter multiple SKUs</label>
+                </field>
+                <field id="text_enter_multiple_skus_note" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="28" translate="label" type="textarea" canRestore="1">
+                    <label>Enter multiple SKUs Note</label>
+                </field>
+                <field id="text_add_to_list" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="30" translate="label" type="text" canRestore="1">
+                    <label>Add to list</label>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

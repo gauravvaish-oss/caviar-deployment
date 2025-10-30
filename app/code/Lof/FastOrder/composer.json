@@ -1,0 +1,25 @@
+{
+    "name": "landofcoder/module-fast-order",
+    "description": "Lof Fast Order extension allows customers to quickly order products in bulk without navigating the product pages. Simply enter the SKU, quantity and add items to cart.",
+    "type": "magento2-module",
+    "license": "MIT",
+    "version": "1.0.3",
+    "authors": [
+        {
+            "email": "info@landofcoder.com",
+            "name": "landofcoder",
+            "homepage": "https://landofcoder.com"
+        }
+    ],
+    "require": {
+        "landofcoder/module-all" : "1.*"
+    },
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Lof\\FastOrder\\": ""
+        }
+    }
+}

@@ -1,0 +1,70 @@
+<?xml version="1.0" ?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+	<route method="POST" url="/V1/lof-fastorder/fastorder">
+		<service class="Lof\FastOrder\Api\FastorderRepositoryInterface" method="save"/>
+		<resources>
+			<resource ref="Lof_FastOrder::Fastorder_save"/>
+		</resources>
+	</route>
+	<route method="GET" url="/V1/lof-fastorder/fastorder/search">
+		<service class="Lof\FastOrder\Api\FastorderRepositoryInterface" method="getList"/>
+		<resources>
+			<resource ref="Lof_FastOrder::Fastorder_view"/>
+		</resources>
+	</route>
+	<route method="GET" url="/V1/lof-fastorder/fastorder/:fastorderId">
+		<service class="Lof\FastOrder\Api\FastorderRepositoryInterface" method="getById"/>
+		<resources>
+			<resource ref="Lof_FastOrder::Fastorder_view"/>
+		</resources>
+	</route>
+	<route method="PUT" url="/V1/lof-fastorder/fastorder/:fastorderId">
+		<service class="Lof\FastOrder\Api\FastorderRepositoryInterface" method="save"/>
+		<resources>
+			<resource ref="Lof_FastOrder::Fastorder_update"/>
+		</resources>
+	</route>
+	<route method="DELETE" url="/V1/lof-fastorder/fastorder/:fastorderId">
+		<service class="Lof\FastOrder\Api\FastorderRepositoryInterface" method="deleteById"/>
+		<resources>
+			<resource ref="Lof_FastOrder::Fastorder_delete"/>
+		</resources>
+	</route>
+	<route method="POST" url="/V1/lof-fastorder/fastcreateorder">
+		<service class="Lof\FastOrder\Api\FastCreateOrderManagementInterface" method="postFastCreateOrder"/>
+		<resources>
+			<resource ref="anonymous"/>
+		</resources>
+	</route>
+	<route method="GET" url="/V1/lof-fastorder/getcurrency">
+		<service class="Lof\FastOrder\Api\FastOrderManagementInterface" method="getCurrency"/>
+		<resources>
+			<resource ref="anonymous"/>
+		</resources>
+	</route>
+	<route method="POST" url="/V1/lof-fastorder/fastaddmultiplesku">
+		<service class="Lof\FastOrder\Api\FastOrderManagementInterface" method="postFastAddMultipleSKu"/>
+		<resources>
+			<resource ref="anonymous"/>
+		</resources>
+	</route>
+	<route method="GET" url="/V1/lof-fastorder/fastcurrentcart">
+		<service class="Lof\FastOrder\Api\FastCreateOrderManagementInterface" method="getCurrentQuote"/>
+		<resources>
+			<resource ref="anonymous"/>
+		</resources>
+	</route>
+	<route method="GET" url="/V1/lof-fastorder/fastsearchproduct">
+		<service class="Lof\FastOrder\Api\FastSearchProductManagementInterface" method="getFastSearchProduct"/>
+		<resources>
+			<resource ref="anonymous"/>
+		</resources>
+	</route>
+	<route method="GET" url="/V1/lof-fastorder/fastordersetting">
+		<service class="Lof\FastOrder\Api\FastOrderSettingManagementInterface" method="getSetting"/>
+		<resources>
+			<resource ref="anonymous"/>
+<!--			<resource id="Lof_FastOrder::config_lof_fastorder" title="Lof Fast Order Config"/>-->
+		</resources>
+	</route>
+</routes>

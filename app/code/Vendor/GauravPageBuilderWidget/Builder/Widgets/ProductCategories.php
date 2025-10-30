@@ -325,7 +325,7 @@ require([
                 observeParents: true,
                  breakpoints: {
                     768: {         // 📱 tablet
-                        slidesPerView: 2,
+                        slidesPerView: 1,
                         spaceBetween: 15
                     },
                     1024: {        // 💻 desktop
@@ -386,7 +386,7 @@ require([
                                             </div>
                                             <h5 class="product-title"><a href="${product.url}">${product.name}</a></h5>
                                             <div class="product-price">
-                                                <span class="current-price">₹ ${product.price.toFixed(2)}</span>
+                                                <span class="current-price">₹ ${product.price}</span>
                                                 <span class="original-price">₹350</span>
                                             </div>
                                         </div>

@@ -1,0 +1,10 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+	<preference for="Lof\FastOrder\Api\FastorderRepositoryInterface" type="Lof\FastOrder\Model\FastorderRepository"/>
+	<preference for="Lof\FastOrder\Api\Data\FastorderInterface" type="Lof\FastOrder\Model\Data\Fastorder"/>
+	<preference for="Lof\FastOrder\Api\Data\FastorderSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
+	<preference for="Lof\FastOrder\Api\FastCreateOrderManagementInterface" type="Lof\FastOrder\Model\FastCreateOrderManagement"/>
+	<preference for="Lof\FastOrder\Api\FastOrderManagementInterface" type="Lof\FastOrder\Model\FastOrderManagementManagement"/>
+	<preference for="Lof\FastOrder\Api\FastSearchProductManagementInterface" type="Lof\FastOrder\Model\FastSearchProductManagement"/>
+	<preference for="Lof\FastOrder\Api\FastOrderSettingManagementInterface" type="Lof\FastOrder\Model\FastOrderSettingManagement"/>
+</config>

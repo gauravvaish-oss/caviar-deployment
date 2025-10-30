@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+	<acl>
+		<resources>
+			<resource id="Magento_Backend::admin">
+				<resource id="Lof_FastOrder::Fastorder" sortOrder="10" title="Lof Fast Order">
+					<resource id="Lof_FastOrder::Fastorder_save" sortOrder="10" title="Save Fastorder"/>
+					<resource id="Lof_FastOrder::Fastorder_delete" sortOrder="20" title="Delete Fastorder"/>
+					<resource id="Lof_FastOrder::Fastorder_update" sortOrder="30" title="Update Fastorder"/>
+					<resource id="Lof_FastOrder::Fastorder_view" sortOrder="40" title="View Fastorder"/>
+				</resource>
+				<resource id="Magento_Backend::stores">
+					<resource id="Magento_Backend::stores_settings">
+						<resource id="Magento_Config::config">
+							<resource id="Lof_FastOrder::config_lof_fastorder" title="Lof Fast Order Config"/>
+						</resource>
+					</resource>
+				</resource>
+			</resource>
+		</resources>
+	</acl>
+</config>

@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="header.links">
+            <block class="Lof\FastOrder\Block\TopLinks\TopLink" name="fastorder-header-link" ifconfig="loffastorder/general/enabled">
+                <arguments>
+                    <argument name="label" xsi:type="string" translate="true">FastOrder</argument>
+                    <argument name="path" xsi:type="string" translate="true">loffastforder/fastorder/quickview</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+
+        <referenceBlock name="footer_links">
+            <block class="Lof\FastOrder\Block\BottomLinks\BottomLink" name="fastorder-footer-link" ifconfig="loffastorder/general/enabled">
+                <arguments>
+                    <argument name="label" xsi:type="string" translate="true">FastOrder</argument>
+                    <argument name="path" xsi:type="string" translate="true">loffastforder/fastorder/quickview</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+
+        <referenceContainer name="header-wrapper">
+            <block class="Lof\FastOrder\Block\Minicart\Link"
+                   name="fastorder_link" as="fastorder_link" before="minicart" ifconfig="loffastorder/general/enabled">
+                <arguments>
+                    <argument name="label" xsi:type="string" translate="true">FastOrder</argument>
+                    <argument name="path" xsi:type="string" translate="true">loffastforder/fastorder/quickview</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+
+    </body>
+</page>

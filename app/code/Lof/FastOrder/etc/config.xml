@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <loffastorder>
+            <general>
+                <enabled>1</enabled>
+                <enable_upload_csv>1</enable_upload_csv>
+                <enable_instant_search>1</enable_instant_search>
+                <enable_multi_productsku>1</enable_multi_productsku>
+                <enable_special_groups>0,1,2,3,4</enable_special_groups>
+				<route>fastorder</route>
+				<page_title>Fast Order - Quick Order</page_title>
+				<meta_description>lof fast order is magento 2 extension to create quick order</meta_description>
+				<show_breadcrumbs>1</show_breadcrumbs>
+            </general>
+            <position>
+                <not_show_menu>0</not_show_menu>
+                <position_shortcut>2</position_shortcut>
+            </position>
+            <search>
+                <autosearch_minimum_character>2</autosearch_minimum_character>
+                <limit_search_results>10</limit_search_results>
+                <apply_search_attributes>sku,name</apply_search_attributes>
+                <display_image_product>1</display_image_product>
+                <enable_filter_attribute>0</enable_filter_attribute>
+                <filter_label>Filter by Attribute</filter_label>
+                <filter_placeholder>Input the value to filter products</filter_placeholder>
+            </search>
+            <design>
+                <color_heading_background>#ffffff</color_heading_background>
+                <color_heading_text>#707070</color_heading_text>
+                <color_background_button>#eeeeee</color_background_button>
+            </design>
+            <translate>
+                <text_fastorder>Fast order</text_fastorder>
+                <text_products>Product(s)</text_products>
+                <text_sku>Sku</text_sku>
+                <text_qty>Qty</text_qty>
+                <text_subtotal>Subtotal</text_subtotal>
+                <text_action>Action</text_action>
+                <text_total_qty>Total Qty:</text_total_qty>
+                <text_sub_total>Sub total:</text_sub_total>
+                <text_add_to_cart>ADD TO CART</text_add_to_cart>
+                <text_checkout>CHECKOUT</text_checkout>
+                <text_add_from_file>Add from file</text_add_from_file>
+                <text_choose_file>Choose File</text_choose_file>
+                <text_download_a_samle_csv_file>Download a sample CSV file</text_download_a_samle_csv_file>
+                <text_enter_multiple_skus>Enter multiple SKUs</text_enter_multiple_skus>
+                <text_enter_multiple_skus_note><![CDATA[<p>Format: SKU:qty</p> <p>E.g simple product: 24-MB01:1</p> <p>E.g configuration product: MH02:1</p> <p>E.g bundle product: 24-WG080:1</p> <p>E.g grouped product: 24-WG085_Group</p>]]></text_enter_multiple_skus_note>
+                <text_add_to_list>Add to list</text_add_to_list>
+            </translate>
+        </loffastorder>
+    </default>
+</config>

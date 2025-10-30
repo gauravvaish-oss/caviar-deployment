@@ -1,0 +1,43 @@
+<?php
+/**
+ * Landofcoder
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Landofcoder.com license that is
+ * available through the world-wide-web at this URL:
+ * http://landofcoder.com/license
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category   Landofcoder
+ * @package    Lof_FastOrder
+ * @copyright  Copyright (c) 2020 Landofcoder (http://www.landofcoder.com/)
+ * @license    http://www.landofcoder.com/LICENSE-1.0.html
+ */
+
+$helper = $this->helper('Lof\FastOrder\Helper\Data');
+$filterAttribute = $helper->getFilterByAttribute();
+$translateText = $helper->getTranslateText();
+$translateTextString = $helper->getJsonEncode($translateText);
+if($filterAttribute){
+    $filterAttributeString = $helper->getJsonEncode($filterAttribute);
+}else {
+    $filterAttributeString = 'null';
+}
+?>
+<input type="hidden" id="fast-order-store-id" value="<?php echo $block->getStoreId(); ?>" />
+<input type="hidden" id="fast-order-store-code" value="<?php echo $block->getStoreCode(); ?>" />
+<div data-mage-init='{"quickview": {"message": "<?php echo $block->escapeHtmlAttr(__('fast order'));?>"}}' data-params='{"translate":<?php echo $translateTextString; ?>, "filterAttribute":<?php echo $filterAttributeString; ?>}' id="fast-order-container">
+    <!--    to mount html view-->
+    <div class="fastorder-loading"><div class="lds-ripple"><div></div><div></div></div></div>
+</div>
+<div style="display: none">
+    <form id="fast-order-csv-form" enctype="multipart/form-data">
+        <input type="file" name="csv_file" id="csv_file" title="<?php echo $block->escapeHtmlAttr(__('Custom File'));?>" class="input-text"
+               data-validate="{required:true}">
+    </form>
+</div>

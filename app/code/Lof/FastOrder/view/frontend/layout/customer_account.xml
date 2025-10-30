@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="customer_account_navigation">
+            <!-- Add menu to the end of the sidebar -->
+            <block class="Lof\FastOrder\Block\Customer\Link" name="customer-account-navigation-fastorder-link" ifconfig="loffastorder/general/enabled">
+                <arguments>
+                    <argument name="path" xsi:type="string">loffastorder/fastorder/quickview</argument>
+                    <argument name="label" xsi:type="string">FastOrder</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+    </body>
+</page>
+
+
+
+
+
+
+
+
+
+
+

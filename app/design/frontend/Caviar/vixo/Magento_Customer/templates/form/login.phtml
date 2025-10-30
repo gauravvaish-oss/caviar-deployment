@@ -1,0 +1,107 @@
+<?php
+$loginButtonViewModel = $block->getData('login_button_view_model');
+?>
+
+<section class="customer-login-wrapper">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-11 mx-auto">
+        <div class="row login-container">
+
+          <!-- Left Side -->
+          <div class="col-md-5 login-left order-md-1 order-2">
+            <h2><?= $block->escapeHtml(__('Sign in')) ?></h2>
+            <p><?= $block->escapeHtml(__('Please login to continue to your account.')) ?></p>
+
+            <form class="form form-login"
+                  action="<?= $block->escapeUrl($block->getPostActionUrl()) ?>"
+                  method="post"
+                  id="login-form"
+                  data-mage-init='{"validation":{}}'>
+
+              <?= $block->getBlockHtml('formkey') ?>
+
+              <!-- Email -->
+              <div class="form-group form-div">
+                <input type="email"
+                       name="login[username]"
+                       id="email"
+                       class="form-control"
+                       value="<?= $block->escapeHtmlAttr($block->getUsername()) ?>"
+                       placeholder=""
+                       data-mage-init='{"mage/trim-input":{}}'
+                       data-validate="{required:true, 'validate-email':true}">
+                <label class="form-control-placeholder" for="email">Email</label>
+              </div>
+
+              <!-- Password -->
+              <div class="form-group form-div">
+                <input type="password"
+                       name="login[password]"
+                       id="pass"
+                       class="form-control"
+                       placeholder=""
+                       data-validate="{required:true}">
+                <label class="form-control-placeholder" for="pass">Password</label>
+                <span toggle="#pass" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+              </div>
+
+              <div class="form-check mb-3">
+                <input class="form-check-input" type="checkbox" id="keepLoggedIn">
+                <label class="form-check-label" for="keepLoggedIn">Keep me logged in</label>
+              </div>
+
+              <button type="submit" class="btn-signin action login primary"
+                <?php if ($loginButtonViewModel->disabled()): ?> disabled="disabled" <?php endif; ?>>
+                <?= $block->escapeHtml(__('Sign In')) ?>
+              </button>
+
+              <div class="or-divider">or</div>
+
+              <button type="button" class="btn btn-google">
+                Sign in with Google <img src="/media/google_icon.png" alt="">
+              </button>
+
+              <div class="create-account mt-2">
+                <?= $block->escapeHtml(__('Need an account?')) ?>
+                <a href="<?= $block->escapeUrl($block->getCreateAccountUrl()) ?>">
+                  <?= $block->escapeHtml(__('Create one')) ?>
+                </a>
+              </div>
+
+              <div class="forgot-password mt-2">
+                <a href="<?= $block->escapeUrl($block->getForgotPasswordUrl()) ?>">
+                  <?= $block->escapeHtml(__('Forgot Your Password?')) ?>
+                </a>
+              </div>
+
+            </form>
+          </div>
+
+          <!-- Right Image -->
+          <div class="col-md-7 login-right p-0 order-md-2 order-1">
+            <img src="/media/custom-login-image.png" alt="Login Image" class="img-fluid">
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Magento Show Password Binding -->
+<script type="text/x-magento-init">
+{
+  "*": {
+    "Magento_Customer/js/block-submit-on-send": {"formId": "login-form"},
+    "Magento_Ui/js/core/app": {
+      "components": {
+        "showPassword": {
+          "component": "Magento_Customer/js/show-password",
+          "passwordSelector": "#pass"
+        }
+      }
+    }
+  }
+}
+</script>
