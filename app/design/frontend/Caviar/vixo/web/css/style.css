@@ -3097,6 +3097,7 @@ label.star input[type="checkbox"]:checked {
       padding: 60px 50px;
     }
 
+<<<<<<< HEAD
     .login-left h2 { 
 font-weight: 700; 
 font-size: 31px;  
@@ -3279,3 +3280,15 @@ text-align: center; border-bottom: 1px solid;
   position: absolute;top: 35%;bottom: 0;right: 10px;
   z-index: 2;
 }
+=======
+        .accordion-button:not(.collapsed)::after {
+            background-image: url(./images/product-single/Opened.png);
+        }
+
+        section.camera-out-section.position-relative {
+    padding: 50px 0;
+}
+section.camera-section {
+    padding: 50px 0;
+}
+>>>>>>> d315cc8d180c2502b4ef021e925703137772133b
