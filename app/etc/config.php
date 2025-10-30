@@ -356,7 +356,6 @@ return [
         'Mageplaza_Core' => 1,
         'Mageplaza_Blog' => 1,
         'Mageplaza_Smtp' => 1,
-        'Magepow_SocialLogin' => 1,
         'PayPal_Braintree' => 1,
         'PayPal_BraintreeGraphQl' => 1,
         'Snowdog_Menu' => 1,
