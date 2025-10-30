@@ -30,10 +30,10 @@ return [
         'table_prefix' => '',
         'connection' => [
             'default' => [
-                'host' => 'localhost',
-                'dbname' => 'caviar_db',
-                'username' => 'root',
-                'password' => '',
+                'host' => 'magento-db.cleumykee3le.ap-south-1.rds.amazonaws.com',
+                'dbname' => 'cav_db',
+                'username' => 'magento',
+                'password' => '#erP#Service#S',
                 'model' => 'mysql4',
                 'engine' => 'innodb',
                 'initStatements' => 'SET NAMES utf8;',
@@ -76,7 +76,7 @@ return [
         'config_webservice' => 1,
         'translate' => 1,
         'goomento_pagebuilder_frontend' => 0,
-        'goomento_pagebuilder_backend' => 1
+        'goomento_pagebuilder_backend' => 0
     ],
     'downloadable_domains' => [
         'vixo.local.com'

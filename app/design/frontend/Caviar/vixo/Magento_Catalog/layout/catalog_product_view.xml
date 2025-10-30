@@ -17,7 +17,6 @@
         <referenceBlock name="product.info.media" remove="true" />
         <referenceBlock name="product.info.details" remove="true" />
         <referenceBlock name="product.custom.review" remove="true" />
-        <referenceBlock name="product.info.addtocart" remove="true" />
         <attribute name="itemtype" value="http://schema.org/Product" />
         <attribute name="itemscope" value="itemscope"/>
         <referenceBlock name="head.components">
@@ -38,9 +37,7 @@
         <referenceContainer name="content">
             <block class="Magento\Catalog\Block\Product\View" 
                             name="product.custom.view" 
-                            template="Magento_Catalog::product/custom-view.phtml">
-            <block class="Magento\Catalog\Block\Product\View" name="product.info.addtocart" as="addtocart" template="Magento_Catalog::product/view/addtocart.phtml"/>
-                            </block>
+                            template="Magento_Catalog::product/custom-view.phtml" />
                             <block class="Magento\Review\Block\Product\View\ListView" name="product.custom.review" template="Magento_Catalog::product/custom-review.phtml" />
             <block class="Magento\Cookie\Block\RequireCookie" name="require-cookie" template="Magento_Cookie::require_cookie.phtml">
                 <arguments>

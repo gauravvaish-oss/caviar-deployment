@@ -325,7 +325,7 @@ require([
                 observeParents: true,
                  breakpoints: {
                     768: {         // 📱 tablet
-                        slidesPerView: 1,
+                        slidesPerView: 2,
                         spaceBetween: 15
                     },
                     1024: {        // 💻 desktop

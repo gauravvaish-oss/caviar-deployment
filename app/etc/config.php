@@ -351,23 +351,16 @@ return [
         'Goomento_PageBuilder' => 1,
         'Goomento_PageBuilderApi' => 1,
         'Goomento_PageBuilderSampleData' => 1,
-        'Lof_All' => 1,
-        'Lof_FastOrder' => 1,
         'Mageplaza_Core' => 1,
         'Mageplaza_Blog' => 1,
         'Mageplaza_Smtp' => 1,
-        'Magepow_SocialLogin' => 1,
         'PayPal_Braintree' => 1,
         'PayPal_BraintreeGraphQl' => 1,
         'Snowdog_Menu' => 1,
         'Temando_ShippingRemover' => 1,
-        'Vendor_CmsImage' => 1,
         'Vendor_CustomMinicart' => 1,
-        'Vendor_CustomPage' => 1,
         'Vendor_Dblocks' => 1,
         'Vendor_GauravPageBuilderWidget' => 1,
-        'Vendor_Module' => 1,
-        'Vendor_PageBannerAttributes' => 1,
         'Vendor_TopProducts' => 1
     ]
 ];

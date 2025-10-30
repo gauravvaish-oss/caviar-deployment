@@ -16,10 +16,6 @@ class EntryPointPlugin
     public function beforeRegisterWidgets($subject, Widgets $widgetsManager)
     {
         $this->logger->info('Registering GauravWidget');
-        
-        $widgetsManager->registerWidgetType(
-            \Vendor\GauravPageBuilderWidget\Builder\Widgets\LatestProducts::class
-        );
         $widgetsManager->registerWidgetType(
             \Vendor\GauravPageBuilderWidget\Builder\Widgets\PrivacyPolicyTabs::class
         );

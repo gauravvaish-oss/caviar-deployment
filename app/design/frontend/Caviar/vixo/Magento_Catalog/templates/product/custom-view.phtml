@@ -90,12 +90,29 @@ $galleryImages = $product->getMediaGalleryImages();
 
                     <!-- <a href="#" class="text-decoration-none fw-semibold d-block mb-3">View All Tech Specs</a> -->
 
-                    <?php
-echo $block->getLayout()
-    ->createBlock(\Magento\Review\Block\Product\View\ListView::class)
-    ->setTemplate('Magento_Catalog::product/view/addtocart.phtml')
-    ->toHtml();
-?>
+                    <div class="quantity-box">
+                        <span id="qty" class="quantity-number">1</span>
+                        <button class="quantity-btn" onclick="decreaseQty()">-</button>
+                        <button class="quantity-btn" onclick="increaseQty()">+</button>
+                    </div>
+
+                    <div class="button-group d-flex mb-3">
+<button class="btn add-to-cart"
+        type="button"
+        data-post='<?= /* JSON encode for safety */ $block->escapeHtml(
+            json_encode([
+                'action' => $block->getAddToCartUrl($product),
+                'data'   => [
+                    'product'  => $product->getId(),
+                    'form_key' => $formKey
+                ]
+            ])
+        ); ?>'>
+        Add To Cart
+    </button>
+                            <button class="btn buy-now">Buy It Now</button>
+                        <button class="btn bulk-order">Bulk Order</button>
+                    </div>
 
                     <div class="info-text">
                         <p>
