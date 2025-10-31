@@ -2,8 +2,12 @@
 $product = $block->getProduct(); 
 $formKey = $block->getFormKey();
 $galleryImages = $product->getMediaGalleryImages();
+$tierPrices = $product->getTierPrices();
+$basePrice = $product->getFinalPrice(); 
+$description = $product->getDescription();
+$description = str_replace("\\n", "\n", $description);
 
-// dd($product->getFinalPrice());die;
+$description = nl2br($description);
 ?>
 
 <section class="single_product-page">
@@ -70,26 +74,61 @@ $galleryImages = $product->getMediaGalleryImages();
                         </div>
                     </div>
                     <div class="single-product-price">₹<?= number_format($product->getFinalPrice(), 2); ?></div>
-                    <p>Options</p>
-                    <div class="options-box">
-                        <button class="option-btn active">Z5 Body Only</button>
-                        <button class="option-btn">24–50mm Lens Kit</button>
-                    </div>
-
+                    <span class="original-price">₹<?= number_format($product->getPrice(), 2); ?></span>
                     <div class="stock"><img src="<?= $block->getViewFileUrl('./images/product-single/InStock.png') ?>" alt=""> Currently in Stock</div>
 
-                    <ul class="specs">
-                        <li><img src="<?= $block->getViewFileUrl('./images/product-single/Chip.png'); ?>" alt=""> Expeed 6 Chip</li>
-                        <li><img src="<?= $block->getViewFileUrl('./images/product-single/Lens.png');?>" alt=""> Works with 24–50mm Lens</li>
-                        <li><img src="<?= $block->getViewFileUrl('./images/product-single/megapixels 1.png'); ?>" alt=""> 24.3 Million Effective Pixels
-                        </li>
-                        <li><img src="<?= $block->getViewFileUrl('./images/product-single/Battery.png'); ?>" alt=""> EN-EL15c rechargeable Li-ion battery
-                        </li>
-                        <li><a href="#" class="single-product-link ">View All Tech Specs</a></li>
-                    </ul>
-
                     <!-- <a href="#" class="text-decoration-none fw-semibold d-block mb-3">View All Tech Specs</a> -->
+<?php if (!empty($tierPrices)) : ?>
 
+<div class="pricing-container">
+
+    <?php 
+        // First Tier range display
+        $firstTierQty = (int)$tierPrices[0]->getQty();
+        $rangeEnd = $firstTierQty - 1;
+    ?>
+    <?php foreach ($tierPrices as $i => $tier) : 
+        
+        $qty = (int)$tier->getQty();
+        $price = (float)$tier->getValue();
+        $type = $tier->getValueType(); // percent or fixed
+
+        // Magento saves discount % in extensionAttr
+        $discountPercent = (int)$tier->getExtensionAttributes()->getPercentageValue();
+
+        if (!empty($discountPercent)) {
+            // Your logic: total price based on qty
+            $finalPrice = ($basePrice * $qty) - ($basePrice * $qty * ($discountPercent / 100));
+            $unitPrice = $finalPrice / $qty;
+        } else {
+            $unitPrice = $price; // fixed price per piece
+            $finalPrice = $unitPrice * $qty;
+        }
+    ?>
+
+    <label class="option">
+<input type="radio" name="tier-option" value="<?= $qty ?>" data-price="<?= number_format($unitPrice,2) ?>">
+        <div class="option-content">
+            <div class="option-title">
+                Buy <?= $qty ?> pieces 
+                <?php if ($discountPercent) : ?>
+                    and save <?= $discountPercent ?>%
+                <?php endif; ?>
+            </div>
+
+            <div class="price_flex">
+                <div class="price">
+                    <span class="old-price">₹<?= number_format($basePrice, 2) ?></span>
+                    <span class="discount-price">₹<?= number_format($unitPrice, 2) ?></span>
+                </div>
+            </div>
+        </div>
+    </label>
+
+    <?php endforeach; ?>
+</div>
+
+<?php endif; ?>
                     <div class="quantity-box">
                         <span id="qty" class="quantity-number">1</span>
                         <button class="quantity-btn" onclick="decreaseQty()">-</button>
@@ -150,24 +189,22 @@ $galleryImages = $product->getMediaGalleryImages();
                 <div class="col-lg-6">
                     <div class="accordion product-single-accordion" id="productAccordion">
                         <div class="accordion-item">
+                            <?php if(isset($description)) : ?>
+
                             <h2 class="accordion-header" id="descHeading">
                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#descCollapse" aria-expanded="false">
                                     Description
                                 </button>
                             </h2>
-                            <div id="descCollapse" class="accordion-collapse collapse" data-bs-parent="#productAccordion" style="">
+                            <div id="descCollapse" class="accordion-collapse collapse" data-bs-parent="#productAccordion">
                                 <div class="accordion-body">
-                                    Your full frame journey begins with the Z 5. Simple yet sophisticated, compact yet
-                                    powerful, the Z 5 is built to grow with you. It’s everything you’d expect from a
-                                    full frame mirrorless camera—intense detail, expansive views, brilliant low light
-                                    capabilities, 4K UHD video and more—plus all the innovative tools you need to push
-                                    the limits of your creativity.
-
+                                    <?= $description ?: 'No description available.' ?>
                                 </div>
                             </div>
+                            <?php endif; ?>
                         </div>
 
-                        <div class="accordion-item">
+                        <!-- <div class="accordion-item">
                             <h2 class="accordion-header" id="techHeading">
                                 <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#techCollapse" aria-expanded="true">
                                     Tech Specs
@@ -192,7 +229,7 @@ $galleryImages = $product->getMediaGalleryImages();
                                     Free shipping on orders above ₹700. 1-year manufacturer warranty included.
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
@@ -355,7 +392,21 @@ require(['jquery', 'mage/dataPost'], function($) {
             }
         });
     });
+$(document).on('change', 'input[name="tier-option"]', function () {
 
+    let minQty = parseInt($(this).val());
+    let price  = $(this).data('price'); // <-- use data-price instead of regex
+
+    // Update quantity box
+    $('#qty').text(minQty);
+    $('#qty-input').val(minQty);
+
+    // Update visible product price
+    if (price) {
+        $('.product-price-display').text('₹' + price);
+    }
+
+});
 });
 </script>
 
