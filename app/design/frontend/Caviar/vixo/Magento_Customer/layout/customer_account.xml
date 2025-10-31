@@ -8,6 +8,9 @@
                 <arguments>
                     <argument name="label" xsi:type="string">Logout</argument>
                     <argument name="path" xsi:type="string">customer/account/logout</argument>
+                    <argument name="attributes" xsi:type="array">
+                        <item name="class" xsi:type="string">nav-item</item>
+                    </argument>
                 </arguments>
             </block>
         </referenceBlock>
