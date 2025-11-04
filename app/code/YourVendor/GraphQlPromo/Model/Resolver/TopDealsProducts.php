@@ -26,9 +26,14 @@ class TopDealsProducts implements ResolverInterface
 
         $visibility = $objectManager->get(\Magento\Catalog\Model\Product\Visibility::class);
         $collection->setVisibility($visibility->getVisibleInCatalogIds());
+        $store = $objectManager->get(\Magento\Store\Model\StoreManagerInterface::class)->getStore();
+        $mediaUrl = $store->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA) . 'catalog/product';
 
         $items = [];
         foreach ($collection as $product) {
+                        $image = $product->getData('image');
+    $smallImage = $product->getData('small_image');
+    $thumbnail = $product->getData('thumbnail');
             $items[] = [
                 'entity_id'                     => (int)$product->getData('entity_id'),
                 'attribute_set_id'              => (int)$product->getData('attribute_set_id'),
@@ -49,9 +54,9 @@ class TopDealsProducts implements ResolverInterface
                 'special_price'                 => (float)$product->getData('special_price'),
                 'name'                          => $product->getData('name'),
                 'meta_title'                    => $product->getData('meta_title'),
-                'image'                         => $product->getData('image'),
-                'small_image'                   => $product->getData('small_image'),
-                'thumbnail'                     => $product->getData('thumbnail'),
+                'image'                         => $image ? $mediaUrl . $image : null,
+        'small_image'                   => $smallImage ? $mediaUrl . $smallImage : null,
+        'thumbnail'                     => $thumbnail ? $mediaUrl . $thumbnail : null,
                 'options_container'             => $product->getData('options_container'),
                 'url_key'                       => $product->getData('url_key'),
                 'msrp_display_actual_price_type'=> (int)$product->getData('msrp_display_actual_price_type'),
