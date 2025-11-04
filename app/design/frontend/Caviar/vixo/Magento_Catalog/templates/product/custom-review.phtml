@@ -1,0 +1,85 @@
+<?php
+/**
+ * Custom Review Swiper Layout
+ */
+use Magento\Framework\Escaper;
+use Magento\Framework\View\Helper\SecureHtmlRenderer;
+use Magento\Review\Block\Product\View\ListView;
+
+/** @var ListView $block */
+/** @var SecureHtmlRenderer $secureRenderer */
+/** @var Escaper $escaper */
+
+$_items = $block->getReviewsCollection()->getItems();
+$format = $block->getDateFormat() ?: \IntlDateFormatter::SHORT;
+?>
+<section class="review-section position-relative">
+<?php if (count($_items)): ?>
+<div class="container-fluid">
+    <div class="row">
+        <h2><?= $escaper->escapeHtml(__("Don't take our word for it")) ?></h2>
+
+        <!-- Fixed Card -->
+        <div class="col-lg-2">
+            <div class="fixed-review-card">
+                <h5><?= $escaper->escapeHtml(__('Excellent')) ?></h5>
+                <div class="big-star-img d-flex align-items-center">
+                    <?php for ($i = 0; $i < 5; $i++): ?>
+                        <img src="<?= $block->getViewFileUrl('images/product-single/big green star.png') ?>" alt="Star">
+                    <?php endfor; ?>
+                </div>
+                <p class="all-review">
+                    <?= $escaper->escapeHtml(__('Based on')) ?>
+                    <span><?= count($_items) ?> <?= $escaper->escapeHtml(__('reviews')) ?></span>
+                </p>
+                <p class="single-star">
+                    <img src="<?= $block->getViewFileUrl('images/product-single/Shape.png') ?>" alt="star">
+                    Trustpilot
+                </p>
+            </div>
+        </div>
+
+        <!-- Swiper Section -->
+        <div class="col-lg-10">
+            <div class="swiper review-swiper">
+                <div class="swiper-wrapper">
+
+                    <?php foreach ($_items as $_review): ?>
+                        <div class="swiper-slide">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="review-stars">
+                                    <?php
+                                    $ratingPercent = 0;
+                                    if (count($_review->getRatingVotes())) {
+                                        foreach ($_review->getRatingVotes() as $_vote) {
+                                            $ratingPercent = $_vote->getPercent();
+                                            break; // use first rating for display
+                                        }
+                                    }
+                                    $stars = round($ratingPercent / 20);
+                                    for ($i = 0; $i < 5; $i++):
+                                    ?>
+                                        <img src="<?= $block->getViewFileUrl('images/product-single/small green star.png') ?>" alt="star">
+                                    <?php endfor; ?>
+                                </div>
+
+                                <span class="review-time">
+                                    <?= $escaper->escapeHtml(
+                                        $block->formatDate($_review->getCreatedAt(), $format)
+                                    ) ?>
+                                </span>
+                            </div>
+
+                            <div class="review-title"><?= $escaper->escapeHtml($_review->getTitle()) ?></div>
+                            <p class="review-text"><?= nl2br($escaper->escapeHtml($_review->getDetail())) ?></p>
+                            <div class="review-author"><?= $escaper->escapeHtml($_review->getNickname()) ?></div>
+                        </div>
+                    <?php endforeach; ?>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<?php endif; ?>
+                                    </section>

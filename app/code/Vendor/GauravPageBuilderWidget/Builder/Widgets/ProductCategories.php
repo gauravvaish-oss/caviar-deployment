@@ -87,7 +87,7 @@ class ProductCategories extends AbstractWidget
             <div class="tab-content">
                 <div class="tab-pane fade active show">
                     <div class="swiper productSwiper">
-                        <div class="swiper-wrapper" id="product-category-swiper"></div>
+                        <div class="swiper-wrapper product-category-swiper-d" id="product-category-swiper"></div>
                         <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
                     </div>
                 </div>
@@ -126,9 +126,9 @@ require([
                 observer: true,
                 observeParents: true,
                  breakpoints: {
-                    0: {           // 📱 mobile
-                        slidesPerView: 1,
-                        spaceBetween: 10
+                    0: {         // 📱 tablet
+                        slidesPerView: 1.2,
+                        spaceBetween: 15
                     },
                     768: {         // 📱 tablet
                         slidesPerView: 2,
@@ -150,7 +150,7 @@ require([
                 dataType: "json",
                 data: { category_id: categoryId },
                 beforeSend: function () {
-                    $("#product-category-swiper").html("<p>Loading...</p>");
+                    $(".product-category-swiper-d").html("<p>Loading...</p>");
                 },
                 success: function (response) {
                     if (response.success) {
@@ -193,16 +193,16 @@ require([
                             `;
                         });
 
-                        $("#product-category-swiper").html(html);
+                        $(".product-category-swiper-d").html(html);
 
                         // ✅ Init Swiper after products loaded
                         initSwiper();
                     } else {
-                        $("#product-category-swiper").html("<p>Error: " + response.message + "</p>");
+                        $(".product-category-swiper-d").html("<p>Error: " + response.message + "</p>");
                     }
                 },
                 error: function () {
-                    $("#product-category-swiper").html("<p>Request failed!</p>");
+                    $(".product-category-swiper-d").html("<p>Request failed!</p>");
                 }
             });
         }
@@ -287,7 +287,7 @@ require([
             <div class="tab-content">
                 <div class="tab-pane fade active show">
                     <div class="swiper productSwiper">
-                        <div class="swiper-wrapper" id="product-category-swiper"></div>
+                        <div class="swiper-wrapper product-category-swiper-d" id="product-category-swiper"></div>
                         <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
                     </div>
                 </div>
@@ -328,12 +328,8 @@ require([
                 observer: true,
                 observeParents: true,
                  breakpoints: {
-                    0: {           // 📱 mobile
-                        slidesPerView: 1,
-                        spaceBetween: 10
-                    },
                     768: {         // 📱 tablet
-                        slidesPerView: 1,
+                        slidesPerView: 1.2,
                         spaceBetween: 15
                     },
                     1024: {        // 💻 desktop
@@ -352,7 +348,7 @@ require([
                 dataType: "json",
                 data: { category_id: categoryId },
                 beforeSend: function () {
-                    $("#product-category-swiper").html("<p>Loading...</p>");
+                    $(".product-category-swiper-d").html("<p>Loading...</p>");
                 },
                 success: function (response) {
                     if (response.success) {
@@ -403,16 +399,16 @@ require([
                             `;
                         });
 
-                        $("#product-category-swiper").html(html);
+                        $(".product-category-swiper-d").html(html);
 
                         // ✅ Init Swiper after products loaded
                         initSwiper();
                     } else {
-                        $("#product-category-swiper").html("<p>Error: " + response.message + "</p>");
+                        $(".product-category-swiper-d").html("<p>Error: " + response.message + "</p>");
                     }
                 },
                 error: function () {
-                    $("#product-category-swiper").html("<p>Request failed!</p>");
+                    $(".product-category-swiper-d").html("<p>Request failed!</p>");
                 }
             });
         }

@@ -1,0 +1,6 @@
+interface ProductInterface @typeResolver(class: "Magento\\CatalogGraphQl\\Model\\ProductInterfaceTypeResolverComposite") @doc(description:"Featured Product") {
+    is_featured: String @doc(description: "Featured Product") @resolver(class: "Caviar\\ProductAttributesGraphQl\\Model\\Resolver\\IsFeatured")
+}
+interface ProductInterface @typeResolver(class: "Magento\\CatalogGraphQl\\Model\\ProductInterfaceTypeResolverComposite") @doc(description: "Featured Products") {
+    is_featured: String @doc(description: "Featured") @resolver(class: "")
+}

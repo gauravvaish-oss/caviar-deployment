@@ -50,7 +50,7 @@ return [
         ]
     ],
     'x-frame-options' => 'SAMEORIGIN',
-    'MAGE_MODE' => 'production',
+    'MAGE_MODE' => 'developer',
     'session' => [
         'save' => 'files'
     ],
@@ -75,8 +75,8 @@ return [
         'full_page' => 0,
         'config_webservice' => 1,
         'translate' => 1,
-        'goomento_pagebuilder_frontend' => 1,
-        'goomento_pagebuilder_backend' => 1
+        'goomento_pagebuilder_frontend' => 0,
+        'goomento_pagebuilder_backend' => 0
     ],
     'downloadable_domains' => [
         'vixo.local.com'

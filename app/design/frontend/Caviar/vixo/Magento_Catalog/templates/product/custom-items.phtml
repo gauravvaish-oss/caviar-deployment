@@ -1,0 +1,86 @@
+<?php
+/** @var \Magento\Catalog\Block\Product\ProductList\Related $block */
+$items = $block->getItems();
+?>
+
+<?php if (count($items)): ?>
+<section class="camera-section">
+    <div>
+        <div class="container">
+            <h4 class="fw-bold">You may also like</h4>
+        </div>
+
+        <div class="swiper camera-Swiper">
+            <div class="swiper-wrapper">
+                <?php foreach ($items as $_item): ?>
+                    <?php
+                        $image = $block->getImage($_item, 'category_page_grid')->toHtml();
+                        $name = $_item->getName();
+                        $url = $block->getProductUrl($_item);
+                        $finalPrice = $_item->getFinalPrice();
+                        $regularPrice = $_item->getPriceInfo()->getPrice('regular_price')->getValue();
+                        $discount = $regularPrice > $finalPrice ? round((($regularPrice - $finalPrice)/$regularPrice)*100) : 0;
+                    ?>
+                    <div class="swiper-slide">
+                        <div class="camera-card">
+                            <a href="<?= $block->escapeUrl($url) ?>">
+                                <?= /* @noEscape */ $image ?>
+                            </a>
+                            <div class="card-body p-0">
+                                <h6 class="card-title"><?= $block->escapeHtml($name) ?></h6>
+                                <p class="card-price text-muted mb-2">
+                                    ₹<?= number_format($finalPrice) ?>
+                                    <?php if ($discount): ?>
+                                        <span class="text-decoration-line-through text-muted ms-1">
+                                            ₹<?= number_format($regularPrice) ?>
+                                        </span>
+                                    <?php endif; ?>
+                                </p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <form action="<?= $block->escapeUrl($block->getAddToCartUrl($_item)) ?>" method="post">
+                                        <?= $block->getBlockHtml('formkey') ?>
+                                        <input type="hidden" name="product" value="<?= (int)$_item->getId() ?>">
+                                        <button class="btn add-cart" type="submit">+ Quick Add</button>
+                                    </form>
+                                    <div class="text-end">
+                                        <?= $block->getReviewsSummaryHtml($_item, \Magento\Catalog\Block\Product\ReviewRendererInterface::SHORT_VIEW) ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+
+            <div class="camera-swiper-button d-flex justify-content-end">
+                <div class="camera-swiper-button-prev me-2">
+                    <img src="<?= $block->getViewFileUrl('images/product-single/Next (1).png') ?>" alt="Prev">
+                </div>
+                <div class="camera-swiper-button-next">
+                    <img src="<?= $block->getViewFileUrl('images/product-single/Next.png') ?>" alt="Next">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<?php endif; ?>
+<script>
+    require(['jquery', 'swiper'], function($, Swiper){
+    $(document).ready(function(){
+        new Swiper('.camera-Swiper', {
+            slidesPerView: 4,
+            spaceBetween: 20,
+            navigation: {
+                nextEl: '.camera-swiper-button-next',
+                prevEl: '.camera-swiper-button-prev',
+            },
+            loop: true,
+            breakpoints: {
+                1024: { slidesPerView: 3},
+                768: { slidesPerView: 2 },
+                480: { slidesPerView: 1 },
+            },
+        });
+    });
+});
+    </script>

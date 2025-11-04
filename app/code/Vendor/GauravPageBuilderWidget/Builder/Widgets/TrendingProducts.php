@@ -155,7 +155,7 @@ protected function contentTemplate()
                 products.forEach(function(product){
                     // Desktop card
                     var desktopHtml = `
-                        <div class="col-lg-4 col-md-6">
+                        <div class="col-lg-4 col-md-6 p-2">
                             <div class="product-card">
                                 <div class="product-image">
                                     <img class="product-img" src="${product.image}" alt="${product.name}">
@@ -242,7 +242,7 @@ protected function render(): string
             <h2 class="section-title"><?= $title; ?></h2>
 
             <!-- Tab Buttons (dynamic) -->
-            <div class="tab-buttons" id="category-tabs">
+            <div class="tab-buttons category-tabs" id="category-tabs">
                 <!-- Tabs will be injected here -->
             </div>
         </div>
@@ -250,11 +250,11 @@ protected function render(): string
         <!-- Products Content -->
         <div class="tab-content trending-product active">
             <!-- Desktop grid -->
-            <div class="row d-none d-md-flex" id="desktop-products"></div>
+            <div class="row d-none d-md-flex desktop-products" id="desktop-products"></div>
 
             <!-- Mobile Swiper -->
             <div class="swiper product-swiper d-md-none">
-                <div class="swiper-wrapper" id="mobile-products"></div>
+                <div class="swiper-wrapper mobile-products-trending" id="mobile-products"></div>
                 <div class="swiper-pagination"></div>
             </div>
         </div>
@@ -266,13 +266,13 @@ protected function render(): string
             var categories = "<?= implode(',',$categoryArray) ?>";
             var categoryArray = categories ? categories.split(",") : [];
             var formKey = $('input[name="form_key"]').val();
- var eyeIcon    = require.toUrl('Vendor_GauravPageBuilderWidget/images/eye.png');
+            var eyeIcon = require.toUrl('Vendor_GauravPageBuilderWidget/images/eye.png');
             var heartIcon  = require.toUrl('Vendor_GauravPageBuilderWidget/images/heart.png');
             var shuffleIcon= require.toUrl('Vendor_GauravPageBuilderWidget/images/shuffle.png');
             var cartIcon   = require.toUrl('Vendor_GauravPageBuilderWidget/images/cart.png');
-            var $tabsWrapper    = $("#category-tabs");
-            var $desktopWrapper = $("#desktop-products");
-            var $mobileWrapper  = $("#mobile-products");
+            var $tabsWrapper    = $(".category-tabs");
+            var $desktopWrapper = $(".desktop-products");
+            var $mobileWrapper  = $(".mobile-products-trending");
 
             $tabsWrapper.html("");
             $desktopWrapper.html("");
@@ -328,32 +328,33 @@ protected function render(): string
 
             // 3️⃣ Function to render desktop & mobile products
             function renderCategory(response){
+                console.log("response", response);
                 var products = response.products;
                 $desktopWrapper.html("");
                 $mobileWrapper.html("");
 
                 products.forEach(function(product){
+                    
                     // Desktop card
                     var desktopHtml = `
-                        <div class="col-lg-4 col-md-6">
+                        <div class="col-lg-4 col-md-6 p-2">
                             <div class="product-card">
                                 <div class="product-image">
                                     <img class="product-img" src="${product.image}" alt="${product.name}">
                                     <span class="discount-badge">New</span>
                                     <div class="product-actions">
                                          <a href="${product.url}" class="action-btn" title="Quick View"><img src="${eyeIcon}"></a>
-                                                <a href="#" class="action-btn towishlist" title="Add to Wishlist" data-post='${JSON.stringify({action:"/wishlist/index/add",data:{product:product.id}})}'><img src="${heartIcon}"></a>
-                                                <a href="#" class="action-btn tocompare" title="Compare" data-post='${JSON.stringify({action:"/catalog/product_compare/add",data:{product:product.id}})}'><img src="${shuffleIcon}"></a>
-
-<button class="action-btn tocart"
-        title="Add to Cart"
-        type="button"
-        data-post='${JSON.stringify({
-            action: "/checkout/cart/add",
-            data: { product: product.id, form_key: window.FORM_KEY }
-        })}'>
-    <img src="${cartIcon}" alt="">
-</button>   
+                                            <a href="#" class="action-btn towishlist" title="Add to Wishlist" data-post='${JSON.stringify({action:"/wishlist/index/add",data:{product:product.id}})}'><img src="${heartIcon}"></a>
+                                            <a href="#" class="action-btn tocompare" title="Compare" data-post='${JSON.stringify({action:"/catalog/product_compare/add",data:{product:product.id}})}'><img src="${shuffleIcon}"></a>
+                                        <button class="action-btn tocart"
+                                                title="Add to Cart"
+                                                type="button"
+                                                data-post='${JSON.stringify({
+                                                    action: "/checkout/cart/add",
+                                                    data: { product: product.id, form_key: window.FORM_KEY }
+                                                })}'>
+                                            <img src="${cartIcon}" alt="">
+                                        </button>   
                                     </div>
                                 </div>
                                 <div class="product-info">
@@ -378,16 +379,15 @@ protected function render(): string
                                         <a href="${product.url}" class="action-btn" title="Quick View"><img src="${eyeIcon}"></a>
                                                 <a href="#" class="action-btn towishlist" title="Add to Wishlist" data-post='${JSON.stringify({action:"/wishlist/index/add",data:{product:product.id}})}'><img src="${heartIcon}"></a>
                                                 <a href="#" class="action-btn tocompare" title="Compare" data-post='${JSON.stringify({action:"/catalog/product_compare/add",data:{product:product.id}})}'><img src="${shuffleIcon}"></a>
-
-<button class="action-btn tocart"
-        title="Add to Cart"
-        type="button"
-        data-post='${JSON.stringify({
-            action: "/checkout/cart/add",
-            data: { product: product.id, form_key: window.FORM_KEY }
-        })}'>
-    <img src="${cartIcon}" alt="">
-</button>   
+                                    <button class="action-btn tocart"
+                                            title="Add to Cart"
+                                            type="button"
+                                            data-post='${JSON.stringify({
+                                                action: "/checkout/cart/add",
+                                                data: { product: product.id, form_key: window.FORM_KEY }
+                                            })}'>
+                                        <img src="${cartIcon}" alt="">
+                                    </button>   
                                 </div>
                                 <div class="product-info">
                                     <h5 class="product-title">${product.name}</h5>
@@ -400,22 +400,23 @@ protected function render(): string
                         </div>`;
                     $mobileWrapper.append(mobileHtml);
                 });
-            $('#product-category-swiper').find('.tocart').mage('dataPost');
-
+            
                 // Initialize or update Swiper
-                if(swiperInstance) {
-                    swiperInstance.update();
-                } else {
-                    swiperInstance = new Swiper('.product-swiper', {
-                        slidesPerView: 1,
-                        spaceBetween: 10,
-                        pagination: { el: '.swiper-pagination', clickable: true },
-                        breakpoints: {
-                            768: { slidesPerView: 1, spaceBetween: 15 },
-                            992: { slidesPerView: 1, spaceBetween: 20 }
-                        }
-                    });
+               if (swiperInstance) {
+                    swiperInstance.destroy(true, true);
                 }
+
+                swiperInstance = new Swiper('.product-swiper', {
+                    slidesPerView: 1,
+                    spaceBetween: 10,
+                    pagination: { el: '.swiper-pagination', clickable: true },
+                    breakpoints: {
+                        768: { slidesPerView: 1, spaceBetween: 15 },
+                        992: { slidesPerView: 1, spaceBetween: 20 }
+                    }
+                });
+                $('.product-swiper').find('.tocart').mage('dataPost');
+
             }
         });
     });

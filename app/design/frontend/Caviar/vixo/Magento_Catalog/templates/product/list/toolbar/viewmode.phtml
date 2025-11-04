@@ -1,0 +1,56 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+<?php
+/**
+ * Product list toolbar
+ *
+ * @var $block \Magento\Catalog\Block\Product\ProductList\Toolbar
+ */
+?>
+<?php if ($block->isEnabledViewSwitcher()) : ?>
+    <?php $_modes = $block->getModes(); ?>
+    <?php if ($_modes && count($_modes) > 1) : ?>
+        <div class="filter-div">
+            <span><?= $block->escapeHtml(__('View:')) ?></span>
+
+            <?php foreach ($block->getModes() as $_code => $_label) : ?>
+                <?php
+                $modeClass = strtolower($_code);
+                $isActive = $block->isModeActive($_code);
+                ?>
+
+                <?php if ($isActive) : ?>
+                    <button 
+                        class="btn btn-light btn-sm border active mode-<?= $block->escapeHtmlAttr($modeClass) ?>" 
+                        title="<?= $block->escapeHtmlAttr($_label) ?>"
+                        data-role="mode-switcher"
+                        data-value="<?= $block->escapeHtmlAttr($modeClass) ?>">
+                        <?php if ($modeClass === 'list'): ?>
+                            <i class="bi bi-list"></i>
+                        <?php else: ?>
+                            <i class="bi bi-grid"></i>
+                        <?php endif; ?>
+                    </button>
+                <?php else : ?>
+                    <button 
+                        class="btn btn-light btn-sm border mode-<?= $block->escapeHtmlAttr($modeClass) ?>" 
+                        title="<?= $block->escapeHtmlAttr($_label) ?>"
+                        data-role="mode-switcher"
+                        data-value="<?= $block->escapeHtmlAttr($modeClass) ?>">
+                        <?php if ($modeClass === 'list'): ?>
+                            <i class="bi bi-list"></i>
+                        <?php else: ?>
+                            <i class="bi bi-grid"></i>
+                        <?php endif; ?>
+                    </button>
+                <?php endif; ?>
+
+            <?php endforeach; ?>
+        </div>
+    <?php endif; ?>
+<?php endif; ?>
+

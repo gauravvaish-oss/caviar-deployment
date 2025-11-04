@@ -347,6 +347,7 @@ return [
         'Magento_WishlistAnalytics' => 1,
         'Magento_WishlistGraphQl' => 1,
         'Magento_WishlistSampleData' => 1,
+        'Caviar_ProductAttributesGraphQl' => 1,
         'Goomento_Core' => 1,
         'Goomento_PageBuilder' => 1,
         'Goomento_PageBuilderApi' => 1,
@@ -354,6 +355,7 @@ return [
         'Mageplaza_Core' => 1,
         'Mageplaza_Blog' => 1,
         'Mageplaza_Smtp' => 1,
+        'Mageplaza_SocialLogin' => 1,
         'PayPal_Braintree' => 1,
         'PayPal_BraintreeGraphQl' => 1,
         'Snowdog_Menu' => 1,
@@ -361,6 +363,7 @@ return [
         'Vendor_CustomMinicart' => 1,
         'Vendor_Dblocks' => 1,
         'Vendor_GauravPageBuilderWidget' => 1,
-        'Vendor_TopProducts' => 1
+        'Vendor_TopProducts' => 1,
+        'YourVendor_GraphQlPromo' => 1
     ]
 ];

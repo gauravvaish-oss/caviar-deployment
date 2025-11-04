@@ -22,8 +22,8 @@ $products = $block->getFeaturedProducts();
                      class="img-fluid">
 
                 <p>
-                    <?= $block->escapeHtml($product->getPrice()); ?>
-                </p>
+<?= $block->escapeHtml(number_format($product->getFinalPrice(), 2)); ?>
+               </p>
             </a>
         </div>
     <?php endforeach; ?>
