@@ -1,0 +1,52 @@
+type ProductPromoItem {
+    entity_id: Int
+    attribute_set_id: Int
+    type_id: String
+    sku: String
+    has_options: Int
+    required_options: Int
+    created_at: String
+    updated_at: String
+    status: Int
+    is_trending: Int
+    is_featured: Int
+    is_latest: Int
+    is_top_deal: Int
+    cat_index_position: Int
+    description: String
+    visibility: Int
+    quantity_and_stock_status: Int
+    tax_class_id: Int
+    price: Float
+    special_price: Float
+    name: String
+    meta_title: String
+    image: String
+    small_image: String
+    thumbnail: String
+    options_container: String
+    url_key: String
+    msrp_display_actual_price_type: Int
+    gift_message_available: Int
+    special_from_date: String
+    store_id: Int
+}
+
+type PromoProductOutput {
+    items: [ProductPromoItem]
+    total_count: Int
+}
+
+extend type Query {
+    trendingProducts(pageSize: Int = 12, currentPage: Int = 1): PromoProductOutput 
+        @resolver(class: "YourVendor\\GraphQlPromo\\Model\\Resolver\\TrendingProducts")
+
+    featuredProducts(pageSize: Int = 12, currentPage: Int = 1): PromoProductOutput 
+        @resolver(class: "YourVendor\\GraphQlPromo\\Model\\Resolver\\FeaturedProducts")
+
+    latestProducts(pageSize: Int = 12, currentPage: Int = 1): PromoProductOutput 
+        @resolver(class: "YourVendor\\GraphQlPromo\\Model\\Resolver\\LatestProducts")
+
+    topDealsProducts(pageSize: Int = 12, currentPage: Int = 1): PromoProductOutput 
+        @resolver(class: "YourVendor\\GraphQlPromo\\Model\\Resolver\\TopDealsProducts")
+}
