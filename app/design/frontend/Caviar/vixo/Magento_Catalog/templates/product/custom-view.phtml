@@ -175,9 +175,8 @@ $galleryImages = $product->getMediaGalleryImages();
                             <!-- <i class="fa-solid fa-truck"></i>  -->
                             Free Shipping over ₹700
                         </p>
-                        <p>
+                        <p id="share-product-btn" style="cursor:pointer;">
                             <img src="<?= $block->getViewFileUrl('./images/product-single/Frame (1).png'); ?>" alt="">
-                            <!-- <i class="fa-solid fa-share-nodes"></i> -->
                             Share
                         </p>
                     </div>
@@ -314,12 +313,36 @@ function decreaseQty() {
     if (q > 1) q--;
     $('#qty').text(q);
 }
+
 });
 </script>
 <script>
 require(['jquery', 'mage/dataPost'], function($) {
     'use strict';
+$(document).on("click", ".share-product-btn", function () {
+    console.log("Share button clicked");
+                                    var productUrl = "<?php echo $block->getProduct()->getProductUrl(); ?>";
+                                    var productTitle = "<?php echo $block->getProduct()->getName(); ?>";
 
+                                    if (navigator.share) {
+                                        navigator.share({
+                                            title: productTitle,
+                                            text: "Check out this product!",
+                                            url: productUrl
+                                        }).catch(function(err){
+                                            console.log("Share cancelled", err);
+                                        });
+                                    } else {
+                                        // fallback copy link
+                                        var tempInput = $('<input>');
+                                        $('body').append(tempInput);
+                                        tempInput.val(productUrl).select();
+                                        document.execCommand('copy');
+                                        tempInput.remove();
+
+                                        alert("Product link copied! Share anywhere.");
+                                    }
+                                });
     function readQty() {
         let txt = $('#qty').text();
         return parseInt(txt.replace(/\D/g,'')) || 1;
@@ -407,6 +430,7 @@ $(document).on('change', 'input[name="tier-option"]', function () {
     }
 
 });
+
 });
 </script>
 
