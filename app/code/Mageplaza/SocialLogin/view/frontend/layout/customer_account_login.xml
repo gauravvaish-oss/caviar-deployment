@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      layout="1column"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+
+    <head>
+        <title>Customer Login</title>
+    </head>
+
+    <body>
+        <referenceBlock name="customer_form_login">
+            <referenceContainer name="form.additional.info">
+                <block class="Mageplaza\SocialLogin\Block\Popup\Social"
+                       ifconfig="sociallogin/general/enabled"
+                       name="social-login-popup-authentication-social-login"
+                       template="Mageplaza_SocialLogin::form/social.phtml">
+
+                    <block class="Mageplaza\SocialLogin\Block\Popup"
+                           name="social-login-request-info"
+                           as="request.info"
+                           template="Mageplaza_SocialLogin::popup/form/email.phtml"/>
+                </block>
+            </referenceContainer>
+        </referenceBlock>
+
+    </body>
+</page>
