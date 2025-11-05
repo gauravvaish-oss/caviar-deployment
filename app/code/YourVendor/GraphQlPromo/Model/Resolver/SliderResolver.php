@@ -17,14 +17,14 @@ class SliderResolver implements ResolverInterface
         // Example static data — replace with DB collection or config data
         $sliderData = [
             [
-                "image" => "https://yourdomain.com/media/slider/slide1.jpg",
+                "image" => "https://vixo.nians.in/media/.thumbswysiwyg/mountain-landscape-with-modern-design-featuring-snowy-peaks-scene-tv-generative-ai.png?rand=1762326161",
                 "title" => "Big Sale!",
                 "subtitle" => "Up to 50% off on top products",
                 "button_text" => "Shop Now",
                 "button_link" => "/sale"
             ],
             [
-                "image" => "https://yourdomain.com/media/slider/slide2.jpg",
+                "image" => "https://vixo.nians.in/media/.thumbswysiwyg/mountain-landscape-with-modern-design-featuring-snowy-peaks-scene-tv-generative-ai.png?rand=1762326161",
                 "title" => "New Arrivals",
                 "subtitle" => "Check out the latest trends",
                 "button_text" => "Explore",
