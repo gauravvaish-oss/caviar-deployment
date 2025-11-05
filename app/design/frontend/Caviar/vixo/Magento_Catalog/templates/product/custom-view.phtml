@@ -319,30 +319,6 @@ function decreaseQty() {
 <script>
 require(['jquery', 'mage/dataPost'], function($) {
     'use strict';
-$(document).on("click", ".share-product-btn", function () {
-    console.log("Share button clicked");
-                                    var productUrl = "<?php echo $block->getProduct()->getProductUrl(); ?>";
-                                    var productTitle = "<?php echo $block->getProduct()->getName(); ?>";
-
-                                    if (navigator.share) {
-                                        navigator.share({
-                                            title: productTitle,
-                                            text: "Check out this product!",
-                                            url: productUrl
-                                        }).catch(function(err){
-                                            console.log("Share cancelled", err);
-                                        });
-                                    } else {
-                                        // fallback copy link
-                                        var tempInput = $('<input>');
-                                        $('body').append(tempInput);
-                                        tempInput.val(productUrl).select();
-                                        document.execCommand('copy');
-                                        tempInput.remove();
-
-                                        alert("Product link copied! Share anywhere.");
-                                    }
-                                });
     function readQty() {
         let txt = $('#qty').text();
         return parseInt(txt.replace(/\D/g,'')) || 1;
@@ -433,5 +409,453 @@ $(document).on('change', 'input[name="tier-option"]', function () {
 
 });
 </script>
+
+<?php
+$product = $block->getProduct(); 
+$formKey = $block->getFormKey();
+$galleryImages = $product->getMediaGalleryImages();
+$tierPrices = $product->getTierPrices();
+$basePrice = $product->getFinalPrice(); 
+$description = $product->getDescription();
+$description = str_replace("\\n", "\n", $description);
+
+$description = nl2br($description);
+?>
+
+<section class="single_product-page">
+        <div class="product-page">
+            <div class="row">
+                <!-- Left Section -->
+                <?php
+/** @var \Magento\Catalog\Model\Product $product */
+$product = $_product ?? $block->getProduct();
+$galleryImages = $product->getMediaGalleryImages();
+?>
+
+<div class="col-lg-6 d-flex">
+                    <!-- Thumbnails -->
+                    <div class="swiper thumbs-swiper order-lg-1 order-2 swiper-vertical swiper-thumbs">
+                        <div class="swiper-wrapper">
+                            <?php if ($galleryImages && $galleryImages->getSize()): ?>
+                                <?php $i = 0; foreach ($galleryImages as $image): ?>
+                                    <div class="swiper-slide <?= $i === 0 ? 'swiper-slide-active' : '' ?>" style="height: 92px; margin-bottom: 10px;">
+                                        <img src="<?= $image->getUrl() ?>"
+                                            alt="<?= $block->escapeHtml($image->getLabel()) ?>"
+                                            class="img-fluid" />
+                                    </div>
+                                <?php $i++; endforeach; ?>
+                            <?php else: ?>
+                                <!-- Fallback placeholder -->
+                                <div class="swiper-slide" style="height: 92px; margin-bottom: 10px;">
+                                    <img src="<?= $block->getViewFileUrl('Magento_Catalog::images/product/placeholder/image.jpg') ?>" alt="Placeholder" />
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+
+                    <!-- Main Swiper -->
+                    <div class="swiper main-swiper flex-grow-1 order-lg-2 order-1">
+                        <div class="swiper-wrapper">
+                            <?php if ($galleryImages && $galleryImages->getSize()): ?>
+                                <?php foreach ($galleryImages as $image): ?>
+                                    <div class="swiper-slide">
+                                        <img src="<?= $image->getUrl() ?>"
+                                            alt="<?= $block->escapeHtml($image->getLabel()) ?>"
+                                            class="img-fluid" />
+                                    </div>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                <div class="swiper-slide">
+                                    <img src="<?= $block->getViewFileUrl('Magento_Catalog::images/product/placeholder/image.jpg') ?>" alt="Placeholder" />
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Right Section -->
+                <div class="col-lg-6 single-product-details">
+                    <div class="product-heading d-flex justify-content-between align-items-center">
+                        <h2><?= $product->getName(); ?></h2>
+                        <div class="rating">4.2 (1653) 
+                            <img class="star-img" src="./images/wishlist/star.png" alt="">
+                            <img class="star-img" src="./images/wishlist/star.png" alt="">
+                            <img class="star-img" src="./images/wishlist/star.png" alt="">
+                            <img class="star-img" src="./images/wishlist/star.png" alt="">
+                        </div>
+                    </div>
+                    <div class="single-product-price">₹<?= number_format($product->getFinalPrice(), 2); ?></div>
+                    <span class="original-price">₹<?= number_format($product->getPrice(), 2); ?></span>
+                    <div class="stock"><img src="<?= $block->getViewFileUrl('./images/product-single/InStock.png') ?>" alt=""> Currently in Stock</div>
+
+                    <!-- <a href="#" class="text-decoration-none fw-semibold d-block mb-3">View All Tech Specs</a> -->
+<?php if (!empty($tierPrices)) : ?>
+
+<div class="pricing-container">
+
+    <?php 
+        // First Tier range display
+        $firstTierQty = (int)$tierPrices[0]->getQty();
+        $rangeEnd = $firstTierQty - 1;
+    ?>
+    <?php foreach ($tierPrices as $i => $tier) : 
+        
+        $qty = (int)$tier->getQty();
+        $price = (float)$tier->getValue();
+        $type = $tier->getValueType(); // percent or fixed
+
+        // Magento saves discount % in extensionAttr
+        $discountPercent = (int)$tier->getExtensionAttributes()->getPercentageValue();
+
+        if (!empty($discountPercent)) {
+            // Your logic: total price based on qty
+            $finalPrice = ($basePrice * $qty) - ($basePrice * $qty * ($discountPercent / 100));
+            $unitPrice = $finalPrice / $qty;
+        } else {
+            $unitPrice = $price; // fixed price per piece
+            $finalPrice = $unitPrice * $qty;
+        }
+    ?>
+
+    <label class="option">
+<input type="radio" name="tier-option" value="<?= $qty ?>" data-price="<?= number_format($unitPrice,2) ?>">
+        <div class="option-content">
+            <div class="option-title">
+                Buy <?= $qty ?> pieces 
+                <?php if ($discountPercent) : ?>
+                    and save <?= $discountPercent ?>%
+                <?php endif; ?>
+            </div>
+
+            <div class="price_flex">
+                <div class="price">
+                    <span class="old-price">₹<?= number_format($basePrice, 2) ?></span>
+                    <span class="discount-price">₹<?= number_format($unitPrice, 2) ?></span>
+                </div>
+            </div>
+        </div>
+    </label>
+
+    <?php endforeach; ?>
+</div>
+
+<?php endif; ?>
+                    <div class="quantity-box">
+                        <span id="qty" class="quantity-number">1</span>
+                        <button class="quantity-btn" onclick="decreaseQty()">-</button>
+                        <button class="quantity-btn" onclick="increaseQty()">+</button>
+                    </div>
+
+                    <div class="button-group d-flex mb-3">
+<button class="btn btn-cart"
+        type="button"
+        data-post='<?= $block->escapeHtml(json_encode([
+            'action' => $block->getAddToCartUrl($product),
+            'data'   => [
+                'product'  => $product->getId(),
+                'form_key' => $formKey,
+                'qty'      => 1 // default
+            ]
+        ])) ?>'>
+    Add To Cart
+</button>
+<button class="btn buy-now"
+        type="button"
+        data-post='<?= $block->escapeHtml(json_encode([
+            'action' => $block->getAddToCartUrl($product),
+            'data'   => [
+                'product'  => $product->getId(),
+                'form_key' => $formKey,
+                'qty'      => 1 // default
+            ]
+        ])) ?>'>
+    Buy It Now
+</button>
+           
+                        <!-- <button class="btn bulk-order">Bulk Order</button> -->
+                    </div>
+
+                    <div class="info-text">
+                        <p>
+                            <img src="<?= $block->getViewFileUrl('./images/product-single/Help.png'); ?>" alt="">
+                            <!-- <i class="fa-regular fa-message"></i> -->
+                            Got any questions? <a href="/contact-us">Contact us</a>
+                        </p>
+                        <p>
+                            <img src="<?= $block->getViewFileUrl('./images/product-single/Frame.png'); ?>" alt="">
+                            <!-- <i class="fa-solid fa-truck"></i>  -->
+                            Free Shipping over ₹700
+                        </p>
+                        <p class="share-product" data-url="<?= $block->escapeUrl($_SERVER['REQUEST_URI']); ?>">
+                            <img src="<?= $block->getViewFileUrl('./images/product-single/Frame (1).png'); ?>" alt="">
+                            Share
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Accordion Section -->
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="accordion product-single-accordion" id="productAccordion">
+                        <div class="accordion-item">
+                            <?php if(isset($description)) : ?>
+
+                            <h2 class="accordion-header" id="descHeading">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#descCollapse" aria-expanded="true">
+                                    Description
+                                </button>
+                            </h2>
+                            <div id="descCollapse" class="accordion-collapse" data-bs-parent="#productAccordion">
+                                <div class="accordion-body">
+                                    <?= $description ?: 'No description available.' ?>
+                                </div>
+                            </div>
+                            <?php endif; ?>
+                        </div>
+
+                        <!-- <div class="accordion-item">
+                            <h2 class="accordion-header" id="techHeading">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#techCollapse" aria-expanded="true">
+                                    Tech Specs
+                                </button>
+                            </h2>
+                            <div id="techCollapse" class="accordion-collapse collapse show" data-bs-parent="#productAccordion" style="">
+                                <div class="accordion-body">
+                                    Sensor: Full-frame CMOS | Processor: Expeed 6 | Battery: EN-EL15c | Display: 3.2”
+                                    Tilting LCD
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item border-b">
+                            <h2 class="accordion-header" id="shippingHeading">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#shippingCollapse" aria-expanded="false">
+                                    Shipping &amp; Warranty
+                                </button>
+                            </h2>
+                            <div id="shippingCollapse" class="accordion-collapse collapse" data-bs-parent="#productAccordion" style="">
+                                <div class="accordion-body">
+                                    Free shipping on orders above ₹700. 1-year manufacturer warranty included.
+                                </div>
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<?php
+echo $block->getLayout()
+    ->createBlock(\Magento\Review\Block\Product\View\ListView::class)
+    ->setTemplate('Magento_Catalog::product/custom-review.phtml')
+    ->toHtml();
+?>
+
+<script>
+require([
+    'jquery',
+    'swiper' // Make sure Swiper is available (add path if custom)
+], function ($, Swiper) {
+    'use strict';
+
+    $(document).ready(function () {
+
+        // Thumbnail Swiper
+        var thumbSwiper = new Swiper('.thumbs-swiper', {
+            direction: 'vertical',
+            spaceBetween: 10,
+            slidesPerView: 4,
+            watchSlidesProgress: true,
+            watchSlidesVisibility: true,
+            freeMode: true,
+            breakpoints: {
+                0: {
+                    direction: 'horizontal', // horizontal on mobile
+                    slidesPerView: 3,
+                },
+                768: {
+                    direction: 'vertical', // vertical on desktop
+                    slidesPerView: 4,
+                }
+            }
+        });
+
+        // Main Swiper
+        var mainSwiper = new Swiper('.main-swiper', {
+            spaceBetween: 10,
+            slidesPerView: 1,
+            loop: true,
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev'
+            },
+            thumbs: {
+                swiper: thumbSwiper
+            },
+            autoplay: {
+                delay: 4000,
+                disableOnInteraction: false,
+            },
+            speed: 600,
+        });
+$('.accordion-button').on('click', function() {
+            const target = $(this).data('bs-target');
+            const $target = $(target);
+
+            // Collapse others
+            $('.accordion-collapse').not($target).slideUp().removeClass('show');
+            $('.accordion-button').not(this).addClass('collapsed');
+
+            // Toggle current
+            $target.slideToggle().toggleClass('show');
+            $(this).toggleClass('collapsed');
+        });
+    });
+    function increaseQty() {
+    let q = parseInt($('#qty').text());
+    q++;
+    $('#qty').text(q);
+}
+
+function decreaseQty() {
+    let q = parseInt($('#qty').text());
+    if (q > 1) q--;
+    $('#qty').text(q);
+}
+
+});
+</script>
+<script>
+require(['jquery', 'mage/dataPost'], function($) {
+    'use strict';
+    function readQty() {
+        let txt = $('#qty').text();
+        return parseInt(txt.replace(/\D/g,'')) || 1;
+    }
+
+    function writeQty(n) {
+        n = parseInt(n) || 1;
+        if (n < 1) n = 1;
+        $('#qty').text(n);
+        $('#qty-input').val(n);
+    }
+
+    window.increaseQty = function() {
+        writeQty(readQty() + 1);
+    };
+
+    window.decreaseQty = function() {
+        let q = readQty();
+        writeQty(q > 1 ? q - 1 : 1);
+    };
+
+    $(document).on('selectstart', '#qty', function(e) { e.preventDefault(); });
+
+    // ✅ Add to Cart (Normal)
+    $(document).on('click', '.btn-cart', function (e) {
+        e.preventDefault();
+        let $btn = $(this);
+        let qty   = readQty();
+        let config = $btn.data('post');
+
+        if (typeof config === 'string') config = JSON.parse(config);
+        config.data.qty = qty;
+
+        $btn.prop('disabled', true).text('Adding...');
+
+        try {
+            $.mage.dataPost().postData(config);
+        } catch(err) {
+            console.error(err);
+        }
+
+        setTimeout(function(){
+            $btn.prop('disabled', false).text('Add To Cart');
+        }, 1500);
+    });
+
+    // ✅ Buy Now (Add to cart then redirect to checkout)
+    $(document).on('click', '.buy-now', function (e) {
+        e.preventDefault();
+
+        let $btn = $(this);
+        let qty   = readQty();
+        let config = $btn.data('post');
+
+        if (typeof config === 'string') config = JSON.parse(config);
+        config.data.qty = qty;
+
+        $btn.prop('disabled', true).text('Processing...');
+
+        $.ajax({
+            url: config.action,
+            type: 'POST',
+            data: config.data,
+            success: function () {
+                window.location.href = '<?= $block->getUrl("checkout") ?>';
+            },
+            error: function () {
+                $btn.prop('disabled', false).text('Buy It Now');
+                alert('Unable to process Buy Now. Please try again.');
+            }
+        });
+    });
+$(document).on('change', 'input[name="tier-option"]', function () {
+
+    let minQty = parseInt($(this).val());
+    let price  = $(this).data('price'); // <-- use data-price instead of regex
+
+    // Update quantity box
+    $('#qty').text(minQty);
+    $('#qty-input').val(minQty);
+
+    // Update visible product price
+    if (price) {
+        $('.product-price-display').text('₹' + price);
+    }
+
+});
+
+});
+</script>
+
+<script>
+require(['jquery'], function ($) {
+    $(document).ready(function () {
+
+        const productUrl = <?php echo json_encode($block->getProduct()->getProductUrl()); ?>;
+        const productTitle = <?php echo json_encode($block->getProduct()->getName()); ?>;
+
+        const shareData = {
+            title: productTitle,
+            text: "Check out this product!",
+            url: productUrl,
+        };
+
+        const btn = document.querySelector("#share-product-btn");
+
+        btn.addEventListener("click", async () => {
+            if (!navigator.share) {
+                alert("Sharing not supported on this browser — open on mobile or HTTPS Chrome.");
+                return;
+            }
+
+            try {
+                await navigator.share(shareData);
+                console.log("Shared successfully");
+            } catch (err) {
+                console.log("Share failed:", err);
+            }
+        });
+
+    });
+});
+
+</script>
+
+
 
 
