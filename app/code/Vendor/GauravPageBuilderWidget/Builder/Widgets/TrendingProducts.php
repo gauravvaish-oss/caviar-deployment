@@ -281,12 +281,10 @@ protected function render(): string
             var swiperInstance;
 
             // 1️⃣ Create dynamic tabs
-            categoryArray.forEach(function(categoryId, index) {
-                categoryId = categoryId.trim();
-                var tabHtml = `<button class="tab-btn ${index === 0 ? 'active' : ''}" data-category="${categoryId}">Loading...</button>`;
-                $tabsWrapper.append(tabHtml);
+            categoryArray.forEach(function(catId, index) {
+                let categoryId = catId.trim(); // proper scope
 
-                // Fetch category name for the tab
+                // Fetch category name
                 $.ajax({
                     url: '/customgoomento/category/getproducts',
                     type: 'POST',
@@ -294,7 +292,12 @@ protected function render(): string
                     data: { category_id: categoryId, form_key: formKey },
                     success: function(response) {
                         if (response.success) {
-                            $tabsWrapper.find(`button[data-category='${categoryId}']`).text(response.category_name);
+                            // Create button after receiving data
+                            var tabHtml = `<button class="tab-btn ${index === 0 ? 'active' : ''}" data-category="${categoryId}">
+                                                ${response.category_name}
+                                        </button>`;
+
+                            $tabsWrapper.append(tabHtml);
 
                             // Auto-load first category
                             if(index === 0){
@@ -304,6 +307,7 @@ protected function render(): string
                     }
                 });
             });
+
 
             // 2️⃣ Tab click event
             $tabsWrapper.on('click', '.tab-btn', function() {

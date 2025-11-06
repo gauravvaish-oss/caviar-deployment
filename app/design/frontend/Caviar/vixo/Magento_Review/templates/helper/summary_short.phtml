@@ -1,0 +1,21 @@
+<?php
+
+$reviewSummary = $block->getRatingSummary();
+// dd($reviewSummary);die;
+if ($reviewSummary):
+    $stars = round($reviewSummary / 20); // Convert to 0–5
+    $reviewCount = $block->getReviewsCount();
+?>
+    <div class="product-rating">
+        <div class="stars">
+            <?php for ($i = 1; $i <= 5; $i++): ?>
+                <?php if ($i <= $stars): ?>
+                    <i class="fas fa-star"></i>
+                <?php else: ?>
+                    <i class="far fa-star"></i>
+                <?php endif; ?>
+            <?php endfor; ?>
+            <p class="star-qty">(<?= $reviewCount ?>)</p>
+        </div>
+    </div>
+<?php endif; ?>

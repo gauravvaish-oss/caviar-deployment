@@ -1,5 +1,5 @@
 <?php
-namespace Vendor\Module\Model\Resolver;
+namespace YourVendor\GraphQlPromo\Model\Resolver;
 
 use Magento\Framework\GraphQl\Query\ResolverInterface;
 use Magento\Framework\GraphQl\Config\Element\Field;
@@ -15,7 +15,7 @@ class MiddleBannerResolver implements ResolverInterface
         array $args = null
     ) {
         $banner = [
-            "image" => "https://yourdomain.com/media/banners/middle-banner.jpg",
+            "image" => "https://vixo.nians.in/media/.thumbswysiwyg/placeholder.png?rand=1762326161",
             "title" => "Daily Essentials Sale",
             "button_text" => "Shop Essentials",
             "button_link" => "/daily-essentials"

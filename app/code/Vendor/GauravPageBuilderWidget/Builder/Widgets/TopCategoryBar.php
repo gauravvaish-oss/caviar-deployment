@@ -172,6 +172,37 @@ class TopCategoryBar extends AbstractWidget
             }
         }
          $menu_items = $settings['menu_items'];
+
+         $categoryFactory = $objectManager->get(\Magento\Catalog\Model\CategoryFactory::class);
+            $categoryRepository = $objectManager->get(\Magento\Catalog\Api\CategoryRepositoryInterface::class);
+            $categoryUrlModel = $objectManager->get(\Magento\Catalog\Helper\Category::class);
+
+            $categoryId = 2; // Set the category ID here, e.g., 2 for the root category
+            $category = $categoryRepository->get($categoryId);
+
+            // Function to recursively get child categories
+            function getCategoryHierarchy($category, $categoryUrlModel) {
+                $categoryData = [
+                    'id' => $category->getId(),
+                    'name' => $category->getName(),
+                    'url' => $categoryUrlModel->getCategoryUrl($category)
+                ];
+
+                $children = [];
+                foreach ($category->getChildrenCategories() as $child) {
+                    $children[] = getCategoryHierarchy($child, $categoryUrlModel);  // Recursive call
+                }
+
+                if (!empty($children)) {
+                    $categoryData['children'] = $children;
+                }
+
+                return $categoryData;
+            }
+
+            $categoryHierarchy = getCategoryHierarchy($category, $categoryUrlModel);
+//             echo '<pre>';
+// print_r($categoryHierarchy["children"]);die;
          ob_start();
          ?>
         <div class="top-category-bar">
@@ -180,23 +211,34 @@ class TopCategoryBar extends AbstractWidget
                     <div class="col-md-3 d-flex align-items-center p-md-0">
                         <div class="category_menu">
                             <button id="topCategoryBtn" class="top_category"><img src="<?= $toggleIcon ?>" alt=""> TOP CATEGORY</button>
-                            <div class="nav_below_item nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                            <div class="nav_below_item nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical" style="padding:0px;">
                                 <div id="toggle_section">
-                                   <?php foreach($menu_items as $menu){ ?>
-                                        <a class="nav-link" href="<?= $menu['link']['url']; ?>">
-                                            <?= $menu['title']; ?>
+                                   <?php 
+                                   if(isset($categoryHierarchy["children"])){
+                                   
+                                   foreach($categoryHierarchy["children"] as $menu){ ?>
+                                        <div class="nav-item">
+                                            <a class="nav-link" href="<?= $menu['url']; ?>">
+                                                <?= $menu['name']; ?>
+                                            </a>
 
-                                            <?php if (!empty($menu['sub_items'])): ?>
+                                            <?php if (isset($menu['children'])): ?>
                                                 <div class="sub_list">
                                                     <ul>
-                                                        <?php foreach($menu['sub_items'] as $sub): ?>
-                                                            <li><a href="<?= $sub['url']; ?>"><?= $sub['label']; ?></a></li>
+                                                        <?php foreach($menu['children'] as $sub): ?>
+                                                            <li>
+                                                                <a href="<?= $sub['url']; ?>">
+                                                                    <?= $sub['name']; ?>
+                                                                </a>
+                                                            </li>
                                                         <?php endforeach; ?>
                                                     </ul>
                                                 </div>
                                             <?php endif; ?>
-                                        </a>
-                                    <?php } ?>
+                                        </div>
+                                    <?php } 
+                                   }
+                                    ?>
                                 </div>
                             </div>
                         </div>
@@ -307,9 +349,35 @@ require(['jquery'], function($){
                 $suggestions.hide();
             }
         });
+        $('#toggle_section .nav-link').on('mouseenter', function () {
+            $(this).find('.sub_list').show();
+        }).on('mouseleave', function () {
+            $(this).find('.sub_list').hide();
+        });
 
-        
+        $(document).ready(function () {
+    // Initially hide all submenus
+    $(".sub_list").hide();
 
+    // Hover effect for anchor
+    $(".nav-item > a.nav-link").hover(
+        function () {
+            // Hide other submenus except the one for this link
+            $(".nav-item > .sub_list").not($(this).next(".sub_list")).slideUp(200);
+
+            // Show this link's submenu
+            $(this).next(".sub_list").stop(true, true).slideDown(200);
+        },
+        function () {
+            // Optional: do nothing here; hiding handled by mouseleave
+        }
+    );
+
+    // Hide submenu when mouse leaves nav-item
+    $(".nav-item").mouseleave(function () {
+        $(this).children(".sub_list").stop(true, true).slideUp(200);
+    });
+});
 
 });
 </script>

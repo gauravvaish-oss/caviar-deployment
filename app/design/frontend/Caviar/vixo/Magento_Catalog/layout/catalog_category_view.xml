@@ -8,6 +8,7 @@
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
     <referenceBlock name="category.image" remove="true" />
+     <referenceContainer name="sidebar.additional" remove="true"/>
     <referenceBlock name="category.product.addto" remove="true"/>
         <referenceContainer name="columns.top">
             <container name="category.view.container" htmlTag="div" htmlClass="category-view" after="-">
@@ -33,6 +34,11 @@
                                name="category.product.addto.compare" as="compare"
                                template="Magento_Catalog::product/list/addto/compare.phtml"/>
                     </block>
+                    <block class="Mageprince\BuyNow\Block\Product\ListProduct" name="mageprince.buynow.product.list" before="-" template="Mageprince_BuyNow::buynow-list.phtml" ifconfig="buynow/general/enable_list" >
+                <arguments>
+                    <argument name="view_model" xsi:type="object">Mageprince\BuyNow\ViewModel\BuyNow</argument>
+                </arguments>
+            </block>
                     <block class="Magento\Catalog\Block\Product\ProductList\Toolbar" name="product_list_toolbar" template="Magento_Catalog::product/list/toolbar.phtml">
                         <block class="Magento\Theme\Block\Html\Pager" name="product_list_toolbar_pager"/>
                     </block>

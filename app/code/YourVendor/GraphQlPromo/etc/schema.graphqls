@@ -49,6 +49,8 @@ extend type Query {
 
     topDealsProducts(pageSize: Int = 12, currentPage: Int = 1): PromoProductOutput 
         @resolver(class: "YourVendor\\GraphQlPromo\\Model\\Resolver\\TopDealsProducts")
+     homepageSlider: SliderResponse @resolver(class: "YourVendor\\GraphQlPromo\\Model\\Resolver\\SliderResolver")
+    middleBanner: MiddleBanner @resolver(class: "YourVendor\\GraphQlPromo\\Model\\Resolver\\MiddleBannerResolver")
 }
 type SliderItem {
     image: String
@@ -67,9 +69,4 @@ type MiddleBanner {
     title: String
     button_text: String
     button_link: String
-}
-
-extend type Query {
-    homepageSlider: SliderResponse @resolver(class: "Vendor\\Module\\Model\\Resolver\\HomepageSlider")
-    middleBanner: MiddleBanner @resolver(class: "Vendor\\Module\\Model\\Resolver\\MiddleBanner")
 }

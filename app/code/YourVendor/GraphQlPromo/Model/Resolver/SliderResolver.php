@@ -1,5 +1,5 @@
 <?php
-namespace Vendor\Module\Model\Resolver;
+namespace YourVendor\GraphQlPromo\Model\Resolver;
 
 use Magento\Framework\GraphQl\Query\ResolverInterface;
 use Magento\Framework\GraphQl\Config\Element\Field;
@@ -17,14 +17,14 @@ class SliderResolver implements ResolverInterface
         // Example static data — replace with DB collection or config data
         $sliderData = [
             [
-                "image" => "https://vixo.nians.in/media/.thumbswysiwyg/mountain-landscape-with-modern-design-featuring-snowy-peaks-scene-tv-generative-ai.png?rand=1762326161",
+                "image" => "http://vixo.local.com/media/.thumbswysiwyg/bios.jpg?rand=1762333872",
                 "title" => "Big Sale!",
                 "subtitle" => "Up to 50% off on top products",
                 "button_text" => "Shop Now",
                 "button_link" => "/sale"
             ],
             [
-                "image" => "https://vixo.nians.in/media/.thumbswysiwyg/mountain-landscape-with-modern-design-featuring-snowy-peaks-scene-tv-generative-ai.png?rand=1762326161",
+                "image" => "http://vixo.local.com/media/.thumbswysiwyg/unnamed.jpg?rand=1762333874",
                 "title" => "New Arrivals",
                 "subtitle" => "Check out the latest trends",
                 "button_text" => "Explore",
