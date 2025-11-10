@@ -7,9 +7,10 @@
 -->
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
-    <!-- <remove name="sales.order.info.links.invoice" />
-    <remove name="sales.order.info.links.shipment" /> -->
-    <referenceBlock name="sales.order.info.links" remove="true"/>
+
+    <referenceBlock name="sales.order.info.links.creditmemo" remove="true"/>
+    <referenceBlock name="sales.order.info.links.shipment" remove="true"/>
+
         <referenceContainer name="content">
             <block class="Magento\Framework\View\Element\Html\Links" as="links" name="sales.order.info.links" before="-">
                 <arguments>
@@ -21,7 +22,7 @@
                         <argument name="label" xsi:type="string" translate="true">Order Information</argument>
                     </arguments>
                 </block>
-                <!-- <block class="Magento\Sales\Block\Order\Link" name="sales.order.info.links.invoice">
+                <block class="Magento\Sales\Block\Order\Link" name="sales.order.info.links.invoice">
                     <arguments>
                         <argument name="key" xsi:type="string">Invoices</argument>
                         <argument name="path" xsi:type="string">sales/guest/invoice</argument>
@@ -41,7 +42,7 @@
                         <argument name="path" xsi:type="string">sales/guest/creditmemo</argument>
                         <argument name="label" xsi:type="string" translate="true">Refunds</argument>
                     </arguments>
-                </block> -->
+                </block>
             </block>
         </referenceContainer>
     </body>

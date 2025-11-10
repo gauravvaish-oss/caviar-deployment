@@ -8,8 +8,8 @@
 ?>
 <?php /** @var  $block \Magento\Sales\Block\Order\View*/?>
 <div class="order-details-items ordered">
-    <?php $_order = $block->getOrder() ;    
-    ?>
+    <?php $_order = $block->getOrder() ;  
+        ?>
 <div class="tracker-main d-flex justify-content-between align-items-start flex-wrap">
   <div>
     <h3 class="order_id_title">Order ID: <?= $_order->getIncrementId(); ?></h3>
@@ -24,45 +24,43 @@
   </div>
 
   <div class="order_buttons d-flex gap-2 mt-2 mt-md-0">
-    <button class="btn invoice_btn">
-      <img src="<?=$block->getViewFileUrl('images/invoice.png'); ?>" alt="Invoice" class="me-2"> Invoice
-    </button>
-    <button class="btn track_btn text-white">
-      Track order <img src="<?=$block->getViewFileUrl('images/location.png'); ?>" alt="Track" class="ms-2">
-    </button>
+        <a href="/sales/guest/invoice/order_id/<?= $_order->getId(); ?>/"
+           class="action print btn invoice_btn"
+           rel="noopener">
+            <img src="<?=$block->getViewFileUrl('images/invoice.png'); ?>" alt="Invoice" class="me-2"> Invoice
+        </a>
+    <?php foreach($_order->getShipmentsCollection() as $_shipment) : ?>
+    <a href="#"
+           data-mage-init='{"popupWindow": {"windowURL":"<?= $block->escapeUrl($this->helper(Magento\Shipping\Helper\Data::class)->getTrackingPopupUrlBySalesModel($_shipment)) ?>","windowName":"trackshipment","width":800,"height":600,"top":0,"left":0,"resizable":1,"scrollbars":1}}'
+           title="<?= $block->escapeHtml(__('Track this shipment')) ?>"
+           class="action track btn track_btn text-white" style="    background-color: #fa6905;">
+          Track order <img src="<?=$block->getViewFileUrl('images/location.png'); ?>" alt="Track" class="ms-2">
+        </a>
+    <?php endforeach; ?>
+    
   </div>
 </div>
 <div class="container p-0">
-    <!-- <div class="order-info d-flex align-items-center gap-3">
-      <div>Order date: <span>Sep 16, 2025</span></div>
-      <div>|</div>
-      <div class="text-success">
-        <i class="bi bi-truck icon-green"></i> Estimated delivery: <strong>Oct 16, 2025</strong>
-      </div>
-    </div> -->
-
     <div class="progress-container p-0">
-      <!-- Main Progress Line -->
       <div class="progress-line"></div>
-      <div class="progress-line-active" style="width: 25%;"></div> <!-- Adjust width: 25%, 50%, 75%, 100% -->
-
+      <div class="progress-line-active" style="width: 50%;"></div>
       <div class="progress-steps">
-        <div class="step active">
+        <div class="step <?php if($_order->getStatus() === "pending" || $_order->getStatus() === "processing" || $_order->getStatus() === "shipped" || $_order->getStatus() === "complete"){?>  active <?php } ?>">
           <div class="step-title">Order Confirmed</div>
           <div class="circle"></div>
           <div class="step-date">Wed, 11<sup>th</sup> Oct</div>
         </div>
-        <div class="step">
+        <div class="step <?php if($_order->getStatus() === "complete" || $_order->getStatus() === "shipped"){?>  active <?php } ?>">
           <div class="step-title">Shipped</div>
           <div class="circle"></div>
           <div class="step-date">Wed, 11<sup>th</sup> Oct</div>
         </div>
-        <div class="step">
+        <div class="step <?php if($_order->getStatus() === "complete"){?>  active <?php } ?>">
           <div class="step-title">Out For Delivery</div>
           <div class="circle"></div>
           <div class="step-date">Wed, 11<sup>th</sup> Oct</div>
         </div>
-        <div class="step">
+        <div class="step <?php if($_order->getStatus() === "complete"){?>  active <?php } ?>">
           <div class="step-title">Delivered</div>
           <div class="circle"></div>
           <div class="step-date expected-date">Expected by, Mon 16<sup>th</sup> Oct</div>
