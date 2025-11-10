@@ -1,0 +1,103 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// phpcs:disable Magento2.Templates.ThisInTemplate
+?>
+<?php /** @var  $block \Magento\Sales\Block\Order\View*/?>
+<div class="order-details-items ordered">
+    <?php $_order = $block->getOrder() ;    
+    ?>
+<div class="tracker-main d-flex justify-content-between align-items-start flex-wrap">
+  <div>
+    <h3 class="order_id_title">Order ID: <?= $_order->getIncrementId(); ?></h3>
+    <div class="order_detail">
+      <ul>
+        <li>Order date: <span>Sep 16, 2025</span></li>
+        <li class="estimate_delivery">
+          <img src="<?=$block->getViewFileUrl('images/truck-tick.png'); ?>" alt="img"> Estimated delivery: Oct 16, 2025
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="order_buttons d-flex gap-2 mt-2 mt-md-0">
+    <button class="btn invoice_btn">
+      <img src="<?=$block->getViewFileUrl('images/invoice.png'); ?>" alt="Invoice" class="me-2"> Invoice
+    </button>
+    <button class="btn track_btn text-white">
+      Track order <img src="<?=$block->getViewFileUrl('images/location.png'); ?>" alt="Track" class="ms-2">
+    </button>
+  </div>
+</div>
+<div class="container p-0">
+    <!-- <div class="order-info d-flex align-items-center gap-3">
+      <div>Order date: <span>Sep 16, 2025</span></div>
+      <div>|</div>
+      <div class="text-success">
+        <i class="bi bi-truck icon-green"></i> Estimated delivery: <strong>Oct 16, 2025</strong>
+      </div>
+    </div> -->
+
+    <div class="progress-container p-0">
+      <!-- Main Progress Line -->
+      <div class="progress-line"></div>
+      <div class="progress-line-active" style="width: 25%;"></div> <!-- Adjust width: 25%, 50%, 75%, 100% -->
+
+      <div class="progress-steps">
+        <div class="step active">
+          <div class="step-title">Order Confirmed</div>
+          <div class="circle"></div>
+          <div class="step-date">Wed, 11<sup>th</sup> Oct</div>
+        </div>
+        <div class="step">
+          <div class="step-title">Shipped</div>
+          <div class="circle"></div>
+          <div class="step-date">Wed, 11<sup>th</sup> Oct</div>
+        </div>
+        <div class="step">
+          <div class="step-title">Out For Delivery</div>
+          <div class="circle"></div>
+          <div class="step-date">Wed, 11<sup>th</sup> Oct</div>
+        </div>
+        <div class="step">
+          <div class="step-title">Delivered</div>
+          <div class="circle"></div>
+          <div class="step-date expected-date">Expected by, Mon 16<sup>th</sup> Oct</div>
+        </div>
+      </div>
+    </div>
+  </div>
+    <?= $block->getChildHtml('order_items') ?>
+
+    <?php if ($this->helper(\Magento\GiftMessage\Helper\Message::class)->isMessagesAllowed('order', $_order)
+        && $_order->getGiftMessageId()
+    ) : ?>
+    <div class="block block-order-details-gift-message">
+        <div class="block-title"><strong><?= $block->escapeHtml(__('Gift Message for This Order')) ?></strong></div>
+        <?php
+        $_giftMessage = $this->helper(\Magento\GiftMessage\Helper\Message::class)->getGiftMessageForEntity($_order);
+        ?>
+        <div class="block-content">
+            <dl class="item-options">
+                <dt class="item-sender"><strong class="label"><?= $block->escapeHtml(__('From')) ?></strong><?= $block->escapeHtml($_giftMessage->getSender()) ?></dt>
+                <dt class="item-recipient"><strong class="label"><?= $block->escapeHtml(__('To')) ?></strong><?= $block->escapeHtml($_giftMessage->getRecipient()) ?></dt>
+                <dd class="item-message">
+                    <?= /* @noEscape */
+                    $this->helper(\Magento\GiftMessage\Helper\Message::class)->getEscapedGiftMessage($_order) ?>
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <?php endif; ?>
+
+    <div class="actions-toolbar">
+        <div class="secondary">
+            <a class="action back" href="<?= $block->escapeUrl($block->getBackUrl()) ?>">
+                <span><?= $block->escapeHtml($block->getBackTitle()) ?></span>
+            </a>
+        </div>
+    </div>
+</div>
