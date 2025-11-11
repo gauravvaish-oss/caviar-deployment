@@ -1,0 +1,20 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var \Magento\Wishlist\Block\Customer\Wishlist\Item\Column\Info $block */
+
+/** @var \Magento\Wishlist\Model\Item $item */
+$item = $block->getItem();
+$product = $item->getProduct();
+?>
+<div class="wish_card-body">
+
+    <a href="<?= $block->escapeUrl($block->getProductUrl($item)) ?>" title="<?= $block->escapeHtmlAttr($product->getName()) ?>" class="product-item-link">
+        <h5 class="product-title"><?= $block->escapeHtml($product->getName()) ?></h5>
+    </a>
+    <p class="product-price">₹<?= $block->escapeHtml($product->getSpecialPrice()) ?></p>
+    <?= $block->getChildHtml() ?>
+</div>

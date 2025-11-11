@@ -1,0 +1,33 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var \Magento\Wishlist\Block\Customer\Wishlist\Item\Column $block */
+$product = $block->getItem()->getProduct();
+
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$reviewFactory = $objectManager->create('Magento\Review\Model\Review');
+$_product = $objectManager->create('Magento\Catalog\Model\Product')->load($product->getId());
+$storeManager  = $objectManager->create('\Magento\Store\Model\StoreManagerInterface');
+$storeId = $storeManager->getStore()->getStoreId();
+$reviewFactory->getEntitySummary($_product, $storeId);
+
+$ratingSummary = $_product->getRatingSummary()->getRatingSummary();
+$reviewCount = $_product->getRatingSummary()->getReviewsCount();
+$starImg = $block->getViewFileUrl('images/wishlist/star.png');
+
+// Convert 0–100 rating to 0–5 stars
+$rating = round($ratingSummary / 20, 1); 
+$fullStars = floor($rating);
+$halfStar = ($rating - $fullStars >= 0.5) ? 1 : 0;
+$emptyStars = 5 - $fullStars - $halfStar;
+
+// Star image URL (adjust path as needed)
+$starImg = $block->getViewFileUrl('images/wishlist/star.png');
+?>
+
+<div class="rating"><?= $rating ?> <img class="star_img" src="<?= $starImg ?>" alt="">
+                                </div>
+

@@ -3,6 +3,20 @@
       xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
 
     <!-- Force show theme header on checkout -->
+      <referenceContainer name="header.panel.wrapper" remove="true"/>
+
     <referenceContainer name="header-wrapper" remove="false"/>
+    <referenceBlock name="minicart" remove="true"/>
+        <referenceBlock name="minicart_content" remove="true"/>
+        <referenceBlock name="minicart_head" remove="true"/>
+        <referenceContainer name="header.panel.wrapper">
+            <referenceBlock name="minicart" remove="true"/>
+        </referenceContainer>
+
+        <!-- 🧹 Remove search (minisearch form) -->
+        <referenceBlock name="top.search" remove="true"/>
+        <referenceContainer name="header.panel">
+            <referenceBlock name="top.search" remove="true"/>
+        </referenceContainer>
 
 </page>
