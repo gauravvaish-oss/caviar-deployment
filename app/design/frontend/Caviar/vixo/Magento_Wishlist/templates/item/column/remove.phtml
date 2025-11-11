@@ -8,5 +8,6 @@
 ?>
 
 <a href="#" data-role="remove" data-post-remove='<?= /* @noEscape */ $block->getItemRemoveParams($block->getItem()) ?>' title="<?= $block->escapeHtmlAttr(__('Remove Item')) ?>" class="btn-remove action delete">
-    <span><?= $block->escapeHtml(__('Remove item')) ?></span>
+    <span style="display: flex; gap: 10px;"><img src="<?= $block->getViewFileUrl('images/delete.png'); ?>" alt="Remove">
+<?= $block->escapeHtml(__('Remove item')) ?></span>
 </a>

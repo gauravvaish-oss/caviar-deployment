@@ -6,6 +6,8 @@
 
 // phpcs:disable Magento2.Templates.ThisInTemplate
 ?>
+
+
 <?php /** @var  $block \Magento\Sales\Block\Order\View*/?>
 <div class="order-details-items ordered">
     <?php $_order = $block->getOrder() ;  
@@ -22,12 +24,26 @@
       </ul>
     </div>
   </div>
+<?php
+    /** @var \Magento\Customer\Model\Session $customerSession */
+    $customerSession = \Magento\Framework\App\ObjectManager::getInstance()->get(\Magento\Customer\Model\Session::class);
 
+    // Determine if user logged in
+    $isLoggedIn = $customerSession->isLoggedIn();
+
+    // Build invoice URL based on login state
+    if ($isLoggedIn) {
+        $invoiceUrl = $block->getUrl('sales/order/invoice', ['order_id' => $_order->getId()]);
+    } else {
+        $invoiceUrl = $block->getUrl('sales/guest/invoice', ['order_id' => $_order->getId()]);
+    }
+    ?>
   <div class="order_buttons d-flex gap-2 mt-2 mt-md-0">
-        <a href="/sales/guest/invoice/order_id/<?= $_order->getId(); ?>/"
-           class="action print btn invoice_btn"
-           rel="noopener">
-            <img src="<?=$block->getViewFileUrl('images/invoice.png'); ?>" alt="Invoice" class="me-2"> Invoice
+        <a href="<?= $block->escapeUrl($invoiceUrl) ?>"
+          class="action print btn invoice_btn"
+          rel="noopener">
+            <img src="<?= $block->getViewFileUrl('images/invoice.png'); ?>" alt="Invoice" class="me-2">
+            <?= $block->escapeHtml(__('Invoice')) ?>
         </a>
     <?php foreach($_order->getShipmentsCollection() as $_shipment) : ?>
     <a href="#"

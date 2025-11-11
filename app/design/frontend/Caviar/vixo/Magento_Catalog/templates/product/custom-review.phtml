@@ -82,4 +82,28 @@ $format = $block->getDateFormat() ?: \IntlDateFormatter::SHORT;
     </div>
 </div>
 <?php endif; ?>
-                                    </section>
+</section>
+
+<script>
+    require(['jquery', 'swiper'], function ($, Swiper) {
+        $(document).ready(function () {
+            new Swiper('.review-swiper', {
+                slidesPerView: 4,
+                spaceBetween: 20,
+                loop: true,
+                autoplay: {
+                    delay: 4000,
+                    disableOnInteraction: false,
+                },
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                },
+                breakpoints: {
+                            768: { slidesPerView: 2 },
+                            480: { slidesPerView: 1 }
+                        }
+            });
+        });
+    });
+</script>

@@ -7,5 +7,8 @@
         <plugin name="vendor_gaurav_register_widget"
                 type="Vendor\GauravPageBuilderWidget\Plugin\EntryPointPlugin"/>
     </type>
-
+    <type name="Magento\Contact\Controller\Index\Post">
+        <plugin name="vendor_module_contact_redirect"
+                type="Vendor\GauravPageBuilderWidget\Plugin\PostPlugin" />
+    </type>
 </config>

@@ -1,0 +1,83 @@
+<?php
+/**
+ * Custom Contact Form Template (Bootstrap UI)
+ */
+
+/** @var \Magento\Contact\Block\ContactForm $block */
+/** @var \Magento\Contact\ViewModel\UserDataProvider $viewModel */
+
+$viewModel = $block->getViewModel();
+?>
+<div class="get-in-touch main-title">
+                <h3 class="getintouch">Get In Touch</h3>
+                          
+
+<form
+      action="<?= $block->escapeUrl($block->getFormAction()) ?>"
+      id="contact-form"
+      method="post"
+      data-hasrequired="<?= $block->escapeHtmlAttr(__('* Required Fields')) ?>"
+      data-mage-init='{"validation":{}}'>
+
+        <div class="row">
+            <div class="col-md-6 p-2">
+                <input type="text"
+                       name="name"
+                       id="firstname"
+                       class="form-control form-control-lg rounded-0 placeholder-content"
+                       placeholder="<?= $block->escapeHtmlAttr(__('Name*')) ?>"
+                       value="<?= $block->escapeHtmlAttr($viewModel->getUserName()) ?>"
+                       data-validate="{required:true}" />
+            </div>
+            <div class="col-md-6 p-2">
+                <input type="email"
+                       name="email"
+                       id="email"
+                       class="form-control form-control-lg rounded-0 placeholder-content"
+                       placeholder="<?= $block->escapeHtmlAttr(__('Email*')) ?>"
+                       value="<?= $block->escapeHtmlAttr($viewModel->getUserEmail()) ?>"
+                       data-validate="{required:true, 'validate-email':true}"
+                       data-mage-init='{"mage/trim-input":{}}' />
+            </div>
+
+            <div class="col-md-6 p-2">
+                <input type="text"
+                       name="telephone"
+                       id="telephone"
+                       class="form-control form-control-lg rounded-0 placeholder-content"
+                       placeholder="<?= $block->escapeHtmlAttr(__('Phone*')) ?>"
+                       value="<?= $block->escapeHtmlAttr($viewModel->getUserTelephone()) ?>"
+                       data-validate="{required:true}" />
+            </div>
+
+            <div class="col-md-12 p-2">
+                <textarea name="comment"
+                          id="comment"
+                          class="form-control form-control-lg rounded-0 placeholder-content"
+                          placeholder="<?= $block->escapeHtmlAttr(__('Do You Have Any Additional Info?')) ?>"
+                          rows="4"
+                          data-validate="{required:true}"><?= $block->escapeHtml($viewModel->getUserComment()) ?></textarea>
+            </div>
+
+            <?= $block->getChildHtml('form.additional.info') ?>
+
+            <div class="col-md-12 p-2">
+                <input type="hidden" name="hideit" id="hideit" value="" />
+                <button type="submit"
+                        title="<?= $block->escapeHtmlAttr(__('Submit')) ?>"
+                        class="submit-button mb-3 p-3">
+                    <?= $block->escapeHtml(__('Submit')) ?>
+                </button>
+            </div>
+        </div>
+</form>
+</div>
+<script type="text/x-magento-init">
+{
+    "*": {
+        "Magento_Customer/js/block-submit-on-send": {
+            "formId": "contact-form"
+        }
+    }
+}
+</script>
