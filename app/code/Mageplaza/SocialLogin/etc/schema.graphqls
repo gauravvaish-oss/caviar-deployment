@@ -32,3 +32,18 @@ type Social {
     social_type: String @doc(description: "The name of the social."),
     url: String @doc(description: "The url of the social.")
 }
+
+type SocialLoginOutput {
+    success: Boolean!
+    message: String
+    customer: Customer
+    token: String
+}
+
+input GoogleLoginInput {
+    idToken: String!
+}
+
+type Mutation {
+    socialLoginGoogle(input: GoogleLoginInput!): SocialLoginOutput @resolver(class: "Mageplaza\\SocialLogin\\GraphQl\\Model\\Resolver\\SocialLoginGoogle")
+}
