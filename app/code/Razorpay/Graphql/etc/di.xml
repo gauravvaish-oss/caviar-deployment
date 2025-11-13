@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+<type name="Magento\Framework\GraphQl\Schema\Generator\ResolverFactory">
+<arguments>
+<argument name="resolverClasses" xsi:type="array">
+<item name="Razorpay\\Graphql\\Model\\Resolver\\UpdateRazorpayPayment" xsi:type="string">Razorpay\Graphql\Model\Resolver\UpdateRazorpayPayment</item>
+</argument>
+</arguments>
+</type>
+
+
+<type name="Razorpay\Graphql\Model\Resolver\UpdateRazorpayPayment">
+<arguments>
+<argument name="orderRepository" xsi:type="object">Magento\Sales\Api\OrderRepositoryInterface</argument>
+<argument name="orderLinkFactory" xsi:type="object">Razorpay\Magento\Model\OrderLinkFactory</argument>
+<argument name="orderLinkCollectionFactory" xsi:type="object">Razorpay\Magento\Model\ResourceModel\OrderLink\CollectionFactory</argument>
+<argument name="searchCriteriaBuilder" xsi:type="object">Magento\Framework\Api\SearchCriteriaBuilder</argument>
+<argument name="logger" xsi:type="object">Psr\Log\LoggerInterface</argument>
+</arguments>
+</type>
+</config>

@@ -1,0 +1,29 @@
+type Mutation {
+updateRazorpayPayment(input: UpdateRazorpayPaymentInput!): UpdateRazorpayPaymentOutput @resolver(class: "Razorpay\\Graphql\\Model\\Resolver\\UpdateRazorpayPayment")
+}
+
+
+input UpdateRazorpayPaymentInput {
+order_increment_id: String! # Magento increment id (e.g. 000000123)
+rzp_order_id: String
+rzp_payment_id: String
+rzp_signature: String
+rzp_status: String
+amount_paid: Float
+amount_authorized: Float
+payment_method: String
+bank: String
+wallet: String
+vpa: String
+invoice_id: String
+refund_id: String
+error_code: String
+error_description: String
+set_order_status: Boolean = true # whether to change order status on success
+}
+
+
+type UpdateRazorpayPaymentOutput {
+success: Boolean!
+message: String
+}
