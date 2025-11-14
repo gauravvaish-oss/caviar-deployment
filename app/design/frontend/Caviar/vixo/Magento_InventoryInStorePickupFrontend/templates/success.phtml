@@ -1,0 +1,140 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+<?php /** @var $block \Magento\Checkout\Block\Onepage\Success */ 
+
+$imageHelper = \Magento\Framework\App\ObjectManager::getInstance()
+    ->get(\Magento\Catalog\Helper\Image::class);
+
+?>
+
+<div class="checkout-success">
+    <?php if ($block->getOrderId()) :?>
+        <?php if ($block->getCanViewOrder()) :?>
+            <p><?= $block->escapeHtml(
+                __('Your order number is: %1.',
+                    sprintf(
+                        '<a href="%s" class="order-number"><strong>%s</strong></a>',
+                        $block->escapeUrl($block->getViewOrderUrl()),
+                        $block->getOrderId()
+                    )
+                ),
+                ['a', 'strong']
+            ) ?></p>
+        <?php  else :?>
+            <p><?= $block->escapeHtml(__('Your order # is: <span>%1</span>.', $block->getOrderId()), ['span']) ?></p>
+        <?php endif;?>
+        <p><?= $block->escapeHtml(__('We\'ll email you an order confirmation with details and tracking info.')) ?></p>
+    <?php endif;?>
+
+    <?= $block->getAdditionalInfoHtml() ?>
+
+    <hr>
+
+    <!-- ========================= -->
+    <!-- SHOW FULL ORDER DETAILS   -->
+    <!-- ========================= -->
+
+    <?php
+    $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+    $checkoutSession = $objectManager->get(\Magento\Checkout\Model\Session::class);
+
+    $orderId = $checkoutSession->getLastOrderId();
+$order = $objectManager->get(\Magento\Sales\Api\OrderRepositoryInterface::class)->get($orderId);
+
+    ?>
+
+    <?php if ($orderId && $order->getId()): ?>
+
+        <h6><strong>Order Number:</strong> #<?= $order->getIncrementId(); ?></h6>
+        <p><strong>Status:</strong> <?= $order->getStatusLabel(); ?></p>
+        <p><strong>Order Date:</strong> <?= $order->getCreatedAt(); ?></p>
+        <p><strong>Payment Method:</strong> <?= $order->getPayment()->getMethodInstance()->getTitle(); ?></p>
+
+        <h5>Ordered Items</h5>
+
+        <table class="data table table-order-items" id="my-orders-table">
+            <thead>
+                <tr>
+                    <th class="col name">Product Name</th>
+                    <th class="col sku">SKU</th>
+                    <th class="col qty">Qty</th>
+                    <th class="col qty" style="text-align:right;">Price</th>
+                    <th class="col subtotal">Subtotal</th>
+
+                </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($order->getAllVisibleItems() as $item): 
+                
+                    $imageUrl = $imageHelper->init($item->getProduct(), 'product_thumbnail_image')->getUrl();
+
+                
+                ?>
+                <tr>
+                    <td class="col name" style="
+    display: flex;
+    align-items: center;
+    gap:10px;
+">
+                    <img class="product-image"
+                    src="<?= $block->escapeUrl($imageUrl) ?>"
+                    alt="<?= $block->escapeHtmlAttr($item->getName()) ?>" 
+                    style="width:75px; height:75px;"/>    
+                    
+                    
+                    <?= $item->getName(); ?>
+                </td>
+                    <td class="col sku"><?= $item->getSku(); ?></td>
+                    <td class="col qty"><?= (int) $item->getQtyOrdered(); ?></td>
+                    <td class="col "><?= $order->formatPrice($item->getPrice()); ?></td>
+                    <td class="col subtotal"><?= $order->formatPrice($order->getSubtotal()); ?></td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+            <tfoot>
+            <tr class="subtotal">
+                <th colspan="4" class="mark" scope="row">Subtotal</th>
+                <td class="amount" data-th="Subtotal"><span class="price"><?= $order->formatPrice($order->getSubtotal()); ?></span></td>
+            </tr>
+            <tr class="shipping">
+                <th colspan="4" class="mark" scope="row">Shipping &amp; Handling</th>
+                    <td class="amount" data-th="Shipping &amp; Handling">
+                            <span class="price"><?= $order->formatPrice($order->getShippingAmount()); ?></span>
+                    </td>
+            </tr>
+             <tr class="shipping">
+                <th colspan="4" class="mark" scope="row">Tax</th>
+                    <td class="amount" data-th="Tax">
+                            <span class="price"><?= $order->formatPrice($order->getTaxAmount()); ?></span>
+                    </td>
+            </tr>
+             <tr class="shipping">
+                <th colspan="4" class="mark" scope="row">Discount Applied</th>
+                    <td class="amount" data-th="Discount Applied">
+                            <span class="price"><?= $order->formatPrice($order->getDiscountAmount()); ?></span>
+                    </td>
+            </tr>
+            <tr class="grand_total">
+                <th colspan="4" class="mark" scope="row">
+                            <strong>Grand Total</strong>
+                </th>
+                <td class="amount" data-th="Grand Total">
+                        <strong><span class="price"><?= $order->formatPrice($order->getGrandTotal()); ?></span></strong>
+                </td>
+            </tr>
+            </tfoot>
+        </table>
+    <?php endif; ?>
+
+    <div class="actions-toolbar">
+        <div class="primary">
+            <a class="action primary continue" href="<?= $block->escapeUrl($block->getContinueUrl()) ?>">
+                <span><?= $block->escapeHtml(__('Continue Shopping')) ?></span>
+            </a>
+        </div>
+    </div>
+</div>

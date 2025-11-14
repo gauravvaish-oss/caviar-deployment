@@ -1,0 +1,57 @@
+<?php
+/** @var \Magento\Framework\View\Element\Template $block */
+
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$checkoutSession = $objectManager->get(\Magento\Checkout\Model\Session::class);
+
+$orderId = $checkoutSession->getLastOrderId();
+$order = $objectManager->create(\Magento\Sales\Model\Order::class)->load($orderId);
+
+if (!$orderId) {
+    echo "<p>No order found.</p>";
+    return;
+}
+?>
+
+<h2>Your Order Details</h2>
+
+<h3>Order #<?php echo $order->getIncrementId(); ?></h3>
+
+<p><strong>Status:</strong> <?php echo $order->getStatusLabel(); ?></p>
+<p><strong>Order Date:</strong> <?php echo $order->getCreatedAt(); ?></p>
+
+<h3>Billing Address</h3>
+<pre><?php echo $order->getBillingAddress()->format('html'); ?></pre>
+
+<h3>Shipping Address</h3>
+<pre><?php echo $order->getShippingAddress()->format('html'); ?></pre>
+
+<h3>Payment Method</h3>
+<p><?php echo $order->getPayment()->getMethodInstance()->getTitle(); ?></p>
+
+<h3>Items</h3>
+<table border="1" cellpadding="6">
+    <tr>
+        <th>Product</th>
+        <th>SKU</th>
+        <th>Qty</th>
+        <th>Price</th>
+    </tr>
+
+    <?php foreach ($order->getAllVisibleItems() as $item): ?>
+        <tr>
+            <td><?php echo $item->getName(); ?></td>
+            <td><?php echo $item->getSku(); ?></td>
+            <td><?php echo (int)$item->getQtyOrdered(); ?></td>
+            <td><?php echo $order->formatPrice($item->getPrice()); ?></td>
+        </tr>
+    <?php endforeach; ?>
+</table>
+
+<h3>Totals</h3>
+<ul>
+    <li><strong>Subtotal:</strong> <?php echo $order->formatPrice($order->getSubtotal()); ?></li>
+    <li><strong>Shipping:</strong> <?php echo $order->formatPrice($order->getShippingAmount()); ?></li>
+    <li><strong>Grand Total:</strong> <?php echo $order->formatPrice($order->getGrandTotal()); ?></li>
+</ul>
+
