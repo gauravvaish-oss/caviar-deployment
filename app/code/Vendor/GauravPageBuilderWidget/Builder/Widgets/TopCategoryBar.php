@@ -208,7 +208,7 @@ class TopCategoryBar extends AbstractWidget
         <div class="top-category-bar">
             <div class="container">
                 <div class="row align-items-center">
-                    <div class="col-md-3 d-flex align-items-center p-md-0">
+                    <div class="col-md-3 d-flex align-items-center p-md-0 justify-content-between">
                         <div class="category_menu">
                             <button id="topCategoryBtn" class="top_category"><img src="<?= $toggleIcon ?>" alt=""> TOP CATEGORY</button>
                             <div class="nav_below_item nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical" style="padding:0px;">
@@ -242,9 +242,32 @@ class TopCategoryBar extends AbstractWidget
                                 </div>
                             </div>
                         </div>
+                        <div class="mob-search d-flex">
+                            <!-- SEARCH TOGGLE BUTTON -->
+                            <button class="search_toggle_btn ms-3 d-md-none d-flex" onclick="openSearch()">
+                            <i class="bi bi-search"></i>
+                            </button>
+
+                            <!-- SLIDE-IN SEARCH BAR -->
+                            <form class="search_slide_box d-md-none d-flex search-form" id="searchSlideBox">
+                                <input type="text" class="form-control search-input" placeholder="Search products...">
+
+                                <select class="form-select category-select">
+                                    <option>All Categories</option>
+                                    <?php
+                                        foreach($options as $key => $value){?>
+                                        <option value="<?php echo $key ?>"><?php echo $value ?></option>
+                                    <?php } ?>
+                                </select>
+                                <button class="close_search_btn btn search-btn" type="submit">
+                                    <i class="bi bi-search"></i>
+                                </button>
+                            </form>
+                        </div>
                     </div>
+
                     <div class="col-md-9">
-                        <form class="d-flex search-form">
+                        <form class="d-none search-form d-md-flex">
                             <input type="text" class="form-control search-input" placeholder="Search For Products">
                             <select class="form-select category-select">
                                 <option value="">All Categories</option>
@@ -265,7 +288,22 @@ class TopCategoryBar extends AbstractWidget
 var catUrl = <?= json_encode($catUrl); ?>;
 
 require(['jquery'], function($){
-    
+    window.openSearch = function() {
+        $("#searchSlideBox").addClass("active");
+    }
+
+    // Close slide search
+  $(document).on("click", function (e) {
+    // If click is NOT inside #searchSlideBox AND NOT on the toggle button
+    if (!$(e.target).closest("#searchSlideBox, .search_toggle_btn").length) {
+        $("#searchSlideBox").removeClass("active");
+    }
+});
+
+// Prevent close when clicking inside
+$("#searchSlideBox").on("click", function (e) {
+    e.stopPropagation();
+});
  // Toggle top category menu
          $('#toggle_section').hide();
 

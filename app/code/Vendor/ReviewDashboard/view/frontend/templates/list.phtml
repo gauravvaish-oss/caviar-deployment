@@ -1,0 +1,108 @@
+<?php
+$products = $block->getPurchasedProducts();
+?>
+
+<div class="block">
+    <div class="block-title"><strong>Write a Review</strong></div>
+    <div class="block-content">
+
+        <table class="data table table-order-items" id="my-orders-table">
+            <thead>
+                <tr>
+                    <th class="col name">Product Name</th>
+                    <th class="col subtotal">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            <?php if (!empty($products)): ?>
+                <?php foreach ($products as $product): ?>
+                    <tr>
+                        <td class="col name"><?= $product['name'] ?></td>
+                        <td class="col subtotal">
+                           <button type="button"
+                                class="action write-review-btn"
+                                data-product-id="<?= $product['id'] ?>"
+                                data-product-name="<?= $product['name'] ?>">
+                                Write Review
+                            </button>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+
+            <?php else: ?>
+                <tr>
+                    <td class="col name">You have no purchased products available for review.</td>
+                    <td></td>
+                </tr>
+            <?php endif; ?>
+
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+
+<!-- POPUP MODAL -->
+<div id="review-popup" style="display:none;">
+    <div id="review-success-message"
+         style="display:none; margin-bottom:15px; padding:10px; background:#d4edda; color:#155724; border-radius:4px;">
+    </div>
+    <form id="review-form">
+<div id="review-product-name" style="font-weight:bold; margin-bottom:10px;"></div>
+
+        <input type="hidden" name="product_id" id="review-product-id"/>
+
+        <div class="field">
+            <label><strong>Nickname</strong></label>
+            <input type="text" name="nickname" required>
+        </div>
+
+        <div class="field">
+            <label><strong>Review Title</strong></label>
+            <input type="text" name="title" required>
+        </div>
+
+        <div class="field">
+            <label><strong>Review Summary</strong></label>
+            <textarea name="detail" required></textarea>
+        </div>
+
+        <div class="field">
+            <label><strong>Rating</strong></label>
+            <select name="rating" required>
+                <option value="">--Select--</option>
+                <option value="1">1 Star</option>
+                <option value="2">2 Stars</option>
+                <option value="3">3 Stars</option>
+                <option value="4">4 Stars</option>
+                <option value="5">5 Stars</option>
+            </select>
+        </div>
+
+        <div class="actions-toolbar">
+            <button type="submit" class="action primary">
+                Submit Review
+            </button>
+        </div>
+
+    </form>
+</div>
+
+<style>
+#review-popup .field {
+    margin-bottom: 15px;
+}
+#review-popup input, #review-popup textarea, #review-popup select {
+    width: 100%;
+}
+</style>
+<script>
+    require(["Vendor_ReviewDashboard/js/review"], function (init) {
+        init({
+            url: "<?= $block->getUrl('reviewdashboard/review/save') ?>"
+        });
+    });
+</script>
+
