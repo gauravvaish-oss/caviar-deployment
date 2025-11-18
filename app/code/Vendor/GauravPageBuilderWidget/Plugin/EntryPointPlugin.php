@@ -17,6 +17,9 @@ class EntryPointPlugin
     {
         $this->logger->info('Registering GauravWidget');
          $widgetsManager->registerWidgetType(
+            \Vendor\GauravPageBuilderWidget\Builder\Widgets\Testimonials::class
+        );
+         $widgetsManager->registerWidgetType(
             \Vendor\GauravPageBuilderWidget\Builder\Widgets\ProductGrid2::class
         );
          $widgetsManager->registerWidgetType(
