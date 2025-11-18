@@ -69,7 +69,7 @@ class ProductGrid2 extends AbstractWidget
         <section class="trending_product">
             <div class="row">
                 <div class="main-title w-100">
-                    <h1 class="text-center pb-lg-4">{{{settings.title}}}</h1>
+                    <h1 class="text-left pb-lg-4">{{{settings.title}}}</h1>
                 </div>
                 <!-- AJAX will append product cards here -->
             </div>
@@ -204,7 +204,7 @@ protected function render(): string
     ob_start();
     ?>
     <section class="trending_product">
-        <div class="main-title text-center mb-4">
+        <div class="main-title text-left mb-4">
             <?php if (!empty($settings['title'])): ?>
                 <h3><?= htmlspecialchars($settings['title']); ?></h3>
             <?php endif; ?>
