@@ -18,7 +18,7 @@ class CustomData
     {
         // ✅ Step 1: Verify token using Google SDK if available
         if (class_exists(GoogleClient::class)) {
-            $client = new GoogleClient(['client_id' => '1098501657559-po7hrdt3pgpo3vool2e5bt8i41lvu6ts.apps.googleusercontent.com']); // <-- Replace with your actual Client ID
+            $client = new GoogleClient(['client_id' => '570947347545-ntf1siv24b63fb8m9evcpfapdq605ga1.apps.googleusercontent.com']); // <-- Replace with your actual Client ID
             $payload = $client->verifyIdToken($idToken);
 
             if (!$payload) {
@@ -58,7 +58,7 @@ class CustomData
         }
 
         // ✅ Step 3: Optional audience validation (recommended)
-        if ($data['aud'] !== '1098501657559-po7hrdt3pgpo3vool2e5bt8i41lvu6ts.apps.googleusercontent.com') { // <-- Replace with your app’s client ID
+        if ($data['aud'] !== '570947347545-ntf1siv24b63fb8m9evcpfapdq605ga1.apps.googleusercontent.com') { // <-- Replace with your app’s client ID
             throw new LocalizedException(__('Token audience mismatch.'));
         }
 
