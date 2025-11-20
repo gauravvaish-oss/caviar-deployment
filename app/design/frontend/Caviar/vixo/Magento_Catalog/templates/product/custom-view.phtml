@@ -381,6 +381,7 @@ require(['jquery', 'mage/dataPost'], function($) {
         e.preventDefault();
         let $btn = $(this);
         let qty   = readQty();
+
         let config = $btn.data('post');
 
         if (typeof config === 'string') config = JSON.parse(config);
@@ -408,7 +409,7 @@ require(['jquery', 'mage/dataPost'], function($) {
         let config = $btn.data('post');
 
         if (typeof config === 'string') config = JSON.parse(config);
-        config.data.qty = qty;
+        config.data.qty = qty - 1;
 
         $btn.prop('disabled', true).text('Processing...');
 
