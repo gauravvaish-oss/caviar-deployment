@@ -1,0 +1,109 @@
+<button id="otp-login-btn" class="action login primary">
+    <span>Login with OTP</span>
+</button>
+
+<div id="otp-login-modal" style="display:none;">
+    <div class="otp-step otp-step-1">
+        <input type="text" id="otp-mobile" placeholder="Enter Mobile Number" class="input-text"/>
+        <button id="send-otp-btn" class="action primary">Send OTP</button>
+        <div id="otp-msg"></div>
+    </div>
+
+    <div class="otp-step otp-step-2" style="display:none;">
+        <input type="text" id="otp-code" placeholder="Enter OTP" class="input-text"/>
+        <button id="verify-otp-btn" class="action primary">Verify & Login</button>
+        <div id="otp-msg-2"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+require([
+    'jquery',
+    'mage/url',
+    'Magento_Ui/js/modal/modal'
+], function ($, url, modal) {
+
+    var otpModal = $('#otp-login-modal');
+
+    modal({
+        type: 'popup',
+        title: 'Login with OTP',
+        modalClass: 'otp-login-popup',
+        buttons: []
+    }, otpModal);
+
+    // Open popup
+    $('#otp-login-btn').click(function () {
+        $('#otp-msg, #otp-msg-2').html('').hide();
+        otpModal.modal('openModal');
+    });
+
+    // -------------------------
+    // SEND OTP
+    // -------------------------
+    $('#send-otp-btn').click(function () {
+
+        let mobile = $('#otp-mobile').val().trim();
+        let msgBox = $('#otp-msg');
+
+        msgBox.hide();
+
+        if (mobile === '') {
+            msgBox.show().html('<span style="color:red;">Enter mobile number.</span>');
+            return;
+        }
+
+        $.ajax({
+            url: url.build('otplogin/account/send'),
+            type: 'POST',
+            data: { mobile: mobile },
+
+            success: function (res) {
+                if (res.success) {
+                    msgBox.show().html('<span style="color:green;">OTP sent successfully.</span>');
+                    $('.otp-step-1').hide();
+                    $('.otp-step-2').show();
+                } else {
+                    msgBox.show().html('<span style="color:red;">' + res.message + '</span>');
+                }
+            }
+        });
+    });
+
+    // -------------------------
+    // VERIFY OTP
+    // -------------------------
+    $('#verify-otp-btn').click(function () {
+
+        let mobile = $('#otp-mobile').val().trim();
+        let otp = $('#otp-code').val().trim();
+        let msgBox = $('#otp-msg-2');
+
+        msgBox.hide();
+
+        if (otp === '') {
+            msgBox.show().html('<span style="color:red;">Enter OTP.</span>');
+            return;
+        }
+
+        $.ajax({
+            url: url.build('otplogin/account/verify'),
+            type: 'POST',
+            data: { mobile: mobile, otp: otp },
+
+            success: function (res) {
+                if (res.success) {
+                    msgBox.show().html('<span style="color:green;">OTP Verified. Logging in...</span>');
+                    setTimeout(function () {
+                        window.location.href = url.build('customer/account');
+                    }, 1500);
+                } else {
+                    msgBox.show().html('<span style="color:red;">' + res.message + '</span>');
+                }
+            }
+        });
+    });
+
+});
+</script>
+

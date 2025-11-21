@@ -1,0 +1,24 @@
+type OtpResponse {
+  success: Boolean!
+  message: String
+}
+
+type VerifyOtpResponse {
+  success: Boolean!
+  message: String
+  token: String
+}
+
+input RequestOtpInput {
+  identifier: String!
+}
+
+input VerifyOtpInput {
+  identifier: String!
+  code: String!
+}
+
+type Mutation {
+  requestOtp(input: RequestOtpInput!): OtpResponse @resolver(class: "Vendor\\OtpLogin\\Model\\Resolver\\RequestOtp")
+  verifyOtp(input: VerifyOtpInput!): VerifyOtpResponse @resolver(class: "Vendor\\OtpLogin\\Model\\Resolver\\VerifyOtp")
+}

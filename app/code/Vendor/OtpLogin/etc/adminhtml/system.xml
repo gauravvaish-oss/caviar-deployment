@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+  <system>
+    <section id="vendor_otplogin" translate="label" type="text" sortOrder="900" showInDefault="1" showInWebsite="1" showInStore="1">
+      <label>OTP Login</label>
+      <tab>general</tab>
+      <resource>Vendor_OtpLogin::config</resource>
+      <group id="twilio" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+        <label>Twilio Settings</label>
+        <field id="sid" translate="label" type="text" sortOrder="10" showInDefault="1">
+          <label>Account SID</label>
+        </field>
+        <field id="token" translate="label" type="text" sortOrder="20" showInDefault="1">
+          <label>Auth Token</label>
+        </field>
+        <field id="from" translate="label" type="text" sortOrder="30" showInDefault="1">
+          <label>From Number</label>
+        </field>
+        <field id="enabled" translate="label" type="select" sortOrder="40" showInDefault="1">
+          <label>Enable Twilio</label>
+          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+      </group>
+    </section>
+  </system>
+</config>
