@@ -2,76 +2,67 @@
 namespace Vendor\OtpLogin\Helper;
 
 use Magento\Customer\Api\CustomerRepositoryInterface;
-use Magento\Customer\Model\Session;
 use Magento\Framework\Api\SearchCriteriaBuilder;
+use Magento\Integration\Api\CustomerTokenServiceInterface;
 
 class LoginHelper
 {
     protected $customerRepository;
-    protected $session;
     protected $searchCriteriaBuilder;
+    protected $tokenService;
 
     public function __construct(
         CustomerRepositoryInterface $customerRepository,
-        Session $session,
-        SearchCriteriaBuilder $searchCriteriaBuilder
+        SearchCriteriaBuilder $searchCriteriaBuilder,
+        CustomerTokenServiceInterface $tokenService
     ) {
         $this->customerRepository = $customerRepository;
-        $this->session = $session;
         $this->searchCriteriaBuilder = $searchCriteriaBuilder;
+        $this->tokenService = $tokenService;
     }
 
     /**
-     * Login customer by mobile number
+     * Login customer using mobile (OTP login)
      */
     public function loginCustomerByMobile($mobile)
-{
-    try {
-        // Search customer by mobile_no
-        $searchCriteria = $this->searchCriteriaBuilder
-            ->addFilter('phone', $mobile, 'eq')
-            ->create();
+    {
+        try {
 
-        $customers = $this->customerRepository->getList($searchCriteria);
+            /** 1. Get customer by custom mobile attribute "phone" */
+            $searchCriteria = $this->searchCriteriaBuilder
+                ->addFilter('phone', $mobile, 'eq')
+                ->create();
 
-        if ($customers->getTotalCount() === 0) {
+            $customers = $this->customerRepository->getList($searchCriteria);
+
+            if ($customers->getTotalCount() == 0) {
+                return [
+                    'success' => false,
+                    'message' => 'Mobile number not registered.'
+                ];
+            }
+
+            $customer = current($customers->getItems());
+            $customerId = $customer->getId();
+
+            /** 2. Generate Magento customer token */
+            $token = $this->tokenService->createCustomerAccessToken($customerId);
+
+            /** 3. Return success + customer data */
+            return [
+                'success' => true,
+                'message' => 'Login successful.',
+                'customer_id' => $customerId,
+                'customer_email' => $customer->getEmail(),
+                'token' => $token
+            ];
+
+        } catch (\Exception $e) {
             return [
                 'success' => false,
-                'message' => 'Mobile number is not registered.'
+                'message' => 'Login failed.',
+                'error'   => $e->getMessage()
             ];
         }
-
-        $customerInterface = current($customers->getItems());
-
-        /** IMPORTANT: Start Session First */
-        $this->session->start();
-
-        /** 1. Set customer data in session */
-        $this->session->setCustomerData($customerInterface);
-
-        /** 2. Set customer ID */
-        $this->session->setCustomerId($customerInterface->getId());
-
-        /** 3. Force logged-in flag */
-        $this->session->setIsCustomerLoggedIn(true);
-
-        /** 4. Regenerate session ID for security */
-        $this->session->regenerateId();
-
-        return [
-            'success' => true,
-            'message' => 'Login successful.',
-            'customer_id' => $customerInterface->getId(),
-            'customer_email' => $customerInterface->getEmail()
-        ];
-
-    } catch (\Exception $e) {
-        return [
-            'success' => false,
-            'message' => 'Login failed.',
-            'error' => $e->getMessage()
-        ];
     }
-}
-
 }

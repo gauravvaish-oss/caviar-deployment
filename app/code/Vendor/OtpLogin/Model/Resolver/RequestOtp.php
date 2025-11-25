@@ -25,8 +25,8 @@ class RequestOtp implements ResolverInterface
         }
 
         // basic rate-limiting or validation should be added by caller
-        $this->otpManager->sendOtp($identifier, [$this->twilio, 'send'], 300);
-
-        return ['success' => true, 'message' => 'OTP sent if allowed'];
+        $data = $this->otpManager->sendOtp($identifier);
+        $data = json_encode($data);
+        return ['success' => true, 'message' => "{$data}"];
     }
 }

@@ -3,41 +3,43 @@ namespace Vendor\OtpLogin\Controller\Account;
 
 use Magento\Framework\App\Action\Action;
 use Magento\Framework\App\Action\Context;
-use Magento\Framework\Controller\Result\JsonFactory;
+use Magento\Customer\Model\Url as CustomerUrl;
 use Vendor\OtpLogin\Model\OtpManager;
 use Vendor\OtpLogin\Helper\LoginHelper;
 
 class Verify extends Action
 {
-    protected $jsonFactory;
     protected $otpManager;
     protected $loginHelper;
+    protected $customerUrl;
 
     public function __construct(
         Context $context,
-        JsonFactory $jsonFactory,
         OtpManager $otpManager,
-        LoginHelper $loginHelper
+        LoginHelper $loginHelper,
+        CustomerUrl $customerUrl
     ) {
-        $this->jsonFactory = $jsonFactory;
         $this->otpManager = $otpManager;
         $this->loginHelper = $loginHelper;
+        $this->customerUrl = $customerUrl;
         parent::__construct($context);
     }
 
     public function execute()
     {
-        $result = $this->jsonFactory->create();
-
         $mobile = $this->getRequest()->getParam('mobile');
         $otp    = $this->getRequest()->getParam('otp');
 
         if ($this->otpManager->validateOtp($mobile, $otp)) {
-            $this->loginHelper->loginCustomerByMobile($mobile);
-            // echo 'success';die;
-            return $result->setData(['success' => true, 'message' => 'OTP verified and customer logged in']);
+            $login = $this->loginHelper->loginCustomerByMobile($mobile);
+            if ($login['success']) {
+                // Redirect to My Account Dashboard
+                return $this->_redirect('customer/account');
+            }
         }
 
-        return $result->setData(['success' => false, 'message' => 'Invalid OTP']);
+        // If OTP fails → redirect back to login page
+        $this->messageManager->addErrorMessage(__('Invalid OTP.'));
+        return $this->_redirect('customer/account/login');
     }
 }

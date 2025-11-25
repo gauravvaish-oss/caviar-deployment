@@ -6,51 +6,61 @@ use Magento\Framework\GraphQl\Config\Element\Field;
 use Magento\Framework\GraphQl\Schema\Type\ResolveInfo;
 use Vendor\OtpLogin\Model\OtpManager;
 use Magento\Customer\Api\CustomerRepositoryInterface;
-use Magento\Integration\Model\Oauth\TokenFactory;
-use Magento\Customer\Model\CustomerFactory;
+use Magento\Framework\Api\SearchCriteriaBuilder;
+use Magento\Integration\Api\CustomerTokenServiceInterface;
+use Magento\Integration\Model\Oauth\TokenFactory; // <- new
 
 class VerifyOtp implements ResolverInterface
 {
     private $otpManager;
     private $customerRepo;
-    private $tokenFactory;
-    private $customerFactory;
+    private $searchCriteriaBuilder;
+    private $tokenService;
+    private $tokenFactory; // <- new
 
     public function __construct(
         OtpManager $otpManager,
         CustomerRepositoryInterface $customerRepo,
-        TokenFactory $tokenFactory,
-        CustomerFactory $customerFactory
+        SearchCriteriaBuilder $searchCriteriaBuilder,
+        CustomerTokenServiceInterface $tokenService,
+        TokenFactory $tokenFactory // <- inject
     ) {
         $this->otpManager = $otpManager;
         $this->customerRepo = $customerRepo;
-        $this->tokenFactory = $tokenFactory;
-        $this->customerFactory = $customerFactory;
+        $this->searchCriteriaBuilder = $searchCriteriaBuilder;
+        $this->tokenService = $tokenService;
+        $this->tokenFactory = $tokenFactory; // <- assign
     }
 
     public function resolve(Field $field, $context, ResolveInfo $info, array $value = null, array $args = null)
     {
-        $identifier = $args['input']['identifier'] ?? null;
-        $code = $args['input']['code'] ?? null;
+        $identifier = $args['input']['identifier'] ?? null; // email OR phone
+        $otp = $args['input']['code'] ?? null;
 
-        if (!$identifier || !$code) {
-            return ['success' => false, 'message' => 'Identifier and code required', 'token' => null];
+        if (!$identifier || !$otp) {
+            return ['success' => false, 'message' => 'Identifier and OTP required', 'token' => null];
         }
 
-        if (!$this->otpManager->verifyOtp($identifier, $code)) {
-            return ['success' => false, 'message' => 'Invalid or expired code', 'token' => null];
+        /** Validate OTP */
+        if (!$this->otpManager->validateOtp($identifier, $otp)) {
+            return ['success' => false, 'message' => 'Invalid or expired OTP', 'token' => null];
         }
 
+        /** Find customer */
         $customer = null;
+
         try {
             if (filter_var($identifier, FILTER_VALIDATE_EMAIL)) {
                 $customer = $this->customerRepo->get($identifier);
             } else {
-                $model = $this->customerFactory->create();
-                $model->setWebsiteId(1);
-                $model->loadByAttribute('mobile', $identifier);
-                if ($model && $model->getId()) {
-                    $customer = $this->customerRepo->getById($model->getId());
+                $searchCriteria = $this->searchCriteriaBuilder
+                    ->addFilter('phone', $identifier, 'eq')
+                    ->create();
+
+                $result = $this->customerRepo->getList($searchCriteria);
+
+                if ($result->getTotalCount() > 0) {
+                    $customer = current($result->getItems());
                 }
             }
         } catch (\Exception $e) {
@@ -58,13 +68,39 @@ class VerifyOtp implements ResolverInterface
         }
 
         if (!$customer) {
-            return ['success' => false, 'message' => 'Customer not found', 'token' => null];
+            return [
+                'success' => false,
+                'message' => 'Customer not found for this phone/email',
+                'token' => null
+            ];
         }
 
-        // create customer token
-        $tokenModel = $this->tokenFactory->create();
-        $token = $tokenModel->createCustomerToken($customer->getId())->getToken();
+        /** DEBUG: Print all available methods of token service */
+        // $methods = get_class_methods($this->tokenService);
+        // echo "<pre>";
+        // print_r($methods);
+        // echo "</pre>";
+        // die;
 
-        return ['success' => true, 'message' => 'OTP verified', 'token' => $token];
+        /** Generate customer access token using TokenFactory (works in 2.4.6) */
+        
+        try {
+            $tokenModel = $this->tokenFactory->create();
+            $tokenModel->createCustomerToken($customer->getId());
+            $token = $tokenModel->getToken();
+        } catch (\Exception $e) {
+            return [
+                'success' => false,
+                'message' => 'Token generation failed: ' . $e->getMessage(),
+                'token' => null
+            ];
+        }
+        
+
+        return [
+            'success' => true,
+            'message' => 'OTP verified successfully',
+            'token'   => $token ?? null
+        ];
     }
 }
