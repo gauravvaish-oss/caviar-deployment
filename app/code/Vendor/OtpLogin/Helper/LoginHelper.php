@@ -3,32 +3,31 @@ namespace Vendor\OtpLogin\Helper;
 
 use Magento\Customer\Api\CustomerRepositoryInterface;
 use Magento\Framework\Api\SearchCriteriaBuilder;
-use Magento\Integration\Api\CustomerTokenServiceInterface;
+use Magento\Customer\Model\Session as CustomerSession;
 
 class LoginHelper
 {
     protected $customerRepository;
     protected $searchCriteriaBuilder;
-    protected $tokenService;
+    protected $customerSession;
 
     public function __construct(
         CustomerRepositoryInterface $customerRepository,
         SearchCriteriaBuilder $searchCriteriaBuilder,
-        CustomerTokenServiceInterface $tokenService
+        CustomerSession $customerSession
     ) {
         $this->customerRepository = $customerRepository;
         $this->searchCriteriaBuilder = $searchCriteriaBuilder;
-        $this->tokenService = $tokenService;
+        $this->customerSession = $customerSession;
     }
 
     /**
-     * Login customer using mobile (OTP login)
+     * Login customer using mobile (frontend)
      */
     public function loginCustomerByMobile($mobile)
     {
         try {
-
-            /** 1. Get customer by custom mobile attribute "phone" */
+            // 1. Get customer by custom mobile attribute "phone"
             $searchCriteria = $this->searchCriteriaBuilder
                 ->addFilter('phone', $mobile, 'eq')
                 ->create();
@@ -43,18 +42,16 @@ class LoginHelper
             }
 
             $customer = current($customers->getItems());
-            $customerId = $customer->getId();
 
-            /** 2. Generate Magento customer token */
-            $token = $this->tokenService->createCustomerAccessToken($customerId);
+            // 2. Login customer in frontend
+            $this->customerSession->setCustomerDataAsLoggedIn($customer);
+            $this->customerSession->regenerateId(); // Optional: security
 
-            /** 3. Return success + customer data */
             return [
                 'success' => true,
                 'message' => 'Login successful.',
-                'customer_id' => $customerId,
-                'customer_email' => $customer->getEmail(),
-                'token' => $token
+                'customer_id' => $customer->getId(),
+                'customer_email' => $customer->getEmail()
             ];
 
         } catch (\Exception $e) {

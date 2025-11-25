@@ -93,9 +93,9 @@ require([
 
             success: function (res) {
                 if (res.success) {
-                    msgBox.show().html('<span style="color:green;">OTP Verified. Logging in...</span>');
+                    msgBox.show().html('<span style="color:green;">' + res.message + '</span>');
                     setTimeout(function () {
-                        window.location.href = url.build('customer/account');
+                        window.location.href = res.redirect_url;
                     }, 1500);
                 } else {
                     msgBox.show().html('<span style="color:red;">' + res.message + '</span>');
