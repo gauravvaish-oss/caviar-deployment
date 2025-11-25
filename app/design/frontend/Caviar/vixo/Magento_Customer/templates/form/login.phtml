@@ -10,6 +10,19 @@
 /** @var \Magento\Customer\ViewModel\LoginButton $loginButtonViewModel */
 $loginButtonViewModel = $block->getData('login_button_view_model');
 ?>
+<style>
+    .modal-inner-wrap{
+            padding: 20px !important;
+    border-radius: 10px !important;
+    width: 30% !important;
+            padding-bottom: 30px !important;
+
+    }
+    .modal-header{
+        padding-top: 0px !important;
+    }
+    </style>
+
 <div class="block block-customer-login">
     <div class="block-title">
         <strong id="block-customer-login-heading" role="heading" aria-level="2"><?= $block->escapeHtml(__('Registered Customers')) ?></strong>
@@ -48,10 +61,40 @@ $loginButtonViewModel = $block->getData('login_button_view_model');
                     <!-- ko template: getTemplate() --><!-- /ko -->
                 </div>
                 <?= $block->getChildHtml('form_additional_info') ?>
-                <div class="actions-toolbar">
+                <div class="actions-toolbar" style="gap:10px;">
                     <div class="primary"><button type="submit" class="action login primary" name="send" id="send2" <?php if ($loginButtonViewModel->disabled()): ?> disabled="disabled" <?php endif; ?>><span><?= $block->escapeHtml(__('Sign In')) ?></span></button></div>
+                    <div class="primary">
+                        <button id="otp-login-btn" class="action login primary">
+                        <span>Login with Phone</span>
+                        </button>
+                    </div>
                     <div class="secondary"><a class="action remind" href="<?= $block->escapeUrl($block->getForgotPasswordUrl()) ?>"><span><?= $block->escapeHtml(__('Forgot Your Password?')) ?></span></a></div>
                 </div>
+               
+
+                <div id="otp-login-modal" style="display:none;">
+                    <div class="otp-step otp-step-1" style="
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+">
+                                            <div id="otp-msg"></div>
+
+                        <input type="text" id="otp-mobile" placeholder="Enter Mobile Number" class="input-text"/>
+                        <button id="send-otp-btn" class="action primary">Send OTP</button>
+                        
+                    </div>
+
+                    <div class="otp-step otp-step-2" style="display:none;
+    flex-direction: column;
+    gap: 10px;">
+                                                <div id="otp-msg-2"></div>
+
+                        <input type="text" id="otp-code" placeholder="Enter OTP" class="input-text"/>
+                        <button id="verify-otp-btn" class="action primary">Verify & Login</button>
+                    </div>
+                </div>
+
                 <?php
                     echo $block->getLayout()
                         ->createBlock(\Mageplaza\SocialLogin\Block\Popup\Social::class)
@@ -79,4 +122,101 @@ $loginButtonViewModel = $block->getData('login_button_view_model');
             }
         }
     </script>
+   
+<script type="text/javascript">
+require([
+    'jquery',
+    'mage/url',
+    'Magento_Ui/js/modal/modal'
+], function ($, url, modal) {
+
+    var otpModal = $('#otp-login-modal');
+
+    modal({
+        type: 'popup',
+        title: 'Login with OTP',
+        modalClass: 'otp-login-popup',
+        buttons: []
+    }, otpModal);
+
+    // Open popup
+    $('#otp-login-btn').click(function () {
+        $('#otp-msg, #otp-msg-2').html('').hide();
+        otpModal.modal('openModal');
+    });
+
+    // -------------------------
+    // SEND OTP
+    // -------------------------
+    $('#send-otp-btn').click(function () {
+
+        let mobile = $('#otp-mobile').val().trim();
+        let msgBox = $('#otp-msg');
+
+        msgBox.hide();
+
+        if (mobile === '') {
+            msgBox.show().html('<span class="message-error error message" style="color:red;">Enter mobile number.</span>');
+            return;
+        }
+
+        $.ajax({
+            url: url.build('otplogin/account/send'),
+            type: 'POST',
+            data: { mobile: mobile },
+
+            success: function (res) {
+                if (res.success) {
+                    msgBox.show().html('<span class="message-success success message" style="color:green;">OTP sent successfully.</span>');
+                    $('.otp-step-1').hide();
+                    $('.otp-step-2').show();
+                    $('.otp-step-2').css('display', 'flex');
+                } else {
+                    msgBox.show().html('<span class="message-error error message" style="color:red;">' + res.message + '</span>');
+                }
+            }
+        });
+    });
+
+    // -------------------------
+    // VERIFY OTP
+    // -------------------------
+    $('#verify-otp-btn').click(function () {
+
+        let mobile = $('#otp-mobile').val().trim();
+        let otp = $('#otp-code').val().trim();
+        let msgBox = $('#otp-msg-2');
+
+        msgBox.hide();
+
+        if (otp === '') {
+            msgBox.show().html('<span class="message-error error message" style="color:red;">Enter OTP.</span>');
+            return;
+        }
+
+        $.ajax({
+            url: url.build('otplogin/account/verify'),
+            type: 'POST',
+            data: { mobile: mobile, otp: otp },
+
+            success: function (res) {
+                if (res.success) {
+                    msgBox.show().html('<span class="message-success success message">' + res.message + '</span>');
+                    setTimeout(function () {
+                        window.location.href = res.redirect_url;
+                    }, 1500);
+                } else {
+                    msgBox.show().html('<span class="message-error error message" style="color:red;">' + res.message + '</span>');
+                     setTimeout(function () {
+                        window.location.href = res.redirect_url;
+                    }, 1500);
+                }
+            }
+        });
+    });
+
+});
+</script>
+
 </div>
+

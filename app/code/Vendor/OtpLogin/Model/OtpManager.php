@@ -50,7 +50,7 @@ class OtpManager
         $this->otpResource->save($otpModel);
 
         // Send SMS using Twilio
-        // $data = $this->twilio->sendSms($mobile, "Your OTP is: " . $otp);
+        $data = $this->twilio->sendSms($mobile, "Your OTP is: " . $otp);
        
         return "OTP sent to {$otp}";
     }

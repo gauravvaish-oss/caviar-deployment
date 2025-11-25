@@ -46,7 +46,8 @@ class Verify extends Action
             } else {
                 return $resultJson->setData([
                     'success' => false,
-                    'message' => 'Login failed: ' . $login['message']
+                    'message' => 'Login failed: ' . $login['message'],
+                    'redirect_url' => $this->_url->getUrl('customer/account/login')
                 ]);
             }
         }

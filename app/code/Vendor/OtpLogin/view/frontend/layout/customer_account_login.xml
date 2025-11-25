@@ -3,10 +3,10 @@
       xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
 
     <body>
-        <referenceContainer name="customer.form.login.extra">
+        <!-- <referenceContainer name="customer.form.login.extra">
             <block class="Magento\Framework\View\Element\Template"
                    name="vendor_otplogin_button"
                    template="Vendor_OtpLogin::otp_button.phtml"/>
-        </referenceContainer>
+        </referenceContainer> -->
     </body>
 </page>
