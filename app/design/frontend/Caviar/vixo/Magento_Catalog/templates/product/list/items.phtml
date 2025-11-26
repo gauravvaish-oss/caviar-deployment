@@ -189,7 +189,7 @@ $_item = null;
                                 data-role="select-all"><span><?= $block->escapeHtml(__('select all')) ?></span></button>
                     </div>
                 <?php endif; ?>
-                    <div class="col-lg-10 col-md-8">
+                    <div class="col-lg-10 col-md-9">
                         <div class="row">
                             <?php foreach ($items as $_item): ?>
                                 <?php
@@ -198,7 +198,7 @@ $_item = null;
                                     $regularPrice = $_item->getPriceInfo()->getPrice('regular_price')->getAmount()->getValue();
                                     $finalPrice = $_item->getFinalPrice();
                                 ?>
-                                <div class="col-lg-4 col-md-6 p-2">
+                                <div class="col-lg-3 col-md-6 p-2">
                                     <div class="product-card">
                                         <div class="product-image">
                                             <a href="<?= $block->escapeUrl($block->getProductUrl($_item)) ?>">
