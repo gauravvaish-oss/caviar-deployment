@@ -21,4 +21,15 @@ input VerifyOtpInput {
 type Mutation {
   requestOtp(input: RequestOtpInput!): OtpResponse @resolver(class: "Vendor\\OtpLogin\\Model\\Resolver\\RequestOtp")
   verifyOtp(input: VerifyOtpInput!): VerifyOtpResponse @resolver(class: "Vendor\\OtpLogin\\Model\\Resolver\\VerifyOtp")
+  resetPasswordByOtp(input: ResetPasswordInput!): ResetPasswordResponse @resolver(class: "Vendor\\OtpLogin\\Model\\Resolver\\ResetPasswordByOtp")
+}
+input ResetPasswordInput {
+  identifier: String!
+  code: String!
+  new_password: String!
+}
+
+type ResetPasswordResponse {
+  success: Boolean!
+  message: String
 }
