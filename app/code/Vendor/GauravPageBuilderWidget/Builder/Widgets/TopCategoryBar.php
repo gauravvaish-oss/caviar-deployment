@@ -368,8 +368,8 @@ $("#searchSlideBox").on("click", function (e) {
         $('.search-form').on('submit', function(e){
             e.preventDefault(); // prevent normal submit
 
-            var query = $input.val().trim();
-            var category = $category.val();
+            var query = $(this).find('.search-input').val().trim();
+            var category = $(this).find('.category-select').val();
 
             if(query === '' && category !== '' && catUrl[category]){
                 // No input, category selected → go to category page
