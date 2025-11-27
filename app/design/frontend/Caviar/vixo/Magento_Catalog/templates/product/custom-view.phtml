@@ -209,7 +209,7 @@ $salableQty = $getSalableQty->execute($product->getSku(), 1); // website stock =
                             <!-- <i class="fa-solid fa-truck"></i>  -->
                             Free Shipping over ₹700
                         </p>
-                        <p class="share-product" data-url="<?= $block->escapeUrl($_SERVER['REQUEST_URI']); ?>">
+                        <p id="share-product-btn" class="share-product" data-url="<?= $block->escapeUrl($_SERVER['REQUEST_URI']); ?>" style="cursor:pointer;">
                             <img src="<?= $block->getViewFileUrl('./images/product-single/Frame (1).png'); ?>" alt="">
                             Share
                         </p>

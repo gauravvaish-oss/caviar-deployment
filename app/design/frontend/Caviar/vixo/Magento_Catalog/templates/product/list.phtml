@@ -122,7 +122,7 @@ if (!$_productCollection->count()): ?>
                                 </a>
                                 <span class="discount-badge">New</span>
                                 <div class="product-actions">
-<a href="javascript:void(0);"
+<a href="<?= $_product->getProductUrl() ?>"
        class="action-btn quickview"
        title="<?= $escaper->escapeHtmlAttr(__('Quick View')) ?>"
        data-product-id="<?= (int)$_product->getId(); ?>">
