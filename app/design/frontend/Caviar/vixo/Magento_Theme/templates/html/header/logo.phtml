@@ -11,6 +11,8 @@ $storeName = $block->getThemeName() ? $block->getThemeName() : $block->getLogoAl
 /**
  * @var \Magento\Theme\ViewModel\Block\Html\Header\LogoSizeResolverInterface|null $logoSizeResolver
  */
+
+
 $logoSizeResolver = $block->getLogoSizeResolver();
 $logoWidth = $logoSizeResolver !== null && $logoSizeResolver->getWidth()
     ? $logoSizeResolver->getWidth()

@@ -39,7 +39,10 @@ $halfStar = ($rating - $fullStars >= 0.5) ? 1 : 0;
 $emptyStars = 5 - $fullStars - $halfStar;
 
 // Star image URL (adjust path as needed)
-$starImg = $block->getViewFileUrl('images/wishlist/star.png');
+$starImg = $block->getViewFileUrl('images/wishlist/starfull.png');
+$starHalfImg = $block->getViewFileUrl('images/wishlist/starhalf.png');
+$starEmptyImg = $block->getViewFileUrl('images/wishlist/emptystar.png');
+
 $stockRegistry = $objectManager->get(\Magento\CatalogInventory\Api\StockRegistryInterface::class);
 $getSalableQty = $objectManager->get(\Magento\InventorySalesApi\Api\GetProductSalableQtyInterface::class);
 $salableQty = $getSalableQty->execute($product->getSku(), 1); // website stock = 1
@@ -96,11 +99,11 @@ $salableQty = $getSalableQty->execute($product->getSku(), 1); // website stock =
         <?php endfor; ?>
 
         <?php if ($halfStar): ?>
-            <img class="star-img" src="<?= $starImg ?>" alt="Half Star">
+            <img class="star-img" src="<?= $starHalfImg ?>" alt="Half Star">
         <?php endif; ?>
 
         <?php for ($i = 0; $i < $emptyStars; $i++): ?>
-            <img class="star-img" src="<?= $starImg ?>" alt="Empty Star" style="opacity:0.3;">
+            <img class="star-img" src="<?= $starEmptyImg ?>" alt="Empty Star" style="opacity:0.3;">
         <?php endfor; ?>
                         </div>
                     </div>

@@ -211,18 +211,24 @@ define([
             var addToCartButtonTextAdded = this.options.addToCartButtonTextAdded || $t('Added'),
                 self = this,
                 addToCartButton = $(form).find(this.options.addToCartButtonSelector);
-
+                
             addToCartButton.find('span').text(addToCartButtonTextAdded);
             addToCartButton.prop('title', addToCartButtonTextAdded);
 
             setTimeout(function () {
                 var addToCartButtonTextDefault = self.options.addToCartButtonTextDefault || $t('Add to Cart');
-                $('.action.btn-buy').find('span').text(addToCartButtonTextDefault);
                 addToCartButton.removeClass(self.options.addToCartButtonDisabledClass);
 
                 addToCartButton.find('span').text(addToCartButtonTextDefault);
                 addToCartButton.prop('title', addToCartButtonTextDefault);
-                                $('.action.btn-buy').find('span').text($t('Buy Now'));
+                form.find('.action.btn-buy span').text($t('Buy Now'));
+                var $cartButton = form.find('.btn-cart-cart');
+                var addedIcon = $cartButton.data('cart-icon');
+                if (addedIcon) {
+                    $cartButton.find('span').html(
+                        '<img src="' + addedIcon + '" alt="Added">'
+                    );
+                }
                 var $count = $('.cart-count.cart_count_badge');
                 var current = parseInt($count.text().trim()) || 0;
                 var newCount = current + 1;

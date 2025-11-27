@@ -1,0 +1,23 @@
+.header.content {
+    display: none !important;
+}
+.authentication-wrapper {
+    display: none;
+}
+main#maincontent {
+    padding-top: 50px;
+}
+section.gmt-element.gmt-element-a233270.gmt-section-boxed.gmt-section-height-default.gmt-section-height-default.gmt-section.gmt-top-section {
+    display: none;
+}
+
+div#shipping-method-buttons-container {
+    margin: 0px;
+}
+#shipping-method-buttons-container span {
+    font-size: 20px;
+    padding: 25px;
+}
+.step-title {
+    text-align: left;
+}

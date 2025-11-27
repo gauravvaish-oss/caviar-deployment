@@ -165,7 +165,7 @@ if (!$_productCollection->count()): ?>
 
                                         <!-- Normal Add to Cart -->
                                         <button type="submit" title="<?= $escaper->escapeHtmlAttr(__('Add to Cart')) ?>"
-                                                class="action tocart action-btn" disabled>
+                                                class="action tocart action-btn btn-cart-cart" data-cart-icon="<?= $block->getViewFileUrl('images/cart.png'); ?>" disabled >
                                             <span><img src="<?= $block->getViewFileUrl("./images/cart.png"); ?>" alt=""></span>
                                         </button>
                                     </form>

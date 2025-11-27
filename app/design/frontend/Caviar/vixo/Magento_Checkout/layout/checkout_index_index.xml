@@ -3,8 +3,11 @@
       xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
 
     <!-- Force show theme header on checkout -->
-      <referenceContainer name="header.panel.wrapper" remove="true"/>
-
+      <!-- <referenceContainer name="header.panel.wrapper" remove=""/> -->
+<head>
+        <!-- Your custom CSS file -->
+        <css src="Magento_Checkout::css/custom-header.css"/>
+    </head>
     <referenceContainer name="header-wrapper" remove="false"/>
     <referenceBlock name="minicart" remove="true"/>
         <referenceBlock name="minicart_content" remove="true"/>
