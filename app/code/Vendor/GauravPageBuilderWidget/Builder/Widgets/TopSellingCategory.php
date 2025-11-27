@@ -109,6 +109,7 @@ class TopSellingCategory extends AbstractWidget
                                 var html = `
                                     <div class="col-md-4">
                                         <div class="top_product_section_bg">
+                                        <a href="${response.category_url}">
                                             <img src="${response.category_image}" alt="${response.category_name}" class="img-fluid">
                                             <h5>${response.category_name}</h5>
                                             <div class="d-flex align-items-center justify-content-between">
@@ -117,6 +118,7 @@ class TopSellingCategory extends AbstractWidget
                                                     <img src="{{{settings.array_png.url}}}" alt="Go to ${response.category_name}" class="img-fluid">
                                                 </a>
                                             </div>
+                                            </a>
                                         </div>
                                     </div>
                                 `;
@@ -202,6 +204,7 @@ class TopSellingCategory extends AbstractWidget
                                 var html = `
                                     <div class="col-md-4 p-3">
                                         <div class="top_product_section_bg">
+                                         <a href="${response.category_url}">
                                             <img src="${response.category_image}" alt="${response.category_name}" class="img-fluid">
                                             <h5>${response.category_name}</h5>
                                             <div class="d-flex align-items-center justify-content-between">
@@ -210,6 +213,7 @@ class TopSellingCategory extends AbstractWidget
                                                     <img src="<?=$settings['array_png']['url']; ?>" alt="Go to ${response.category_name}" class="img-fluid">
                                                 </a>
                                             </div>
+                                        </a>
                                         </div>
                                     </div>
                                 `;
