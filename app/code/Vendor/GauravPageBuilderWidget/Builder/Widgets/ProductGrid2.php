@@ -201,6 +201,12 @@ protected function render(): string
     $heartIcon   = $assetRepo->getUrl("Vendor_GauravPageBuilderWidget::images/heart.png");
     $shuffleIcon = $assetRepo->getUrl("Vendor_GauravPageBuilderWidget::images/shuffle.png");
     $cartIcon    = $assetRepo->getUrl("Vendor_GauravPageBuilderWidget::images/cart.png");
+
+$reviewSummary = $objectManager->create(\Magento\Review\Model\Review\Summary::class);
+$storeId = $storeManager->getStore()->getId();
+
+
+
     ob_start();
     ?>
     <section class="trending_product">
@@ -214,6 +220,18 @@ protected function render(): string
             <?php foreach ($productArray as $sku):
                 try {
                     $product = $productRepository->get($sku);
+                    $reviewFactory = $objectManager->create(\Magento\Review\Model\ReviewFactory::class);
+                    $storeManager = $objectManager->create(\Magento\Store\Model\StoreManagerInterface::class);
+                    $storeId = $storeManager->getStore()->getId();
+
+                    // Get the entity summary for the product
+                    $reviewFactory->create()->getEntitySummary($product, $storeId);
+
+                    // Retrieve the rating summary and review count from the product object
+                    $ratingSummary = $product->getRatingSummary()->getRatingSummary();
+                    $reviewCount = $product->getRatingSummary()->getReviewsCount() ?? 0;
+
+                    $ratingStars = $ratingSummary > 0 ? round($ratingSummary / 20) : 0;
                 } catch (\Exception $e) {
                     continue;
                 }
@@ -224,6 +242,7 @@ protected function render(): string
                 ?>
                 <div class="col-lg-4 col-md-6 p-3">
                     <div class="product-card">
+                         <a href="<?= $product->getProductUrl() ?>">
                         <div class="product-image">
                             <a href="<?= $product->getProductUrl() ?>">
                                 <img class="product-img" src="<?= $imageUrl ?>" alt="<?= $product->getName() ?>">
@@ -264,14 +283,18 @@ protected function render(): string
                         <div class="product-info">
                             <div class="product-rating">
                                 <div class="stars">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="far fa-star"></i>
-                                    <p class="star-qty">(3)</p>
+                                    <?php for ($i = 1; $i <= 5; $i++): ?>
+                                        <?php if ($i <= $ratingStars): ?>
+                                            <i class="fas fa-star"></i>
+                                        <?php else: ?>
+                                            <i class="far fa-star"></i>
+                                        <?php endif; ?>
+                                    <?php endfor; ?>
+
+                                    <p class="star-qty">(<?= $reviewCount ?>)</p>
                                 </div>
                             </div>
+
                             <h5 class="product-title"><?= $product->getName() ?></h5>
                             <div class="product-price">
                                 <span class="current-price">₹<?= number_format($product->getPrice(), 2, '.', '') ?></span>
@@ -280,6 +303,7 @@ protected function render(): string
                                 <?php endif; ?>
                             </div>
                         </div>
+                        </a>
                     </div>
                 </div>
             <?php endforeach; ?>
@@ -290,7 +314,7 @@ protected function render(): string
     require([
         'jquery', 
         'Magento_Customer/js/customer-data', 
-        'Magento_Catalog/js/catalog-add-to-compare'
+        // 'Magento_Catalog/js/catalog-add-to-compare'
     ], function($, customerData){
 
 
@@ -302,7 +326,7 @@ protected function render(): string
             });
 
             // Initialize Compare buttons
-            $('.tocompare').catalogAddToCompare();
+            // $('.tocompare').catalogAddToCompare();
 
     });
     </script>
