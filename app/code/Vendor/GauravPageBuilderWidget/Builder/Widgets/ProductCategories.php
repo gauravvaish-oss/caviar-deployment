@@ -378,16 +378,6 @@ require([
                                             </div>
                                         </div>
                                         <div class="product-info">
-                                            <div class="product-rating">
-                                                <div class="stars">
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="far fa-star"></i>
-                                                    <p class="star-qty">(3)</p>
-                                                </div>
-                                            </div>
                                             <h5 class="product-title"><a href="${product.url}">${product.name}</a></h5>
                                             <div class="product-price">
                                                 <span class="current-price">₹ ${product.price}</span>
