@@ -2823,3 +2823,56 @@ font-size: 12px;
     padding: 4px 12px;
     border-radius: 4px;
     color: #fff!important;}
+
+    .apply-filters-text {
+    font-size: 14px;
+    font-weight: normal;
+}
+@media (max-width: 768px) {
+    .filter-subtitle {
+        cursor: pointer;
+        padding: 1px 10px;
+        border-radius: 4px;
+        position: relative;
+        margin-left: -10px;
+    }
+
+    .filter-subtitle::after {
+        content: "+";
+        position: absolute;
+        font-size: 18px;
+        right: -5px;
+    }
+
+    .filter-subtitle.open::after {
+        content: "-";
+    }
+    .sub_list {
+    width: 175px;
+}
+.gmt-element.gmt-element-bda0d38.gmt-widget.gmt-widget-block .gmt-block {
+    display: flex;
+    justify-content: end;
+}
+}
+
+.filter-options span.price {
+    display: contents !important;
+    font-weight: 400 !important;
+    font-size: 11px !important;
+}
+
+.filter-current li.item {
+    display: flex;
+    flex-direction: column;
+}
+
+.filter-current a.action.remove {
+            font-size: 12px !important;
+        border: 1px solid #fa6905 !important;
+    padding: 5px 10px !important;
+        border-radius: 4px !important;
+        background: #fff !important;
+    color: #fa6905 !important;
+    width: max-content !important;
+}

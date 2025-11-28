@@ -85,7 +85,7 @@ if (!$_productCollection->count()): ?>
                                     <input type="hidden" name="product" value="<?= $postParams['data']['product'] ?>">
                                     <input type="hidden" name="<?= Action::PARAM_NAME_URL_ENCODED ?>" value="<?= $postParams['data'][Action::PARAM_NAME_URL_ENCODED] ?>">
                                     <?= $block->getBlockHtml('formkey') ?>
-                                    <button type="submit" title="<?= $escaper->escapeHtmlAttr(__('Add to Cart')) ?>" class="action tocart btn btn-cart" disabled>
+                                    <button type="submit" title="<?= $escaper->escapeHtmlAttr(__('Add to Cart')) ?>" class="action tocart btn btn-cart btn-cart-cart" disabled>
                                         <span><?= $escaper->escapeHtml(__('Add to Cart')) ?></span>
                                     </button>
                                 </form>
@@ -165,7 +165,7 @@ if (!$_productCollection->count()): ?>
 
                                         <!-- Normal Add to Cart -->
                                         <button type="submit" title="<?= $escaper->escapeHtmlAttr(__('Add to Cart')) ?>"
-                                                class="action tocart action-btn btn-cart-cart" data-cart-icon="<?= $block->getViewFileUrl('images/cart.png'); ?>" disabled >
+                                                class="action tocart action-btn" disabled>
                                             <span><img src="<?= $block->getViewFileUrl("./images/cart.png"); ?>" alt=""></span>
                                         </button>
                                     </form>
@@ -235,6 +235,47 @@ require(['jquery'], function ($) {
         $form.data('buy-now', true); // add a flag
         $form.trigger('submit');     // trigger Magento’s AJAX add to cart
     });
+
+    require(['jquery'], function ($) {
+    'use strict';
+
+    $(document).on('click', '.btn-buy', function () {
+        var $form = $(this).closest('form');
+        $form.data('buy-now', true); // add a flag
+        $form.trigger('submit');     // trigger Magento’s AJAX add to cart
+    });
+
+    $(document).ready(function () {
+        
+        function isMobile() { return window.innerWidth <= 768; }
+
+        // Insert dynamic text span
+        if (isMobile()) {
+            $('.filter-subtitle').html(' <span class="filter-action-text">Apply Filters</span>');
+        }
+
+        $(document).on('click', '.filter-content .filter-subtitle', function () {
+            if (!isMobile()) return;
+
+            const dl = $(this).next('.filter-options');
+            const textEl = $(this).find('.filter-action-text');
+
+            if (dl.is(':visible')) {
+                dl.slideUp(200);
+                $(this).removeClass("open");
+                textEl.text('Apply Filters');
+            } else {
+                dl.slideDown(200);
+                $(this).addClass("open");
+                textEl.text('Close Filters');
+            }
+        });
+
+        if (isMobile()) {
+            $('.filter-options').hide();
+        }
+    });
+});
 });
 </script>
 

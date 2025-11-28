@@ -14,7 +14,9 @@ $viewModel = $block->getData('product_layer_view_model');
 ?>
 
 <ol class="items">
-    <?php foreach ($filterItems as $filterItem): ?>
+    <?php foreach ($filterItems as $filterItem): 
+        
+        ?>
         <li class="item">
             <?php if ($filterItem->getCount() > 0): ?>
 <input type="checkbox" class="layer-filter-checkbox">
@@ -51,12 +53,17 @@ $viewModel = $block->getData('product_layer_view_model');
 <script>
 require(['jquery'], function ($) {
     $(document).ready(function () {
-        // When checkbox is clicked, trigger its corresponding anchor link
-        $(document).on('change', '.items .item input[type="checkbox"]', function () {
-            if ($(this).is(':checked')) {
-                $(this).closest('li.item').find('a')[0].click();
+
+        $(document).on('change', '.items .item input.layer-filter-checkbox', function () {
+
+            let link = $(this).closest('li.item').find('a');
+
+            if (link.length) {
+                window.location.href = link.attr('href');  // safest redirect
             }
+
         });
+
     });
 });
 </script>
