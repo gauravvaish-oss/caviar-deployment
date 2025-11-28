@@ -652,7 +652,27 @@ require(['jquery'], function($) {
     $finalPrice = number_format((int)$product->getFinalPrice(), 2);
     $originalPrice = number_format((int)$product->getPrice(), 2);
     $productUrl = $product->getProductUrl();
+    $reviewFactory = $objectManager->create(\Magento\Review\Model\ReviewFactory::class);
+    $storeManager = $objectManager->create(\Magento\Store\Model\StoreManagerInterface::class);
+    $storeId = $storeManager->getStore()->getId();
 
+    // Get the entity summary for the product
+    $reviewFactory->create()->getEntitySummary($product, $storeId);
+
+    // Retrieve the rating summary and review count from the product object
+    $ratingSummary = $product->getRatingSummary()->getRatingSummary();
+    $reviewCount = $product->getRatingSummary()->getReviewsCount() ?? 0;
+
+    $ratingStars = $ratingSummary > 0 ? round($ratingSummary / 20) : 0;
+    $starsHtml = '';
+
+for ($i = 1; $i <= 5; $i++) {
+    if ($i <= $ratingStars) {
+        $starsHtml .= '<i class="fas fa-star"></i>';
+    } else {
+        $starsHtml .= '<i class="far fa-star"></i>';
+    }
+}
     return '
     <div class="spacial_trend">
         <div class="special-title">
@@ -671,11 +691,7 @@ require(['jquery'], function($) {
         <div class="product-info">
             <div class="product-rating">
                 <div class="stars">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="far fa-star"></i> 
+                     ' . $starsHtml . '
                 </div>
             </div>
  <h5 class="product-title">
