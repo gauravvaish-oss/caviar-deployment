@@ -1,0 +1,121 @@
+<?php
+
+ $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+
+        $customerCollection = $objectManager
+            ->get(\Magento\Customer\Model\ResourceModel\Customer\CollectionFactory::class)
+            ->create()
+            ->addAttributeToSelect('*'); // get all attributes including firstname, lastname, phone
+
+        $orderCollectionFactory = $objectManager
+            ->get(\Magento\Sales\Model\ResourceModel\Order\CollectionFactory::class);
+
+        $result = [];
+
+        foreach ($customerCollection as $customer) {
+
+            // get orders of this customer
+            $orders = $orderCollectionFactory->create()
+                ->addFieldToFilter('customer_id', $customer->getId())
+                ->addFieldToFilter('status', ['neq' => 'canceled']); // only non-cancelled
+
+            $lifetimeOrders = $orders->count();
+            $lifetimeSpent = 0;
+
+            foreach ($orders as $order) {
+                $lifetimeSpent += $order->getGrandTotal();
+            }
+          $addressRepo = $objectManager->create(\Magento\Customer\Api\AddressRepositoryInterface::class);
+
+            // DEFAULT PHONE (empty initially)
+            $phone = '';
+
+            // Get billing & shipping IDs
+            $billingId  = $customer->getDefaultBilling();
+            $shippingId = $customer->getDefaultShipping();
+
+            // 1️⃣ Try Billing Address First
+            if (!empty($billingId)) {
+                try {
+                    $billingAddress = $addressRepo->getById($billingId);
+                    $phone = $billingAddress->getTelephone();
+                } catch (\Exception $e) {
+                    $phone = '';
+                }
+            }
+
+            // 2️⃣ If no phone & shipping exists → use shipping phone
+            if (empty($phone) && !empty($shippingId)) {
+                try {
+                    $shippingAddress = $addressRepo->getById($shippingId);
+                    $phone = $shippingAddress->getTelephone();
+                } catch (\Exception $e) {
+                    $phone = '';
+                }
+            }
+            $result[] = [
+                'name'   => $customer->getFirstname() . ' ' . $customer->getLastname(),
+                'email'  => $customer->getEmail(),
+                'phone'  => $phone,
+                'orders' => $lifetimeOrders,
+                'spent'  => number_format($lifetimeSpent, 2),
+            ];
+        }
+
+
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>DataTables HTML example</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+
+    <link href="https://cdn.datatables.net/v/dt/dt-2.3.5/datatables.min.css" rel="stylesheet" integrity="sha384-Lv8lYSJkh1Hc5kB9lk2YbbGdchMRCuAcwUOYWZ3Q/YIfKNVW+6W+V57wxKNv1D8l" crossorigin="anonymous">
+    <style>
+        body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  color: black;
+  background-color: white;
+}
+</style>
+</head>
+  <body>
+    <div id="app">
+      <table id="myTable" class="display">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Lifetime Orders</th>
+            <th>Lifetime Total Spent</th>
+          </tr>
+        </thead>
+         <tbody>
+            <?php foreach ($result as $row): ?>
+            <tr>
+                <td><?= $row['name'] ?></td>
+                <td><?= $row['email'] ?></td>
+                <td><?= $row['phone'] ?></td>
+                <td><?= $row['orders'] ?></td>
+                <td><?= $row['spent'] ?></td>
+            </tr>
+            <?php endforeach; ?>
+        </tbody>
+        </table>
+    </div>
+  </body>
+  <script>
+            require(['jquery', 'dataTables'], function($, dataTables) {
+            $(document).ready(function() {
+                $('#myTable').DataTable();
+            });
+        });
+</script>
+    <!-- <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="https://cdn.datatables.net/v/dt/dt-2.3.5/datatables.min.js" integrity="sha384-qH0inyYSCOpaLgM/WSarLVnq0ULwworkGFzUI+E6bpx0DUCIsJePT0TRDnLnkcU1" crossorigin="anonymous"></script> -->
+
+</html>

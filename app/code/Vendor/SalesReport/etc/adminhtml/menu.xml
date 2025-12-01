@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Vendor_SalesReport::helloworld" title="Sales Report" module="Vendor_SalesReport" sortOrder="51" resource="Vendor_SalesReport::helloworld"/>
+        <add id="Vendor_SalesReport::post" title="Sales Report" module="Vendor_SalesReport" sortOrder="10" action="salesreport/report/index" resource="Vendor_SalesReport::post" parent="Vendor_SalesReport::helloworld"/>
+    </menu>
+</config>
+
