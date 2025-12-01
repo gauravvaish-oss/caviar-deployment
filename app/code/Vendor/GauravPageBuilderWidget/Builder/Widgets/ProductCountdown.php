@@ -63,11 +63,11 @@ class ProductCountdown extends AbstractWidget
             ],
         ]);
 
-        $this->addControl('end_date', [
-            'label' => __('End Date'),
-            'type' => Controls::DATE_TIME,
-            'default' => date('Y-m-d H:i:s', strtotime('+7 days')),
-        ]);
+        // $this->addControl('end_date', [
+        //     'label' => __('End Date'),
+        //     'type' => Controls::DATE_TIME,
+        //     'default' => date('Y-m-d H:i:s', strtotime('+7 days')),
+        // ]);
 
         $this->endControlsSection();
 
@@ -531,24 +531,7 @@ class ProductCountdown extends AbstractWidget
             <h5 class="special-box-title">{{{ settings.title}}}</h5>
           </div>
           <img src="images/buds.png" alt="img" class="img-fluid">
-          <div class="time_countdown_section" data-end-date="{{{ settings.end_date }}}">
-            <div class="time_countdown">
-              <div>314</div>
-              <span>Days</span>
-            </div>
-            <div class="time_countdown">
-              <div>09</div>
-              <span>hour</span>
-            </div>
-            <div class="time_countdown">
-              <div>25</div>
-              <span>min</span>
-            </div>
-            <div class="time_countdown">
-              <div>05</div>
-              <span>sec</span>
-            </div>
-          </div>
+        
 
           <div class="product-info">
                       <div class="product-rating">
@@ -666,35 +649,28 @@ require(['jquery'], function($) {
     $ratingStars = $ratingSummary > 0 ? round($ratingSummary / 20) : 0;
     $starsHtml = '';
 
-for ($i = 1; $i <= 5; $i++) {
-    if ($i <= $ratingStars) {
-        $starsHtml .= '<i class="fas fa-star"></i>';
-    } else {
-        $starsHtml .= '<i class="far fa-star"></i>';
+    for ($i = 1; $i <= 5; $i++) {
+        if ($i <= $ratingStars) {
+            $starsHtml .= '<i class="fas fa-star"></i>';
+        } else {
+            $starsHtml .= '<i class="far fa-star"></i>';
+        }
     }
-}
     return '
     <div class="spacial_trend">
         <div class="special-title">
             <h5 class="special-box-title">' . $title . '</h5>
         </div>
-<a href="' . $productUrl . '">
+        <a href="' . $productUrl . '">
             <img src="' . $productImage . '" alt="' . $product->getName() . '" class="img-fluid">
         </a>
-        <div class="time_countdown_section" data-end-date="' . $endDate . '" style="display:flex;">
-            <div class="time_countdown"><div class="days">00</div><span>Days</span></div>
-            <div class="time_countdown"><div class="hours">00</div><span>Hour</span></div>
-            <div class="time_countdown"><div class="minutes">00</div><span>Min</span></div>
-            <div class="time_countdown"><div class="seconds">00</div><span>Sec</span></div>
-        </div>
-
         <div class="product-info">
             <div class="product-rating">
                 <div class="stars">
                      ' . $starsHtml . '
                 </div>
             </div>
- <h5 class="product-title">
+            <h5 class="product-title">
                 <a href="' . $productUrl . '">' . $product->getName() . '</a>
             </h5>            <div class="product-price">
                 <span class="current-price">₹' . $finalPrice . '</span>
