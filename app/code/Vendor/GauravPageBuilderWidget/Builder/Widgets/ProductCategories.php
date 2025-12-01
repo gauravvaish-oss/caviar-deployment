@@ -235,7 +235,6 @@ require([
     protected function render(): string
     {
         $settings = $this->getSettingsForDisplay();
-
         $title = $settings['title'] ?? '';
         $cat1   = $settings['category_1'] ?? '';
         $cat2   = $settings['category_2'] ?? '';
@@ -245,7 +244,11 @@ require([
 
         // Fetch category labels
         $categorySource = ObjectManagerHelper::get(\Goomento\PageBuilder\Model\Config\Source\CatalogCategory::class);
-        $categories = array_column($categorySource->toOptionArray(), 'label', 'value');
+    //    echo '<pre>'; print_r($categorySource->toOptionArray());die;
+        $categories = [];
+        foreach($categorySource->toOptionArray() as $cat){
+            $categories[$cat['value']] = $cat['label'];
+        }
 
         $cat1Label = $categories[$cat1] ?? '';
         $cat2Label = $categories[$cat2] ?? '';
@@ -272,11 +275,11 @@ require([
             <div class="category_menu product_category">
                 <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                     <div class="toggle_section">
-                        <button class="nav-link active" id="v-pills-one_product-tab" data-bs-toggle="pill" data-bs-target="#v-pills-one_product" type="button" role="tab" aria-controls="v-pills-one_product" aria-selected="true" data-product-category="<?= $cat1 ?>"><img src="<?php echo $settings['category_svg_1']['url']; ?>" alt=""><?= preg_replace('/\s*\(ID:\s*\d+\)/', '', $cat1Label) ?></button>
-                        <button class="nav-link" id="v-pills-two_product-tab" data-bs-toggle="pill" data-bs-target="#v-pills-two_product" type="button" role="tab" aria-controls="v-pills-two_product" aria-selected="false" tabindex="-1" data-product-category="<?= $cat2 ?>"><img src="<?php echo $settings['category_svg_2']['url']; ?>" alt=""><?= preg_replace('/\s*\(ID:\s*\d+\)/', '', $cat2Label) ?></button>
-                        <button class="nav-link" id="v-pills-three_product-tab" data-bs-toggle="pill" data-bs-target="#v-pills-three_product" type="button" role="tab" aria-controls="v-pills-three_product" aria-selected="false" tabindex="-1" data-product-category="<?= $cat3 ?>"><img src="<?php echo $settings['category_svg_3']['url']; ?>" alt=""><?= preg_replace('/\s*\(ID:\s*\d+\)/', '', $cat3Label) ?></button>
-                        <button class="nav-link" id="v-pills-four_product-tab" data-bs-toggle="pill" data-bs-target="#v-pills-four_product" type="button" role="tab" aria-controls="v-pills-four_product" aria-selected="false" tabindex="-1" data-product-category="<?= $cat4 ?>"><img src="<?php echo $settings['category_svg_4']['url']; ?>" alt=""><?= preg_replace('/\s*\(ID:\s*\d+\)/', '', $cat4Label) ?></button>
-                        <button class="nav-link" id="v-pills-five_product-tab" data-bs-toggle="pill" data-bs-target="#v-pills-five_product" type="button" role="tab" aria-controls="v-pills-five_product" aria-selected="false" tabindex="-1" data-product-category="<?= $cat5 ?>"><img src="<?php echo $settings['category_svg_5']['url']; ?>" alt=""><?= preg_replace('/\s*\(ID:\s*\d+\)/', '', $cat5Label) ?></button>
+                        <button class="nav-link active" id="v-pills-one_product-tab" data-bs-toggle="pill" data-bs-target="#v-pills-one_product" type="button" role="tab" aria-controls="v-pills-one_product" aria-selected="true" data-product-category="<?= $cat1 ?>"><img src="<?php echo $settings['category_svg_1']['url']; ?>" alt=""><?= $cat2Label; ?></button>
+                        <button class="nav-link" id="v-pills-two_product-tab" data-bs-toggle="pill" data-bs-target="#v-pills-two_product" type="button" role="tab" aria-controls="v-pills-two_product" aria-selected="false" tabindex="-1" data-product-category="<?= $cat2 ?>"><img src="<?php echo $settings['category_svg_2']['url']; ?>" alt=""></button>
+                        <button class="nav-link" id="v-pills-three_product-tab" data-bs-toggle="pill" data-bs-target="#v-pills-three_product" type="button" role="tab" aria-controls="v-pills-three_product" aria-selected="false" tabindex="-1" data-product-category="<?= $cat3 ?>"><img src="<?php echo $settings['category_svg_3']['url']; ?>" alt=""></button>
+                        <button class="nav-link" id="v-pills-four_product-tab" data-bs-toggle="pill" data-bs-target="#v-pills-four_product" type="button" role="tab" aria-controls="v-pills-four_product" aria-selected="false" tabindex="-1" data-product-category="<?= $cat4 ?>"><img src="<?php echo $settings['category_svg_4']['url']; ?>" alt=""></button>
+                        <button class="nav-link" id="v-pills-five_product-tab" data-bs-toggle="pill" data-bs-target="#v-pills-five_product" type="button" role="tab" aria-controls="v-pills-five_product" aria-selected="false" tabindex="-1" data-product-category="<?= $cat5 ?>"><img src="<?php echo $settings['category_svg_5']['url']; ?>" alt=""></button>
                     </div>
                 </div>
             </div>
@@ -358,6 +361,7 @@ require([
                         $.each(response.products, function (i, product) {
                             html += `
                                 <div class="swiper-slide">
+                                <a href="${product.url}">
                                     <div class="product-card">
                                         <div class="product-image">
                                             <img class="product-img" src="${product.image}" alt="${product.name}">
@@ -385,6 +389,7 @@ require([
                                             </div>
                                         </div>
                                     </div>
+                                    </a>
                                 </div>
                             `;
                         });

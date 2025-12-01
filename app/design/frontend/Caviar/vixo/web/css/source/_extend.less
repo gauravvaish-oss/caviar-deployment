@@ -241,12 +241,25 @@ cart-summary .block .fieldset .field{display: flex !important;}
 @media (max-width: 575px) {
  .product-image img{height:auto !important;}
  .product-image { height: auto !important;}
-  #toggle_section {
+ #toggle_section {
     width: 184px;
 }
+.category_menu .top_category {
+    padding: 10px 15px 10px 3px !important;
+}
 }
 
-
+@media (max-width: 767px) {
+    .sub_list.mobile-open {
+        position: relative !important;
+        width: 100% !important;
+        height: auto !important;
+        left: 0 !important;
+    }
+    .page-wrapper .breadcrumbs .item:not(:last-child):after {
+        line-height: 18px !important;
+    }
+}
 
 
 
@@ -355,6 +368,7 @@ body {font-family: 'poppins', sans-serif !important;}
 .gmt-element-a118a43 .quality_warranty .col, .quality_warranty .col {flex: 1 0 100%;}
 .gmt-element-d964d0f .quality_warranty img.img-fluid, .gmt-element-01303da .quality_warranty img.img-fluid{height: auto !important;}
 .footer.content{margin-top: 10px;}
+.block-collapsible-nav{position: relative !important;top: 0 !important;}
 .caviar-part{padding: 10px !important;}
 .caviar-part p, .caviar-part p a{font-size: 10px !important;}
 .gmt-element-715c9db .caviar-img {object-fit: cover !important;}
@@ -378,7 +392,7 @@ section.banner-section{margin-bottom: 5px !important;}
 .sidebar-main .block.filter {margin-bottom: 0px;}
 #maincontent.page-main{padding-left: 10px !important;padding-right: 10px !important;}
 .block.filter .filter-title {margin-bottom: 5px !important;}
-.page-wrapper>.breadcrumbs{width: 100% !important;}
+.page-wrapper>.breadcrumbs{width: 98% !important;}
 .filter-div button{background: transparent !important;}
 .toolbar-products{padding: 0 0px !important;}
 .button-group .btn-cart, .button-group .buy-now, .button-group .bulk-order{font-size: 11px !important;padding: 7px 35px !important;}
@@ -1014,7 +1028,7 @@ section.banner-section{margin-bottom: 5px !important;}
 
         .camera-section .swiper {
             padding-bottom: 30px;
-            padding-left: 4vw;
+            padding-left: 9vw;
             padding-top: 20px;
         } 
 
@@ -1748,7 +1762,7 @@ dl.item-options {
         font-family: "Poppins" !important;
         font-weight: 500;
         font-size: 15px;
-        text-align: left;
+        text-align: center;
         text-transform: none;
         letter-spacing: 0px;
 
@@ -1759,7 +1773,8 @@ dl.item-options {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        align-items: flex-start;width: -webkit-fill-available;
+        align-items: center; width: -webkit-fill-available;
+        padding-top:20px;
     }
 
     .quick-add {
@@ -2404,12 +2419,10 @@ dl.item-options {
       top: 0;
       right: -350px;
       height: 100%;
-      width: 250px;
+      width: auto;
       background: #fff;
-      box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
       overflow-y: auto;
       z-index: 997;
-      padding: 15px;
       transition: left 0.4s ease;
     }
 
@@ -2591,7 +2604,10 @@ dl.item-options {
       display: flex;
     } 
 @media(max-width:767px){
-  .product-buttons .btn-cart, .product-buttons .btn-buy{width: 50%;}
+  .quality_warranty .col {
+    border-right: 0px !important;
+}
+  // .product-buttons .btn-cart, .product-buttons .btn-buy{width: 50%;}
   .category-page .filter-section .filter-div input, .category-page .filter-section .filter-div select{font-size: 11px; padding: 2px;}
   .product_lisiting .product-card-category {
         flex-direction: column;
@@ -2618,9 +2634,17 @@ dl.item-options {
       .product_lisiting .product-buttons.list-button .btn-buy
 {padding: 6px 27px !important;}
 .mob-design{flex-direction: column !important;}
+.tab-pane {
+    border: none !important;
+}
+}
+.tab-pane {
+    border: none !important;
 }
 @media (max-width:991px) {
-  
+  .search_slide_box {
+      height: 50px !important;
+    }
 .product_lisiting{width: 100%;  }
 }
 @media (min-width:991px) and (max-width:1200px){
@@ -2863,7 +2887,6 @@ font-size: 12px;
     display: contents !important;
     font-weight: 400 !important;
     font-size: 11px !important;
-    color: #7e81a2 !important;
 }
 
 .filter-current li.item {
@@ -2881,6 +2904,10 @@ font-size: 12px;
     width: max-content !important;
 }
 
-div#v-pills-tab::-webkit-scrollbar {
-    height: 1px;
+.modal-popup .modal-inner-wrap{
+  max-width: 700px;
+    width: 94% !important;
 }
+.form-login .fieldset .account-social-login {
+        width: 200px !important;
+    }

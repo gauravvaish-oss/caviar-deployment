@@ -201,7 +201,7 @@ protected function contentTemplate()
         <section class="policy-wrapper container">
                 <div class="row g-4">
                     <!-- Sidebar -->
-                    <aside class="col-lg-2">
+                    <aside class="col-lg-3 col-xl-2 order-lg-1 order-2">
                         <div class="sidebar privacy-sidebar">
                             <div class="sidebar-title"><?= $main_title;?></div>
 
@@ -269,7 +269,7 @@ protected function contentTemplate()
                     </aside>
 
                     <!-- Content -->
-                    <div class="col-lg-10">
+                    <div class="col-lg-9 col-xl-10 order-lg-2 order-1">
                         <div class="tab-content policy" id="policy-tabContent">
                             <!-- Collect -->
                             <div class="tab-pane fade" id="pane-collect" role="tabpanel" aria-labelledby="tab-collect" tabindex="0">

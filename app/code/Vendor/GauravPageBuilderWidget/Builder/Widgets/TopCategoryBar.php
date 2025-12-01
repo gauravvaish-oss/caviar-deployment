@@ -165,48 +165,40 @@ class TopCategoryBar extends AbstractWidget
             $object_manager = $objectManager->create('Magento\Catalog\Model\Category')->load($categoryId);
             $catUrl[$categoryId] = $object_manager->getUrlPath();
         }
-
         foreach ($categories as $cat) {
             if(in_array($cat['value'], $settings['category_top_bar'])){
                 $options[$cat['value']] = preg_replace('/\s*\(ID:\s*\d+\)/', '', $cat['label']);
             }
         }
-         $menu_items = $settings['menu_items'];
+        $menu_items = $settings['menu_items'];
+        $categoryFactory = $objectManager->get(\Magento\Catalog\Model\CategoryFactory::class);
+        $categoryRepository = $objectManager->get(\Magento\Catalog\Api\CategoryRepositoryInterface::class);
+        $categoryUrlModel = $objectManager->get(\Magento\Catalog\Helper\Category::class);
+        $categoryId = 2; // Set the category ID here, e.g., 2 for the root category
+        $category = $categoryRepository->get($categoryId);
+        function getCategoryHierarchy($category, $categoryUrlModel) {
+            $categoryData = [
+                'id' => $category->getId(),
+                'name' => $category->getName(),
+                'url' => $categoryUrlModel->getCategoryUrl($category)
+            ];
 
-         $categoryFactory = $objectManager->get(\Magento\Catalog\Model\CategoryFactory::class);
-            $categoryRepository = $objectManager->get(\Magento\Catalog\Api\CategoryRepositoryInterface::class);
-            $categoryUrlModel = $objectManager->get(\Magento\Catalog\Helper\Category::class);
-
-            $categoryId = 2; // Set the category ID here, e.g., 2 for the root category
-            $category = $categoryRepository->get($categoryId);
-
-            // Function to recursively get child categories
-            function getCategoryHierarchy($category, $categoryUrlModel) {
-                $categoryData = [
-                    'id' => $category->getId(),
-                    'name' => $category->getName(),
-                    'url' => $categoryUrlModel->getCategoryUrl($category)
-                ];
-
-                $children = [];
-                foreach ($category->getChildrenCategories() as $child) {
-                    $children[] = getCategoryHierarchy($child, $categoryUrlModel);  // Recursive call
-                }
-
-                if (!empty($children)) {
-                    $categoryData['children'] = $children;
-                }
-
-                return $categoryData;
+            $children = [];
+            foreach ($category->getChildrenCategories() as $child) {
+                $children[] = getCategoryHierarchy($child, $categoryUrlModel);  // Recursive call
             }
 
-            $categoryHierarchy = getCategoryHierarchy($category, $categoryUrlModel);
-//             echo '<pre>';
-// print_r($categoryHierarchy["children"]);die;
-         ob_start();
+            if (!empty($children)) {
+                $categoryData['children'] = $children;
+            }
+
+            return $categoryData;
+        }
+        $categoryHierarchy = getCategoryHierarchy($category, $categoryUrlModel);
+        ob_start();
          ?>
         <div class="top-category-bar">
-            <div class="container">
+            <div class="container-fluid">
                 <div class="row align-items-center">
                     <div class="col-md-3 d-flex align-items-center p-md-0 justify-content-between">
                         <div class="category_menu">
@@ -243,15 +235,11 @@ class TopCategoryBar extends AbstractWidget
                             </div>
                         </div>
                         <div class="mob-search d-flex">
-                            <!-- SEARCH TOGGLE BUTTON -->
                             <button class="search_toggle_btn ms-3 d-md-none d-flex" onclick="openSearch()">
                             <i class="bi bi-search"></i>
                             </button>
-
-                            <!-- SLIDE-IN SEARCH BAR -->
                             <form class="search_slide_box d-md-none d-flex search-form" id="searchSlideBox">
                                 <input type="text" class="form-control search-input" placeholder="Search products...">
-
                                 <select class="form-select category-select">
                                     <option>All Categories</option>
                                     <?php
@@ -265,16 +253,15 @@ class TopCategoryBar extends AbstractWidget
                             </form>
                         </div>
                     </div>
-
                     <div class="col-md-9">
                         <form class="d-none search-form d-md-flex">
                             <input type="text" class="form-control search-input" placeholder="Search For Products">
                             <select class="form-select category-select">
                                 <option value="">All Categories</option>
                             <?php
-                                    foreach($options as $key => $value){?>
-                                    <option value="<?php echo $key ?>"><?php echo $value ?></option>
-                                    <?php } ?>
+                                foreach($options as $key => $value){?>
+                                <option value="<?php echo $key ?>"><?php echo $value ?></option>
+                            <?php } ?>
                             </select>
                             <button class="btn search-btn" type="submit">
                                 <i class="bi bi-search"></i>
@@ -284,50 +271,48 @@ class TopCategoryBar extends AbstractWidget
                 </div>
             </div>
         </div>
- <script type="text/javascript">
-var catUrl = <?= json_encode($catUrl); ?>;
+        <script type="text/javascript">
+            var catUrl = <?= json_encode($catUrl); ?>;
 
-require(['jquery'], function($){
-    window.openSearch = function() {
-        $("#searchSlideBox").addClass("active");
-    }
+            require(['jquery'], function($){
+                window.openSearch = function() {
+                    $("#searchSlideBox").addClass("active");
+                }
 
-    // Close slide search
-  $(document).on("click", function (e) {
-    // If click is NOT inside #searchSlideBox AND NOT on the toggle button
-    if (!$(e.target).closest("#searchSlideBox, .search_toggle_btn").length) {
-        $("#searchSlideBox").removeClass("active");
-    }
-});
+                // Close slide search
+            $(document).on("click", function (e) {
+                // If click is NOT inside #searchSlideBox AND NOT on the toggle button
+                if (!$(e.target).closest("#searchSlideBox, .search_toggle_btn").length) {
+                    $("#searchSlideBox").removeClass("active");
+                    $('.search_toggle_btn').hide();
+                }
+            });
 
-// Prevent close when clicking inside
-$("#searchSlideBox").on("click", function (e) {
-    e.stopPropagation();
-});
- // Toggle top category menu
-         $('#toggle_section').hide();
+            // Prevent close when clicking inside
+            $("#searchSlideBox").on("click", function (e) {
+                e.stopPropagation();
+            });
+            $('#toggle_section').hide();
 
-         $('#topCategoryBtn').on('click', function(e){
-            e.preventDefault(); // prevent default action
-            $('#toggle_section').slideToggle(300); // smooth toggle
-        });
+            $('#topCategoryBtn').on('click', function(e){
+                e.preventDefault(); // prevent default action
+                $('#toggle_section').slideToggle(300); // smooth toggle
+            });
 
-        // Optional: hide toggle section if clicked outside
-        $(document).on('click', function(e){
-            if(!$(e.target).closest('#topCategoryBtn, #toggle_section').length){
-                $('#toggle_section').slideUp(300);
+            $(document).on('click', function(e){
+                if(!$(e.target).closest('#topCategoryBtn, #toggle_section').length){
+                    $('#toggle_section').slideUp(300);
+                }
+            });
+            var searchTimeout;
+            var currentRequest;
+            var $input = $('.search-input');
+            var $category = $('.category-select');
+
+            if (!$('.search-suggestions').length) {
+                $input.after('<ul class="search-suggestions" style="list-style: none;position: absolute;background: rgb(255, 255, 255);width: 668px;z-index: 999;padding: 0px;top: 40px;right: 263px;"></ul>');
             }
-        });
-        var searchTimeout;
-        var currentRequest;
-        var $input = $('.search-input');
-        var $category = $('.category-select');
-
-        // Create suggestions list if not already present
-        if (!$('.search-suggestions').length) {
-            $input.after('<ul class="search-suggestions" style="list-style: none;position: absolute;background: rgb(255, 255, 255);width: 668px;z-index: 999;padding: 0px;top: 40px;right: 263px;"></ul>');
-        }
-        var $suggestions = $('.search-suggestions');
+            var $suggestions = $('.search-suggestions');
 
         $input.on('keyup', function(){
             var query = $(this).val().trim();
@@ -368,16 +353,18 @@ $("#searchSlideBox").on("click", function (e) {
         $('.search-form').on('submit', function(e){
             e.preventDefault(); // prevent normal submit
 
-            var query = $(this).find('.search-input').val().trim();
+            var query = $(this).find('.search-input').val().trim().toLowerCase();
             var category = $(this).find('.category-select').val();
-
-            if(query === '' && category !== '' && catUrl[category]){
+           if(query === '' && category !== '' && catUrl[category]){
                 // No input, category selected → go to category page
                 window.location.href = '/' + catUrl[category];
             } else if(query !== ''){
                 // Input present → go to search results page
                 window.location.href = '/catalogsearch/result/?q=' + encodeURIComponent(query);
-            } 
+            } else if(query === '' && (category === 'All Categories' || category === null)){
+                // No input and no category → close the search bar
+                $("#searchSlideBox").removeClass("active");
+            }
             // Optional: else do nothing if input empty and no category selected
         });
 
@@ -394,26 +381,61 @@ $("#searchSlideBox").on("click", function (e) {
         });
 
         $(document).ready(function () {
-    // Initially hide all submenus
-    $(".sub_list").hide();
+        // Initially hide all submenus
+        $(".sub_list").hide();
 
-    // Hover effect for anchor
-    $(".nav-item > a.nav-link").hover(
-        function () {
-            // Hide other submenus except the one for this link
-            $(".nav-item > .sub_list").not($(this).next(".sub_list")).slideUp(200);
+    
+        if($(window).width() < 767){
+            console.log('Mobile view');
+            $(".nav-item > a.nav-link").on("click", function (e) {
 
-            // Show this link's submenu
-            $(this).next(".sub_list").stop(true, true).slideDown(200);
-        },
-        function () {
-            // Optional: do nothing here; hiding handled by mouseleave
+            let $submenu = $(this).next(".sub_list");
+            // If submenu is NOT visible → Stop redirect & open it
+            if (!$submenu.is(":visible")) {
+                e.preventDefault(); // ⛔ stop redirect
+                $(".sub_list").not($submenu).slideUp(200);
+                $(this).css({
+                        'border-left': '3px solid #fa6905',
+                        'border-radius': '0px',
+                        'background': 'rgb(255 236 223 / 27%)'
+                    });
+                $submenu.addClass("mobile-open")
+                .stop(true, true).slideDown(200);
+                return;
+            }
+
+            // If submenu already open → allow redirect
+            // do NOT preventDefault()
+        });
+        }else{
+            $(".nav-item > a.nav-link").hover(
+            function () {
+                // Hide other submenus except the one for this link
+                $(".nav-item > .sub_list").not($(this).next(".sub_list")).slideUp(200);
+
+                // Show this link's submenu
+                $(this).css({
+                        'border-left': '3px solid #fa6905',
+                        'border-radius': '0px',
+                        'background': 'rgb(255 236 223 / 27%)'
+                    });
+                $(this).next(".sub_list").stop(true, true).slideDown(200);
+            },
+            function () {
+                // Optional: do nothing here; hiding handled by mouseleave
+            }
+        );
         }
-    );
+   
 
     // Hide submenu when mouse leaves nav-item
     $(".nav-item").mouseleave(function () {
         $(this).children(".sub_list").stop(true, true).slideUp(200);
+         $(this).children("a.nav-link").css({
+        'border-left': 'none',
+        'border-radius': '0',
+        'background': '#fff'
+    });
     });
 });
 
