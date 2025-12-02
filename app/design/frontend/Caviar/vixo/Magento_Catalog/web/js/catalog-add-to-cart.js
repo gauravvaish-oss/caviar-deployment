@@ -229,10 +229,9 @@ define([
                         '<img src="' + addedIcon + '" alt="Added">'
                     );
                 }
-                var $count = $('.cart-count.cart_count_badge');
+                var $count = $('.cart-count.cart_count_badge').first();
                 var current = parseInt($count.text().trim()) || 0;
-                var newCount = current + 1;
-                $count.text(newCount);
+               $count.text(current + 1);
 
             }, 1000);
         }
