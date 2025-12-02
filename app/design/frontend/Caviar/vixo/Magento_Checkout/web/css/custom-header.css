@@ -43,3 +43,22 @@ div#shipping-method-buttons-container {
 .product-item:last-child {
     padding-bottom: 6px;
 }
+.table-totals .totals {
+    background: #fff;
+    border-bottom: 2px solid #ddd;
+}
+.table-totals .totals:last-child {
+    border-bottom: 0px;
+}
+.checkout-billing-address input[type="checkbox"] + label {
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+}
+.checkout-billing-address input[type="checkbox"] {
+    margin-top: 0px;
+}
+.billing-address-same-as-shipping-block {
+    display: flex;
+    align-items: center;
+}
