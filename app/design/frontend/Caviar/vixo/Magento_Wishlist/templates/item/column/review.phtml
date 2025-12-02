@@ -26,8 +26,10 @@ $emptyStars = 5 - $fullStars - $halfStar;
 
 // Star image URL (adjust path as needed)
 $starImg = $block->getViewFileUrl('images/wishlist/star.png');
+
+if ($rating > 0):
 ?>
 
 <div class="rating"><?= $rating ?> <img class="star_img" src="<?= $starImg ?>" alt="">
                                 </div>
-
+<?php endif; ?>

@@ -15,7 +15,7 @@ $allowedQty = $viewModel->setItem($item)->getMinMaxQty();
 ?>
 <?php foreach ($block->getChildNames() as $childName) : ?>
 <?php endforeach;?>
-<div class="d-flex justify-content-between align-items-center mb-md-3" style="width: -webkit-fill-available;">
+<div class="d-flex justify-content-center align-items-center mb-md-3" style="width: -webkit-fill-available;">
     <fieldset class="fieldset">
     <?php if ($item->canHaveQty() && $product->isVisibleInSiteVisibility()) : ?>
         <div class="field qty">

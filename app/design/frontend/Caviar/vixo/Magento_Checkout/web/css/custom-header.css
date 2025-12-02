@@ -21,3 +21,25 @@ div#shipping-method-buttons-container {
 .step-title {
     text-align: left;
 }
+.order-tracker{display:flex}
+.step-title{text-align:left;}
+.items-in-cart strong {
+    font-size: 14px !important;
+    font-weight: 500 !important;
+}
+
+.product-item-name {
+    font-size: 11px !important;
+    font-weight: 500 !important;
+}
+.details-qty .label {
+    font-size: 11px;
+    font-weight: 700;
+}
+.details-qty .value {
+    font-size: 11px; 
+
+}
+.product-item:last-child {
+    padding-bottom: 6px;
+}
