@@ -236,7 +236,15 @@ cart-summary .block .fieldset .field{display: flex !important;}
   .columns .column .fieldset .field .control input{font-size:12px !important;}
   .columns .column .fieldset .field {margin-bottom:5px !important;}
   .columns .column .fieldset.info{margin-bottom:10px !important;}
-  
+  .search_toggle_btn {
+    font-size: 12px;
+    border-radius: 24px;
+    height: 30px;
+    width: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 }
 @media (max-width: 575px) {
  .product-image img{height:auto !important;}
@@ -245,8 +253,16 @@ cart-summary .block .fieldset .field{display: flex !important;}
     width: 184px;
 }
 .category_menu .top_category {
-    padding: 10px 15px 10px 3px !important;
+    padding: 5px 5px 5px 3px !important;
+    font-size: 13px !important;
 }
+.product-image-container span.product-image-wrapper {
+    padding-bottom: 0px !important;
+    height: 220px;
+    width: 80%;
+    margin: auto;
+}
+
 }
 
 @media (max-width: 767px) {
@@ -259,11 +275,10 @@ cart-summary .block .fieldset .field{display: flex !important;}
     .page-wrapper .breadcrumbs .item:not(:last-child):after {
         line-height: 18px !important;
     }
+    .page-header{
+      margin-bottom: 0px;
+    }
 }
-
-
-
-
 
 .orders-history #my-orders-table tr td{font-size: 13px !important;font-weight: 300 !important;}
 .orders-history #my-orders-table tr td .price{justify-content: flex-start !important;font-size: 14px !important;}
@@ -392,7 +407,10 @@ section.banner-section{margin-bottom: 5px !important;}
 .sidebar-main .block.filter {margin-bottom: 0px;}
 #maincontent.page-main{padding-left: 10px !important;padding-right: 10px !important;}
 .block.filter .filter-title {margin-bottom: 5px !important;}
-.page-wrapper>.breadcrumbs{width: 98% !important;}
+.page-wrapper>.breadcrumbs{
+  width: 98% !important;
+  padding: 10px 5px 5px !important;
+}
 .filter-div button{background: transparent !important;}
 .toolbar-products{padding: 0 0px !important;}
 .button-group .btn-cart, .button-group .buy-now, .button-group .bulk-order{font-size: 11px !important;padding: 7px 35px !important;}
@@ -2231,7 +2249,7 @@ dl.item-options {
         font-size: 9px; 
       }
       .category-page .filter-section .filter-div input[type="number"]{width: 25px !important; font-size: 6px; padding: 2px;}
-      .category-page .filter-section .filter-div select{font-size: 6px !important;background-position: right 3px center;background-size: 8px;}
+      .category-page .filter-section .filter-div select{font-size: 9px !important;background-position: right 3px center;background-size: 8px;}
       .category-page .filter-section .filter-div button{padding: 0px;background: transparent;border: 0px !important;}
 
       .category-page .filter-section {
@@ -2911,3 +2929,12 @@ font-size: 12px;
 .form-login .fieldset .account-social-login {
         width: 200px !important;
     }
+    a:visited, .alink:visited {
+    color: #000 !important;
+    text-decoration: none;
+}
+a:hover, .alink:hover {
+    color: #000 !important;
+    text-decoration: underline;
+}
+
