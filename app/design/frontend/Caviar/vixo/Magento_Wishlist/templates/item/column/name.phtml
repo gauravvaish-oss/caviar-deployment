@@ -15,6 +15,6 @@ $product = $item->getProduct();
     <a href="<?= $block->escapeUrl($block->getProductUrl($item)) ?>" title="<?= $block->escapeHtmlAttr($product->getName()) ?>" class="product-item-link">
         <h5 class="product-title"><?= $block->escapeHtml($product->getName()) ?></h5>
     </a>
-    <p class="product-price">₹<?= number_format($block->escapeHtml($product->getSpecialPrice()), 2) ?></p>
+    <p class="product-price">₹<?= number_format($product->getSpecialPrice(), 2) ?></p>
     <?= $block->getChildHtml() ?>
 </div>
